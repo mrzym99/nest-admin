@@ -41,7 +41,7 @@ export function setupSwagger(
   knife4jSetup(app, {
     urls: [
       {
-        name: '1版本',
+        name: '版本 1.0.0',
         url: `/docs-json`,
         swaggerVersion: '8.1.0',
         location: `/docs-json`,
