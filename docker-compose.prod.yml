@@ -1,0 +1,59 @@
+services:
+  app:
+    build: .
+    extra_hosts:
+      - 'host.docker.internal:host-gateway' # 线上docker 内部使用 host.docker.internal
+    ports:
+      - '3366:3000'
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db # docker 内部没有 ip 
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=12345678
+      - DB_DATABASE=nest_admin
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - TZ=Asia/Shanghai
+
+  db:
+    image: mysql:9
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345678
+      - MYSQL_DATABASE=nest_admin # 这里的数据库就是 我们的表名称
+      - MYSQL_TIME_ZONE=Asia/Shanghai # 设置时区为亚洲/上海
+    ports:
+      - '3306:3306'
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'mysqladmin',
+          'ping',
+          '-h',
+          'localhost',
+          '-u',
+          'root',
+          '--password=12345678',
+        ]
+      interval: 10s
+      retries: 5
+
+  redis:
+    image: redis:7.4.1
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      retries: 5
+
+volumes:
+  db_data:

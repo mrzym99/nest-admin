@@ -1,0 +1,10 @@
+{
+  "token_secret": "secret",
+  "token_expire_time": "1d",
+  "db": {
+    "host": "localhost",
+    "port": 27017,
+    "username": "root",
+    "password": "123456"
+  }
+}
