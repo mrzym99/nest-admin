@@ -60,6 +60,7 @@ git clone https://gitee.com/mrzym/nest-admin.git
 ### Import SQL File
 
 The SQL file is available at [nest_admin.sql](./sql/nest_admin.sql). You need to create a `nest_admin` database in your local MySQL and import the `nest_admin.sql` file.
+Locally, you need to start MySQL and Redis.
 
 ### Environment Configuration
 
