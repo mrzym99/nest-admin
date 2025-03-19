@@ -4,14 +4,14 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway' # 线上docker 内部使用 host.docker.internal
     ports:
-      - '3366:3000'
+      - '3000:3000'
     depends_on:
       db:
         condition: service_healthy
       redis:
         condition: service_healthy
     environment:
-      - DB_HOST=db # docker 内部没有 ip 
+      - DB_HOST=db # docker 内部没有 ip
       - DB_PORT=3306
       - DB_USER=root
       - DB_PASSWORD=12345678
