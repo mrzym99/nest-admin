@@ -1,5 +1,5 @@
 services:
-  app:
+  nest-admin:
     build: .
     ports:
       - '3000:3000'
