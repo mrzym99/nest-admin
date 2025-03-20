@@ -1,3 +1,4 @@
+# 这些配置，如数据库密码等 请根据实际情况修改
 services:
   nest-admin:
     build: .
@@ -28,7 +29,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=12345678
       - MYSQL_DATABASE=nest_admin # 这里的数据库就是 我们的表名称
-      - MYSQL_TIME_ZONE=Asia/Shanghai # 设置时区为亚洲/上海
+      - TZ=Asia/Shanghai # 设置时区为亚洲/上海
     ports:
       - '3306:3306'
     healthcheck:
