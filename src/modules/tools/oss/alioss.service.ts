@@ -1,6 +1,6 @@
 import * as OSS from 'ali-oss';
 import { Inject, Injectable } from '@nestjs/common';
-import { IOssConfig, OssConfig, ossRegToken } from '~/config';
+import { IOssConfig, OssConfig } from '~/config';
 import { genFileName, getExtname, getSize } from '~/utils';
 import { createPaginationObject } from '~/helper/pagination/create-pagination';
 import { isEmpty } from 'lodash';
@@ -14,10 +14,11 @@ export class AliOssService {
   private ossConfig: IOssConfig;
   public constructor(@Inject(OssConfig.KEY) ossConfig: IOssConfig) {
     this.client = new OSS({
-      accessKeyId: ossConfig.accessKey,
+      accessKeyId: ossConfig.secretId,
       accessKeySecret: ossConfig.secretKey,
       region: ossConfig.region,
       bucket: ossConfig.bucket,
+      endpoint: ossConfig.domain,
     });
     this.ossConfig = ossConfig;
   }
@@ -81,22 +82,5 @@ export class AliOssService {
       console.log(error);
     }
     return res.url;
-  }
-  /**
-   * 获取文件的url
-   * @param filePath
-   */
-  public async getFileSignatureUrl(filePath: string): Promise<string> {
-    if (filePath == null) {
-      console.log('get file signature failed: file name can not be empty');
-      return null;
-    }
-    let result = '';
-    try {
-      result = this.client.signatureUrl(filePath, { expires: 36000 });
-    } catch (err) {
-      console.log(err);
-    }
-    return result;
   }
 }

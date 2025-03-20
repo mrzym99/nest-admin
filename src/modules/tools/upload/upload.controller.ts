@@ -21,13 +21,14 @@ import { ErrorEnum } from '~/constants/error.constant';
 import { env, uploadLocalStorage } from '~/utils';
 import { AliOssService } from '../oss/alioss.service';
 import { IOssConfig, OssConfig } from '~/config';
+import { QClouldOssService } from '../oss/qcloudoss.service';
 
 export const permissions = definePermission('upload', {
   UPLOAD: 'upload',
 } as const);
 
 function getStorage() {
-  if (env('OSS_TYPE') === 'local' || env('OSS_TYPE') === '') {
+  if (env('OSS_TYPE') === 'local') {
     return uploadLocalStorage;
   }
   return null;
@@ -40,6 +41,7 @@ export class UploadController {
   constructor(
     private readonly uploadService: UploadService,
     private readonly aliOssService: AliOssService,
+    private readonly qcloudOssService: QClouldOssService,
     @Inject(OssConfig.KEY)
     private readonly ossConfig: IOssConfig,
   ) {}
@@ -63,8 +65,14 @@ export class UploadController {
         case 'aliyun':
           path = await this.aliOssService.putOssFile(file);
           break;
+        case 'qcloud':
+          path = await this.qcloudOssService.putOssFile(file);
+          break;
         default:
           break;
+      }
+      if (!path) {
+        throw new BadRequestException(ErrorEnum.UPLOAD_FAIL);
       }
       return path;
     } catch (error) {
