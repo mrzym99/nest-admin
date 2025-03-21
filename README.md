@@ -167,7 +167,7 @@ docker-compose config：检查docker-compose.yml文件的配置。
 
 <div>
   <p>QQ交流群</p>
-  <img src="https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/9DE8D440D62FFC00BC9B476D7942C9AE_compressed.jpg"  height="300" width="200" />
+  <img src="https://nest-image.mrzym.top/qrcode.jpg"  height="300" width="200" />
 </div>
 
 ## 开源协议

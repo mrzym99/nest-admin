@@ -171,7 +171,7 @@ docker-compose config: Check the configuration of the docker-compose.yml file.
 
 <div>
   <p>QQ Group</p>
-  <img src="https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/9DE8D440D62FFC00BC9B476D7942C9AE_compressed.jpg" height="300" width="200" />
+  <img src="https://nest-image.mrzym.top/qrcode.jpg" height="300" width="200" />
 </div>
 
 ## Open Source License
