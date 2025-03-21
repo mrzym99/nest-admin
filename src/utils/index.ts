@@ -8,3 +8,4 @@ export * from './permission.util';
 export * from './file.util';
 export * from './crypto.util';
 export * from './nickname.util';
+export * from './https.util';

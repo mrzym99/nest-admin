@@ -13,6 +13,7 @@ export class QClouldOssService {
   private client: OSS;
   private ossConfig: IOssConfig;
   public constructor(@Inject(OssConfig.KEY) ossConfig: IOssConfig) {
+    if(ossConfig.type !== 'qcloud') return
     this.client = new OSS({
       SecretId: ossConfig.secretId,
       SecretKey: ossConfig.secretKey,

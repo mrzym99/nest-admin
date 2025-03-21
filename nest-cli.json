@@ -5,7 +5,9 @@
   "compilerOptions": {
     "deleteOutDir": true,
     "assets": [
-      { "include": "assets/**/*", "watchAssets": true }
+      { "include": "assets/**/*", "watchAssets": true},
+      { "include": "public/**/*", "watchAssets": true},
+      { "include": "https/**/*", "watchAssets": true}
     ],
     "plugins": [
       {

@@ -1,6 +1,7 @@
 import { HttpAdapterHost, NestFactory, repl } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
+import * as fs from 'node:fs';
 
 import { Logger } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
@@ -12,14 +13,16 @@ import { AllConfigKeyAndPath, appRegToken } from './config';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as path from 'node:path';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
-import { isDev } from './utils';
+import { isDev, loadHttpOptions } from './utils';
 
 declare const module: any;
 
 async function bootstrap() {
+
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     // 这里可以开启日志打印
     // logger: ['warn'],
+    // httpsOptions: await loadHttpOptions(isDev), // 是否开启 https 默认 prod 环境开启
   });
 
   const configService = app.get(ConfigService<AllConfigKeyAndPath>);
@@ -64,9 +67,12 @@ async function bootstrap() {
     swaggerLogger.log(`Swagger running on ${await app.getUrl()}/doc.html`);
   });
 
+
   if (module.hot) {
     module.hot.accept();
     module.hot.dispose(() => app.close());
   }
+
 }
+
 bootstrap();

@@ -38,11 +38,22 @@ export class RbacGuard implements CanActivate {
     const { user } = request;
     if (!user) throw new UnauthorizedException(ErrorEnum.LOGIN_FIRST);
 
+    const isDemo = this.configService.get<IAppConfig>('app').mode === 'demo';
     // get 方法只会获取当前方法上的元数据 局部的
     const allowAnon = this.reflector.get<boolean>(
       ALLOW_ANON_KEY,
       context.getHandler,
     );
+
+    // 超级管理员在任何情况下都有权限
+    if (user.roles.includes(Roles.SUPER_ADMIN)) {
+      return true;
+    }
+
+    // demo 模式下 限制了 只能访问 get 请求
+    if (isDemo && request.method !== 'GET') {
+      throw new BusinessException(ErrorEnum.AUTH_DEMO_NO_OPERATE);
+    }
 
     if (allowAnon) return true;
 
@@ -53,11 +64,6 @@ export class RbacGuard implements CanActivate {
     // 控制器未设置权限则通过
     if (!payloadPermission) return true;
 
-    // 超级管理员才有权限
-    if (user.roles.includes(Roles.SUPER_ADMIN)) {
-      return true;
-    }
-
     const allPermissions = await this.authService.getPermissionsCache(user.uid);
 
     let canNext = false;
@@ -67,12 +73,6 @@ export class RbacGuard implements CanActivate {
       );
     } else if (typeof payloadPermission === 'string') {
       canNext = allPermissions.includes(payloadPermission);
-    }
-
-    // 这里限制了 只能访问 get 请求
-    const isDemo = this.configService.get<IAppConfig>('app').mode === 'demo';
-    if (isDemo && request.method !== 'GET') {
-      throw new BusinessException(ErrorEnum.AUTH_DEMO_NO_OPERATE);
     }
 
     if (!canNext) throw new BusinessException(ErrorEnum.AUTH_NO_PERMISSION);
