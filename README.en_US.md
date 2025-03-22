@@ -11,11 +11,17 @@
 ---
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
-[![gitee stars](https://gitee.com/mrzym/nest-admin/badge/star.svg)](https://gitee.com/mrzym/nest-admin)
+[![gitee stars](https://gitee.com/mrzym/nest-admin/badge/star.svg)](https://github.com/mrzym99/nest-admin)
+[![github stars](https://img.shields.io/github/stars/mrzym99/nest-admin)](https://github.com/mrzym99/nest-admin)
+[![github forks](https://img.shields.io/github/forks/mrzym99/nest-admin)](https://github.com/mrzym99/nest-admin)
+
+> [Gitee address](https://github.com/mrzym99/nest-admin): https://github.com/mrzym99/nest-admin
+
+> [Github address](https://github.com/mrzym99/vue3-naive-admin): https://github.com/mrzym99/vue3-naive-admin
 
 ## Introduction
 
-[NestAdmin](https://gitee.com/mrzym/nest-admin) is a simple and efficient backend management system based on the latest front-end technology stack, including Nestjs, TypeScript, TypeOrm, Mysql, and Redis. It is suitable for WEB full-stack developers to quickly develop backend management systems. The accompanying front-end project for NestAdmin is Vue3NaiveAdmin, available at [Frontend Project Link](https://gitee.com/mrzym/vue3-naive-admin).
+[NestAdmin](https://github.com/mrzym99/nest-admin) is a simple and efficient backend management system based on the latest front-end technology stack, including Nestjs, TypeScript, TypeOrm, Mysql, and Redis. It is suitable for WEB full-stack developers to quickly develop backend management systems. The accompanying front-end project for NestAdmin is Vue3NaiveAdmin, available at [Frontend Project Link](https://gitee.com/mrzym/vue3-naive-admin).
 
 ## Online Experience
 
@@ -34,7 +40,7 @@
 - [x] Verification code
 - [x] Log service
 - [x] Scheduled tasks
-- [ ] Data dictionary
+- [x] Data dictionary
 
 ## API Documentation
 
@@ -54,7 +60,7 @@ Ensure that your environment meets the following requirements:
 ### Clone the Project
 
 ```bash
-git clone https://gitee.com/mrzym/nest-admin.git
+git clone https://github.com/mrzym99/nest-admin.git
 ```
 
 ### Import SQL File

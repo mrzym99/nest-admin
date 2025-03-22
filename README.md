@@ -7,11 +7,17 @@
 ---
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
-[![gitee stars](https://gitee.com/mrzym/nest-admin/badge/star.svg)](https://gitee.com/mrzym/nest-admin)
+[![gitee stars](https://gitee.com/mrzym/nest-admin/badge/star.svg)](https://github.com/mrzym99/nest-admin)
+[![github stars](https://img.shields.io/github/stars/mrzym99/nest-admin)](https://github.com/mrzym99/nest-admin)
+[![github forks](https://img.shields.io/github/forks/mrzym99/nest-admin)](https://github.com/mrzym99/nest-admin)
+
+> [Gitee地址](https://github.com/mrzym99/nest-admin): https://github.com/mrzym99/nest-admin
+
+> [Github地址](https://github.com/mrzym99/vue3-naive-admin): https://github.com/mrzym99/vue3-naive-admin
 
 ## 简介
 
-[NestAdmin](https://gitee.com/mrzym/nest-admin) 是一个简单高效的的后台管理系统，基于最新的前端技术栈，包括 Nestjs, TypeScript, TypeOrm, Mysql 和 Redis。 适用于WEB全栈人员快速开发后台管理系统。NestAdmin 配套前端项目Vue3NaiveAdmin [前端地址传送门](https://gitee.com/mrzym/vue3-naive-admin)
+[NestAdmin](https://github.com/mrzym99/nest-admin) 是一个简单高效的的后台管理系统，基于最新的前端技术栈，包括 Nestjs, TypeScript, TypeOrm, Mysql 和 Redis。 适用于WEB全栈人员快速开发后台管理系统。NestAdmin 配套前端项目Vue3NaiveAdmin [前端地址传送门](https://gitee.com/mrzym/nest-admin)
 
 ## 在线体验
 
@@ -30,7 +36,7 @@
 - [x] 验证码
 - [x] 日志服务
 - [x] 定时任务
-- [ ] 数据字典
+- [x] 数据字典
 
 ## 接口文档
 
@@ -51,7 +57,7 @@ Knife4j版： [Swagger-Knife4j](http://mrzym.top:3366/doc.html)
 **克隆项目**
 
 ```bash
-git clone https://gitee.com/mrzym/nest-admin.git
+git clone https://github.com/mrzym99/nest-admin.git
 ```
 
 **导入sql文件**

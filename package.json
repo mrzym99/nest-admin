@@ -5,15 +5,15 @@
   "author": {
     "name": "XiaoZhang",
     "email": "2715158815@qq.com",
-    "url": "https://gitee.com/mrzym/nest-admin"
+    "url": "https://github.com/mrzym99/nest-admin"
   },
   "license": "MIT",
-  "homepage": "https://gitee.com/mrzym/nest-admin",
+  "homepage": "https://github.com/mrzym99/nest-admin",
   "repository": {
-    "url": "https://gitee.com/mrzym/nest-admin.git"
+    "url": "https://github.com/mrzym99/nest-admin.git"
   },
   "bugs": {
-    "url": "https://gitee.com/mrzym/nest-admin/issues"
+    "url": "https://github.com/mrzym99/nest-admin/issues"
   },
   "keywords": [
     "nest admin",
