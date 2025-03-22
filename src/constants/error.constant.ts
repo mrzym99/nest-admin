@@ -64,4 +64,9 @@ export enum ErrorEnum {
   TASK_EXECUTED_MISSION_NOT_FOUND = '9002:所执行的任务不存在',
   TASK_MISSION_EXECUTION_FAILED = '9003:任务执行失败',
   TASK_MISSION_NOT_FOUND = '9004:任务不存在',
+
+  // Dict
+  DICT_TYPE_NOT_FOUND = '10001:字典类型不存在',
+  DICT_TYPE_HAS_CHILDREN = '10002:该字典类型下有字典项，请先删除字典项再重试',
+  DICT_ITEM_EXIST = '10003:该字典项的值已存在，请修改后重试',
 }

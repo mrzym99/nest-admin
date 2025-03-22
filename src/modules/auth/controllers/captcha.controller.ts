@@ -33,7 +33,7 @@ export class CaptchaController {
     const svg = svgCaptcha.create({
       size: 4,
       color: true,
-      ignoreChars: '0o1i',
+      ignoreChars: '0o1il',
       width,
       height,
       noise: 1,

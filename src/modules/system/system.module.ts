@@ -10,6 +10,8 @@ import { ParameterModule } from './parameter/parameter.module';
 import { ServeModule } from './serve/serve.module';
 import { OnlineModule } from './online/online.module';
 import { TaskModule } from './task/task.module';
+import { DictTypeModule } from './dict/type/dict-type.module';
+import { DictItemModule } from './dict/item/dict-item.module';
 
 const modules = [
   DeptModule,
@@ -21,6 +23,8 @@ const modules = [
   ServeModule,
   OnlineModule,
   TaskModule,
+  DictTypeModule,
+  DictItemModule,
 ];
 
 @Module({
