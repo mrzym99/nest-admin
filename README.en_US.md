@@ -44,8 +44,8 @@
 
 ## API Documentation
 
-- Swagger Documentation: [Swagger](https://mrzym.top:3366/docs)
-- Knife4j Version: [Swagger-Knife4j](https://mrzym.top:3366/doc.html)
+- Swagger Documentation: [Swagger](https://nest-server.mrzym.top:3366/docs)
+- Knife4j Version: [Swagger-Knife4j](https://nest-server.mrzym.top:3366/doc.html)
 
 ## Usage
 

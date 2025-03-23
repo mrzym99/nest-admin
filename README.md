@@ -40,9 +40,9 @@
 
 ## 接口文档
 
-Swagger文档： [Swagger](https://mrzym.top:3366/docs)
+Swagger文档： [Swagger](https://nest-server.mrzym.top:3366/docs)
 
-Knife4j版： [Swagger-Knife4j](https://mrzym.top:3366/doc.html)
+Knife4j版： [Swagger-Knife4j](https://nest-server.mrzym.top:3366/doc.html)
 
 ## 使用
 
