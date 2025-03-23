@@ -17,11 +17,11 @@
 
 ## 简介
 
-[NestAdmin](https://github.com/mrzym99/nest-admin) 是一个简单高效的的后台管理系统，基于最新的前端技术栈，包括 Nestjs, TypeScript, TypeOrm, Mysql 和 Redis。 适用于WEB全栈人员快速开发后台管理系统。NestAdmin 配套前端项目Vue3NaiveAdmin [前端地址传送门](https://gitee.com/mrzym/nest-admin)
+[NestAdmin](https://github.com/mrzym99/nest-admin) 是一个简单高效的的后台管理系统，基于最新的前端技术栈，包括 Nestjs, TypeScript, TypeOrm, Mysql 和 Redis。 适用于WEB全栈人员快速开发后台管理系统。NestAdmin 配套前端项目Vue3NaiveAdmin [前端地址传送门](https://github.com/mrzym99/vue3-naive-admin)
 
 ## 在线体验
 
-[在线体验](http://nest.mrzym.top)
+[在线体验](https://nest.mrzym.top)
 
 ## 基础功能
 
@@ -40,9 +40,9 @@
 
 ## 接口文档
 
-Swagger文档： [Swagger](http://mrzym.top:3366/docs)
+Swagger文档： [Swagger](https://mrzym.top:3366/docs)
 
-Knife4j版： [Swagger-Knife4j](http://mrzym.top:3366/doc.html)
+Knife4j版： [Swagger-Knife4j](https://mrzym.top:3366/doc.html)
 
 ## 使用
 
