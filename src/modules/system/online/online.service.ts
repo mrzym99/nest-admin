@@ -149,7 +149,7 @@ export class OnlineService {
           .filter((u) => u) // 可能存在 [ null ] 的情况
           .map(async (u) => {
             const item = JSON.parse(u) as OnlineUser;
-            item.isCurrentUser = item.tokenId === token.id;
+            item.isCurrentUser = token ? item.tokenId === token.id : false;
             item.disabled = await this.userService.isAdmin(item.uid);
             return item;
           }),

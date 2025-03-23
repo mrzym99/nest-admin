@@ -5,7 +5,7 @@ import { OssPageDto } from './oss.dto';
 import { Pagination } from '~/helper/pagination/pagination';
 import { OssInfo } from './oss.model';
 import { isEmpty } from 'lodash';
-import { genFileName, getExtname } from '~/utils';
+import { genFileName, getExtname, getSize } from '~/utils';
 import { createPaginationObject } from '~/helper/pagination/create-pagination';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class QClouldOssService {
   private client: OSS;
   private ossConfig: IOssConfig;
   public constructor(@Inject(OssConfig.KEY) ossConfig: IOssConfig) {
-    if(ossConfig.type !== 'qcloud') return
+    if (ossConfig.type !== 'qcloud') return;
     this.client = new OSS({
       SecretId: ossConfig.secretId,
       SecretKey: ossConfig.secretKey,
@@ -54,7 +54,7 @@ export class QClouldOssService {
                   return {
                     id: item.ETag,
                     name: item.Key,
-                    size: item.Size,
+                    size: getSize(Number(item.Size)),
                     lastModified: item.LastModified,
                     type: item.StorageClass,
                     url: '', // url 需要使用 getObjectUrl 方法获取
