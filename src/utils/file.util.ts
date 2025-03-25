@@ -56,8 +56,8 @@ export function getFilePath(name: string, currentDate: string, type: string) {
 }
 
 export async function deleteFile(name: string) {
-  fs.unlink(path.join(__dirname, '../../', 'public', name), () => {
-    // console.log(error);
+  fs.unlink(path.join(__dirname, '../../', 'public', name), (error) => {
+    console.log(error);
   });
 }
 

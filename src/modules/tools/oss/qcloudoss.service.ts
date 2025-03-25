@@ -1,6 +1,6 @@
 import * as OSS from 'cos-nodejs-sdk-v5';
 import { Inject, Injectable } from '@nestjs/common';
-import { IOssConfig, OssConfig, ossRegToken } from '~/config';
+import { IOssConfig, OssConfig } from '~/config';
 import { OssPageDto } from './oss.dto';
 import { Pagination } from '~/helper/pagination/pagination';
 import { OssInfo } from './oss.model';
@@ -149,6 +149,19 @@ export class QClouldOssService {
       } catch (error) {
         console.log(error);
       }
+    });
+  }
+
+  async deleteFiles(fileKeys: string[]) {
+    const objectList = fileKeys.map((fileKey) => {
+      return {
+        Key: fileKey,
+      };
+    });
+    await this.client.deleteMultipleObject({
+      Bucket: this.ossConfig.bucket,
+      Region: this.ossConfig.region,
+      Objects: objectList,
     });
   }
 }

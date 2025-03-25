@@ -1,6 +1,8 @@
 import {
   BadRequestException,
+  Body,
   Controller,
+  Delete,
   Inject,
   Post,
   UploadedFile,
@@ -22,6 +24,8 @@ import { env, uploadLocalStorage } from '~/utils';
 import { AliOssService } from '../oss/alioss.service';
 import { IOssConfig, OssConfig } from '~/config';
 import { QClouldOssService } from '../oss/qcloudoss.service';
+import { DeleteFileDto } from '~/common/dto/delete.dto';
+import { StorageService } from '../storage/storage.service';
 
 export const permissions = definePermission('upload', {
   UPLOAD: 'upload',
@@ -39,6 +43,7 @@ function getStorage() {
 @Controller('upload')
 export class UploadController {
   constructor(
+    private readonly storageService: StorageService,
     private readonly uploadService: UploadService,
     private readonly aliOssService: AliOssService,
     private readonly qcloudOssService: QClouldOssService,
@@ -78,6 +83,26 @@ export class UploadController {
     } catch (error) {
       console.log(error);
       throw new BadRequestException(ErrorEnum.UPLOAD_FAIL);
+    }
+  }
+
+  @Delete('delete')
+  @ApiOperation({ summary: '删除文件' })
+  async delete(@Body() dto: DeleteFileDto) {
+    const { fileNames } = dto;
+
+    switch (this.ossConfig.type) {
+      case 'local':
+        await this.storageService.deleteFilesByFileName(fileNames);
+        break;
+      case 'aliyun':
+        await this.aliOssService.deleteFiles(fileNames);
+        break;
+      case 'qcloud':
+        await this.qcloudOssService.deleteFiles(fileNames);
+        break;
+      default:
+        break;
     }
   }
 }

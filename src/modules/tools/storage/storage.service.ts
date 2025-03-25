@@ -11,6 +11,7 @@ import { deleteFile } from '~/utils';
 
 import { StoragePageDto } from './storage.dto';
 import { StorageInfo } from './storage.modal';
+import { isEmpty } from 'lodash';
 
 @Injectable()
 export class StorageService {
@@ -29,6 +30,22 @@ export class StorageService {
       id: In(fileIds),
     });
     await this.storageRepository.delete(fileIds);
+
+    items.forEach((el) => {
+      deleteFile(el.path);
+    });
+  }
+
+  /**
+   * 删除文件
+   */
+  async deleteFilesByFileName(fileNames: string[]): Promise<void> {
+    const items = await this.storageRepository.findBy({
+      name: In(fileNames),
+    });
+
+    if (isEmpty(items)) return;
+    await this.storageRepository.delete(items.map((el) => el.id));
 
     items.forEach((el) => {
       deleteFile(el.path);

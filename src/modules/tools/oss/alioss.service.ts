@@ -13,7 +13,7 @@ export class AliOssService {
   private client: OSS;
   private ossConfig: IOssConfig;
   public constructor(@Inject(OssConfig.KEY) ossConfig: IOssConfig) {
-    if(ossConfig.type !== 'aliyun') return
+    if (ossConfig.type !== 'aliyun') return;
     this.client = new OSS({
       accessKeyId: ossConfig.secretId,
       accessKeySecret: ossConfig.secretKey,
@@ -83,5 +83,11 @@ export class AliOssService {
       console.log(error);
     }
     return res.url;
+  }
+
+  async deleteFiles(fileNames: string[]) {
+    await this.client.deleteMulti(fileNames, {
+      quiet: true,
+    });
   }
 }

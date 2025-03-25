@@ -6,3 +6,9 @@ export class DeleteDto {
   @IsArray()
   ids: string[];
 }
+
+export class DeleteFileDto {
+  @ApiProperty({ description: '删除文件列表' })
+  @IsArray()
+  fileNames: string[];
+}
