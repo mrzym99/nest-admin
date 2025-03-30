@@ -166,7 +166,7 @@ export class UserService {
 
     if (user) throw new BizException(ErrorEnum.USER_USERNAME_EXIST);
 
-    const emailUser = this.userRepository.findOne({
+    const emailUser = await this.userRepository.findOne({
       where: {
         profile: {
           email: email,
