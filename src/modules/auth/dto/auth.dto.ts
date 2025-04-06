@@ -22,7 +22,6 @@ export class LoginDto {
     description: '验证码',
     example: '123456',
   })
-  // @IsNotEmpty()
   @IsOptional()
   @IsString()
   code?: string;
@@ -30,7 +29,7 @@ export class LoginDto {
   @ApiProperty({
     description: '验证码id',
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   captchaId: string;
 }

@@ -6,20 +6,23 @@ import { CaptchaLogService } from '~/modules/system/log/services/captcha-log.ser
 import { isEmpty } from 'lodash';
 import { BusinessException } from '~/common/exceptions/biz.exception';
 import { ErrorEnum } from '~/constants/error.constant';
-import { AllConfigKeyAndPath, IAppConfig } from '~/config';
-import { ConfigService } from '@nestjs/config';
+import { ParameterService } from '~/modules/system/parameter/parameter.service';
+import { ParameterKey } from '~/constants/parameter.constant';
 
 @Injectable()
 export class CaptchaService {
   constructor(
     @InjectRedis() private readonly redis: Redis,
     private readonly captchaLogService: CaptchaLogService,
-    private readonly configService: ConfigService<AllConfigKeyAndPath>,
+    private readonly parametersService: ParameterService,
   ) {}
 
   async checkImgCaptcha(id: string, code: string): Promise<void> {
-    // 演示模式下不开启验证码验证
-    if (this.configService.get<IAppConfig>('app').mode === 'demo') {
+    const needVerify = await this.parametersService.findOneByKey(
+      ParameterKey.LOGIN_CAPTCHA_ENABLE,
+    );
+    // 参数设置里可设置 是否需要验证码验证
+    if (needVerify === 'false') {
       return;
     }
 

@@ -7,7 +7,7 @@ export enum ErrorEnum {
   AUTH_INVALID_LOGIN = '1000:登录信息已失效，请重新登录',
   AUTH_TOKEN_INVALID = '1001:accessToken已过期',
   AUTH_NO_PERMISSION = '1002:您没有权限',
-  AUTH_DEMO_NO_OPERATE = '1002:演示模式下无法进行修改操作',
+  AUTH_DEMO_NO_OPERATE = '1002:非常抱歉，当前无法进行修改操作',
   AUTH_NOT_ALLOWED_TO_LOGOUT_USER = '1003:不允许下线该用户',
   AUTH_NOT_ALLOWED_TO_LOGOUT_ADMIN = '1004:不允许下线管理员',
   AUTH_CAPTCHA_ERROR = '1005:验证码错误',

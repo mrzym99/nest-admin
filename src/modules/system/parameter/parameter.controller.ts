@@ -22,6 +22,7 @@ import {
   definePermission,
   Perm,
 } from '~/modules/auth/decorators/permission.decorator';
+import { Public } from '~/modules/auth/decorators/public.decorator';
 
 export const permissions = definePermission('system:parameter', {
   LIST: 'list',
@@ -61,6 +62,7 @@ export class ParameterController {
 
   @Get('value/:key')
   @ApiOperation({ summary: '提供 key 查询 参数 value' })
+  @Public()
   async findValueByKey(@Param('key') key: string) {
     return await this.parameterService.findOneByKey(key);
   }

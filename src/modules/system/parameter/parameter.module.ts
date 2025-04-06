@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { ParameterService } from './parameter.service';
 import { ParameterController } from './parameter.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ParameterEntity } from './parameter.entity';
 
+@Global()
 @Module({
   imports: [TypeOrmModule.forFeature([ParameterEntity])],
   controllers: [ParameterController],

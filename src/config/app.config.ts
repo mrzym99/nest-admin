@@ -21,7 +21,6 @@ export const AppConfig = registerAs(appRegToken, () => ({
   locale: env('APP_LOCALE', 'zh-CN'),
   superAdminUsername: env('SUPER_ADMIN_USERNAME'),
   superAdminPassword: env('SUPER_ADMIN_PASSWORD'),
-  mode: env('APP_MODE'),
   // 多端登录
   multiDeviceLogin: envBoolean('MULTI_DEVICE_LOGIN', true),
 

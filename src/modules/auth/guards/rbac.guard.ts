@@ -15,7 +15,9 @@ import {
 import { BusinessException } from '~/common/exceptions/biz.exception';
 import { ErrorEnum } from '~/constants/error.constant';
 import { ConfigService } from '@nestjs/config';
-import { AllConfigKeyAndPath, IAppConfig } from '~/config';
+import { AllConfigKeyAndPath } from '~/config';
+import { ParameterService } from '~/modules/system/parameter/parameter.service';
+import { ParameterKey } from '~/constants/parameter.constant';
 
 @Injectable()
 export class RbacGuard implements CanActivate {
@@ -23,6 +25,7 @@ export class RbacGuard implements CanActivate {
     private readonly reflector: Reflector,
     private readonly authService: AuthService,
     private readonly configService: ConfigService<AllConfigKeyAndPath>,
+    private readonly parameterService: ParameterService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<any> {
@@ -38,7 +41,10 @@ export class RbacGuard implements CanActivate {
     const { user } = request;
     if (!user) throw new UnauthorizedException(ErrorEnum.LOGIN_FIRST);
 
-    const isDemo = this.configService.get<IAppConfig>('app').mode === 'demo';
+    const canModifyData = await this.parameterService.findOneByKey(
+      ParameterKey.AUTH_MODIFY_ENABLE,
+    );
+
     // get 方法只会获取当前方法上的元数据 局部的
     const allowAnon = this.reflector.get<boolean>(
       ALLOW_ANON_KEY,
@@ -50,8 +56,8 @@ export class RbacGuard implements CanActivate {
       return true;
     }
 
-    // demo 模式下 限制了 只能访问 get 请求
-    if (isDemo && request.method !== 'GET') {
+    // 如果不能修改数据 则 只能访问 get 请求
+    if (canModifyData === 'false' && request.method !== 'GET') {
       throw new BusinessException(ErrorEnum.AUTH_DEMO_NO_OPERATE);
     }
 
