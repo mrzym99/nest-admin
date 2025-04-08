@@ -34,7 +34,7 @@ export const permissions = definePermission('system:dict-item', {
   DELETE: 'delete',
 } as const);
 
-@ApiTags('SSystem - 数据字典项模块')
+@ApiTags('System - 数据字典项模块')
 @ApiSecurityAuth()
 @Controller('dict-item')
 export class DictItemController {

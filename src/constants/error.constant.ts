@@ -69,4 +69,10 @@ export enum ErrorEnum {
   DICT_TYPE_NOT_FOUND = '10001:字典类型不存在',
   DICT_TYPE_HAS_CHILDREN = '10002:该字典类型下有字典项，请先删除字典项再重试',
   DICT_ITEM_EXIST = '10003:该字典项的值已存在，请修改后重试',
+
+  // Sql
+  SQL_EXPORT_FAIL = '11000:sql导出失败',
+  SQL_IMPORT_FAIL = '11001:sql导入失败',
+  SQL_DOWNLOAD_FAIL = '11002:sql下载失败',
+  SQL_NOT_FOUND = '11003:请上传sql文件',
 }

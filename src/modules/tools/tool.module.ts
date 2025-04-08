@@ -4,8 +4,9 @@ import { RouterModule } from '@nestjs/core';
 import { StorageModule } from './storage/storage.module';
 import { OssModule } from './oss/oss.module';
 import { MailModule } from './mail/mail.module';
+import { SqlModule } from './sql/sql.module';
 
-const modules = [UploadModule, StorageModule, MailModule, OssModule];
+const modules = [UploadModule, StorageModule, MailModule, OssModule, SqlModule];
 
 @Module({
   imports: [
