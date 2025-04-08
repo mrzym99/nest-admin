@@ -43,7 +43,7 @@ export function envNumber(key: string, defaultValue: number = 0) {
 export function envBoolean(key: string, defaultValue: boolean = false) {
   return formateValue(key, defaultValue, (value) => {
     try {
-      return Boolean(value);
+      return value === 'true' ? true : false;
     } catch {
       throw new Error(`${value} is not a boolean`);
     }

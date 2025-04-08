@@ -57,7 +57,7 @@ export class RbacGuard implements CanActivate {
     }
 
     // 如果不能修改数据 则 只能访问 get 请求
-    if (canModifyData === 'false' && request.method !== 'GET') {
+    if (canModifyData !== 'true' && request.method !== 'GET') {
       throw new BusinessException(ErrorEnum.AUTH_DEMO_NO_OPERATE);
     }
 

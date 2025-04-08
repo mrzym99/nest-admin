@@ -22,17 +22,15 @@ export class CaptchaService {
       ParameterKey.LOGIN_CAPTCHA_ENABLE,
     );
     // 参数设置里可设置 是否需要验证码验证
-    if (needVerify === 'false') {
-      return;
-    }
+    if (needVerify === 'true') {
+      const result = await this.redis.get(genCaptchaImgKey(id));
+      if (isEmpty(result) || code.toLowerCase() !== result.toLowerCase()) {
+        throw new BusinessException(ErrorEnum.AUTH_CAPTCHA_ERROR);
+      }
 
-    const result = await this.redis.get(genCaptchaImgKey(id));
-    if (isEmpty(result) || code.toLowerCase() !== result.toLowerCase()) {
-      throw new BusinessException(ErrorEnum.AUTH_CAPTCHA_ERROR);
+      // 删除验证码
+      await this.redis.del(genCaptchaImgKey(id));
     }
-
-    // 删除验证码
-    await this.redis.del(genCaptchaImgKey(id));
   }
 
   async createCaptchaLog(code: string): Promise<void> {
