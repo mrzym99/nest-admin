@@ -12,7 +12,7 @@ import { SseService, MessageEvent } from './sse.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ApiSecurityAuth } from '~/common/decorators/swagger.decorators';
 import { SkipThrottle } from '@nestjs/throttler';
-import { OnlineService } from '../system/online/online.service';
+import { OnlineService } from '../system/monitor/online/online.service';
 import { interval, Observable, Subscriber } from 'rxjs';
 
 @ApiTags('Sse - sse模块')

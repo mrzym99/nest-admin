@@ -7,7 +7,7 @@ import { BullModule } from '@nestjs/bull';
 import { SYS_TASK_QUEUE_NAME } from './constant';
 import { ConfigService } from '@nestjs/config';
 import { AllConfigKeyAndPath, IRedisConfig } from '~/config';
-import { LogModule } from '../log/log.module';
+import { LogModule } from '../monitor/log/log.module';
 import { TaskConsumer } from './task.processor';
 
 const providers = [TaskService, TaskConsumer];

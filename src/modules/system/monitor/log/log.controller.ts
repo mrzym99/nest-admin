@@ -30,7 +30,7 @@ export const permissions = definePermission('system:log', {
 } as const);
 
 @ApiSecurityAuth()
-@ApiTags('System - 日志模块')
+@ApiTags('SystemMonitor - 日志模块')
 @Controller('log')
 export class LogController {
   constructor(

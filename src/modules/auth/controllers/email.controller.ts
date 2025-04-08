@@ -1,7 +1,7 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
-import { CaptchaLogService } from '~/modules/system/log/services/captcha-log.service';
+import { CaptchaLogService } from '~/modules/system/monitor/log/services/captcha-log.service';
 import { Public } from '../decorators/public.decorator';
 import { Ip } from '~/common/decorators/http.decorator';
 import { EmailSendCodeDto } from '../dto/captcha.dto';

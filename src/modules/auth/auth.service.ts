@@ -5,7 +5,7 @@ import { BizException } from '~/common/exceptions/biz.exception';
 import * as argon2 from 'argon2';
 import { TokenService } from './services/token.service';
 import { ErrorEnum } from '~/constants/error.constant';
-import { LoginLogService } from '../system/log/services/login-log.service';
+import { LoginLogService } from '../system/monitor/log/services/login-log.service';
 import { InjectRedis } from '~/common/decorators/inject-redis.decorator';
 import Redis from 'ioredis';
 import { genAuthPermKey, genTokenBlacklistKey } from '~/helper/gen-redis-key';

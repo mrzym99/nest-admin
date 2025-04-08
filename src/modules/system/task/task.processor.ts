@@ -6,7 +6,7 @@ import { Job } from 'bull';
 import { SYS_TASK_QUEUE_NAME } from './constant';
 
 import { TaskService } from './task.service';
-import { TaskLogService } from '../log/services/task-log.service';
+import { TaskLogService } from '../monitor/log/services/task-log.service';
 
 export interface ExecuteData {
   id: string;

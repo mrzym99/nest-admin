@@ -18,7 +18,7 @@ export const permissions = definePermission('system:online', [
 ] as const);
 
 @ApiSecurityAuth()
-@ApiTags('System - 在线用户模块')
+@ApiTags('SystemMonitor - 在线用户模块')
 @Controller('online')
 export class OnlineController {
   constructor(private readonly onlineService: OnlineService) {}

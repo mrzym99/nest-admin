@@ -1,7 +1,7 @@
 import { forwardRef, Global, Module } from '@nestjs/common';
 import { SseService } from './sse.service';
 import { SseController } from './sse.controller';
-import { OnlineModule } from '../system/online/online.module';
+import { OnlineModule } from '../system/monitor/online/online.module';
 
 @Global()
 @Module({

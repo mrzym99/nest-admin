@@ -1,6 +1,6 @@
 import { DynamicModule, ExistingProvider, Module } from '@nestjs/common';
 
-import { LogModule } from '~/modules/system/log/log.module';
+import { LogModule } from '~/modules/system/monitor/log/log.module';
 import { SystemModule } from '~/modules/system/system.module';
 
 import { EmailJob } from './jobs/email.job';

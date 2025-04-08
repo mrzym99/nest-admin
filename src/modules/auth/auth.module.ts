@@ -6,7 +6,7 @@ import { TokenService } from './services/token.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { LogModule } from '../system/log/log.module';
+import { LogModule } from '../system/monitor/log/log.module';
 import {
   AllConfigKeyAndPath,
   ISecurityConfig,
@@ -21,7 +21,7 @@ import { CaptchaController } from './controllers/captcha.controller';
 import { CaptchaService } from './services/captcha.service';
 import { MailModule } from '../tools/mail/mail.module';
 import { EmailController } from './controllers/email.controller';
-import { OnlineModule } from '../system/online/online.module';
+import { OnlineModule } from '../system/monitor/online/online.module';
 
 const controllers = [
   AuthController,

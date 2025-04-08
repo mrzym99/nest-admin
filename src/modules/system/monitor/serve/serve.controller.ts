@@ -7,7 +7,7 @@ import { ServeStatInfo } from './serve.model';
 import { ApiResult } from '~/common/decorators/api-result.decorator';
 
 @ApiSecurityAuth()
-@ApiTags('System - 服务监控')
+@ApiTags('SystemMonitor - 服务监控')
 @Controller('serve')
 @ApiExtraModels(ServeStatInfo)
 @UseInterceptors(CacheInterceptor)

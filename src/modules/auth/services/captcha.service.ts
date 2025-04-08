@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import Redis from 'ioredis';
 import { InjectRedis } from '~/common/decorators/inject-redis.decorator';
 import { genCaptchaImgKey } from '~/helper/gen-redis-key';
-import { CaptchaLogService } from '~/modules/system/log/services/captcha-log.service';
+import { CaptchaLogService } from '~/modules/system/monitor/log/services/captcha-log.service';
 import { isEmpty } from 'lodash';
 import { BusinessException } from '~/common/exceptions/biz.exception';
 import { ErrorEnum } from '~/constants/error.constant';

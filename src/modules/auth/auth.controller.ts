@@ -6,7 +6,7 @@ import { Ip } from '~/common/decorators/http.decorator';
 import { Public } from './decorators/public.decorator';
 import { MailerService } from '~/shared/mailer/mailer.service';
 import { CaptchaService } from './services/captcha.service';
-import { OnlineService } from '../system/online/online.service';
+import { OnlineService } from '../system/monitor/online/online.service';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 
 @Controller('auth')

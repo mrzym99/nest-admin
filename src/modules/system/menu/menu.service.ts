@@ -18,7 +18,7 @@ import { RoleService } from '../role/role.service';
 import { InjectRedis } from '~/common/decorators/inject-redis.decorator';
 import Redis from 'ioredis';
 import { genAuthPermKey, genOnlineUserKey } from '~/helper/gen-redis-key';
-import { OnlineUser } from '../online/online.model';
+import { OnlineUser } from '../monitor/online/online.model';
 import { SseService } from '~/modules/sse/sse.service';
 import { Pagination } from '~/helper/pagination/pagination';
 import { createPaginationObject } from '~/helper/pagination/create-pagination';

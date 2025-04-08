@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MailController } from './mail.controller';
-import { LogModule } from '~/modules/system/log/log.module';
-import { MailerService } from '~/shared/mailer/mailer.service';
+import { LogModule } from '~/modules/system/monitor/log/log.module';
 
 @Module({
   imports: [LogModule],

@@ -11,6 +11,9 @@ declare global {
     accessToken?: string;
     raw: any;
     method: string;
+    headers: {
+      [key: string]: string;
+    };
   }
 }
 

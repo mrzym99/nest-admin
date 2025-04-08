@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Mission } from '../mission.decorator';
-import { LoginLogService } from '~/modules/system/log/services/login-log.service';
-import { TaskLogService } from '~/modules/system/log/services/task-log.service';
-import { CaptchaLogService } from '~/modules/system/log/services/captcha-log.service';
+import { LoginLogService } from '~/modules/system/monitor/log/services/login-log.service';
+import { TaskLogService } from '~/modules/system/monitor/log/services/task-log.service';
+import { CaptchaLogService } from '~/modules/system/monitor/log/services/captcha-log.service';
 
 @Injectable()
 @Mission()
