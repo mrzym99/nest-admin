@@ -5,8 +5,9 @@ import { env, envBoolean, envNumber } from '~/utils';
 
 import * as dotenv from 'dotenv';
 // 将 .env和对应环境env文件中的变量注入到 process.env 中
+
 dotenv.config({
-  path: ['.env', `.env.${process.env.NODE_ENV}`],
+  path: ['.env', `.env.${process.env.NODE_ENV || 'development'}`],
   override: true,
 });
 

@@ -33,7 +33,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:hot": "nest build cross-env NODE_ENV=development --webpack --webpackPath webpack-hmr.config.js --watch",
+    "start:hot": "nest build --webpack --webpackPath webpack-hmr.config.js --watch",
     "start:dev": "cross-env NODE_ENV=development nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "cross-env NODE_ENV=production node dist/main",
