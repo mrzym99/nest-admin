@@ -4,6 +4,9 @@ FROM node:21.7.3
 # 设置工作目录
 WORKDIR /usr/src/app
 
+# 安装 MySQL 客户端 用于解决 nest-admin容器内不能使用 mysql 命令 
+RUN apt-get update && apt-get install -y default-mysql-client
+
 # 复制 package.json 和 package-lock.json
 COPY package*.json ./
 
