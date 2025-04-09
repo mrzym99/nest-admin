@@ -31,7 +31,7 @@ export class SqlController {
 
   @Get('export')
   @ApiOperation({ summary: '导出数据库结构和数据' })
-  // @Perm(permissions.EXPORT)
+  @Perm(permissions.EXPORT)
   async export(@Res() res: Response) {
     try {
       const filePath = await this.sqlService.export();
@@ -50,7 +50,7 @@ export class SqlController {
   @Post('import')
   @ApiOperation({ summary: '导入数据库结构和数据' })
   @UseInterceptors(FileInterceptor('file'))
-  // @Perm(permissions.IMPORT)
+  @Perm(permissions.IMPORT)
   async import(@UploadedFile() file: Express.Multer.File): Promise<void> {
     if (!file) {
       throw new BusinessException(ErrorEnum.SQL_NOT_FOUND);

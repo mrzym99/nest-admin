@@ -12,26 +12,26 @@ export class CacheService {
   ) {}
 
   getPrefixList(): Prefix[] {
-    const prefixList = [
+    const prefixList: Prefix[] = [
       {
         name: '图形验证码',
-        key: RedisKey.CAPTCHA_IMG_PREFIX,
+        prefix: RedisKey.CAPTCHA_IMG_PREFIX,
       },
       {
         name: 'token',
-        key: RedisKey.AUTH_TOKEN_PREFIX,
+        prefix: RedisKey.AUTH_TOKEN_PREFIX,
       },
       {
         name: '用户权限',
-        key: RedisKey.AUTH_PERM_PREFIX,
+        prefix: RedisKey.AUTH_PERM_PREFIX,
       },
       {
         name: '在线用户',
-        key: RedisKey.ONLINE_USER_PREFIX,
+        prefix: RedisKey.ONLINE_USER_PREFIX,
       },
       {
         name: 'token黑名单',
-        key: RedisKey.TOKEN_BLACKLIST_PREFIX,
+        prefix: RedisKey.TOKEN_BLACKLIST_PREFIX,
       },
     ];
     return prefixList;
