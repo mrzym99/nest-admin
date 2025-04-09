@@ -47,7 +47,13 @@
     "migration:create": "typeorm-ts-node-commonjs migration:create ./src/migrations",
     "migration:generate": "npm run typeorm migration:generate ./src/migrations/update-table_$(echo $npm_package_version | sed 's/\\./_/g')",
     "migration:run": "npm run typeorm -- migration:run",
-    "migration:revert": "npm run typeorm -- migration:revert"
+    "migration:revert": "npm run typeorm -- migration:revert",
+    "docker:build:dev": "docker-compose build",
+    "docker:up:dev": "docker-compose up -d",
+    "docker:build:prod": "docker-compose -f docker-compose.prod.yml build",
+    "docker:up:prod": "docker-compose -f docker-compose.prod.yml up -d",
+    "docker:down": "docker-compose down",
+    "docker:down:v": "docker-compose down -v"
   },
   "dependencies": {
     "@keyv/redis": "^4.2.0",
