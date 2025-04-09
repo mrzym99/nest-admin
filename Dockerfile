@@ -5,8 +5,10 @@ FROM node:21.7.3-alpine
 # 设置工作目录
 WORKDIR /usr/src/app
 
+# apk 更换为阿里云源
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 # 安装 MySQL 客户端 用于解决 nest-admin容器内不能使用 mysql 命令 
-# RUN apk add --no-cache mysql-client
+RUN apk add --no-cache mysql-client
 
 # 复制 package.json 和 package-lock.json
 COPY package*.json ./
