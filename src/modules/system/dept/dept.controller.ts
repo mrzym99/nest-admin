@@ -21,6 +21,8 @@ import {
   Perm,
 } from '~/modules/auth/decorators/permission.decorator';
 import { ErrorEnum } from '~/constants/error.constant';
+import { UpdaterPip } from '~/common/pipes/updater.pipe';
+import { ParamId } from '~/common/decorators/param-id.decorator';
 
 export const permissions = definePermission('system:dept', {
   LIST: 'list',
@@ -63,8 +65,8 @@ export class DeptController {
   @ApiOperation({ summary: '更新部门' })
   @Perm(permissions.UPDATE)
   async update(
-    @Param('id') id: string,
-    @Body() DeptUpdateDto: DeptUpdateDto,
+    @ParamId() id: number,
+    @Body(UpdaterPip) DeptUpdateDto: DeptUpdateDto,
   ): Promise<void> {
     await this.deptService.update(id, DeptUpdateDto);
   }
@@ -73,21 +75,21 @@ export class DeptController {
   @ApiOperation({ summary: '查询部门信息' })
   @ApiResult({ type: DeptEntity })
   @Perm(permissions.READ)
-  async info(@Param('id') id: string) {
+  async info(@ParamId() id: number) {
     return await this.deptService.info(id);
   }
 
   @Put('default/:id')
   @ApiOperation({ summary: '设为默认部门' })
   @Perm(permissions.UPDATE)
-  async default(@Param('id') id: string) {
+  async default(@ParamId() id: number) {
     await this.deptService.default(id);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: '删除部门' })
   @Perm(permissions.DELETE)
-  async delete(@Param('id') id: string): Promise<void> {
+  async delete(@ParamId() id: number): Promise<void> {
     // 判断是否有子部门
     const children = await this.deptService.countChildDept(id);
     if (children > 0) {

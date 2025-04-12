@@ -23,6 +23,9 @@ import {
   Perm,
 } from '~/modules/auth/decorators/permission.decorator';
 import { Public } from '~/modules/auth/decorators/public.decorator';
+import { CreatorPipe } from '~/common/pipes/creator.pipe';
+import { UpdaterPip } from '~/common/pipes/updater.pipe';
+import { ParamId } from '~/common/decorators/param-id.decorator';
 
 export const permissions = definePermission('system:parameter', {
   LIST: 'list',
@@ -49,14 +52,14 @@ export class ParameterController {
   @Post()
   @ApiOperation({ summary: '创建参数' })
   @Perm(permissions.CREATE)
-  async create(@Body() createParameterDto: ParameterCreateDto) {
+  async create(@Body(CreatorPipe) createParameterDto: ParameterCreateDto) {
     await this.parameterService.create(createParameterDto);
   }
 
   @Get('info/:id')
   @ApiOperation({ summary: '查询参数详情' })
   @Perm(permissions.READ)
-  async findOne(@Param('id') id: string) {
+  async findOne(@ParamId() id: number) {
     return await this.parameterService.findOne(id);
   }
 
@@ -70,14 +73,17 @@ export class ParameterController {
   @Put(':id')
   @ApiOperation({ summary: '更新参数' })
   @Perm(permissions.UPDATE)
-  async update(@Param('id') id: string, @Body() dto: ParameterUpdateDto) {
+  async update(
+    @ParamId() id: number,
+    @Body(UpdaterPip) dto: ParameterUpdateDto,
+  ) {
     await this.parameterService.update(id, dto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: '删除参数' })
   @Perm(permissions.DELETE)
-  async delete(@Param('id') id: string) {
+  async delete(@ParamId() id: number) {
     await this.parameterService.delete(id);
   }
 }

@@ -31,7 +31,7 @@ export class AccountController {
   async profile(@AuthUser() user: IAuthUser): Promise<UserProfileDto> {
     if (user.roles.includes(Roles.SUPER_ADMIN)) {
       return {
-        id: Roles.SUPER_ADMIN,
+        id: -1,
         username: Roles.SUPER_ADMIN,
         nickName: '超级管理员',
         avatar:

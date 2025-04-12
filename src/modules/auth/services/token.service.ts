@@ -44,7 +44,7 @@ export class TokenService {
   /**
    * 获取用户所有的accessToken
    */
-  async findUserAccessToken(uid: string) {
+  async findUserAccessToken(uid: number) {
     return AccessTokenEntity.find({
       where: {
         user: {
@@ -84,7 +84,7 @@ export class TokenService {
    * @param uid 用户id
    * @param roles 角色列表
    */
-  async generateAccessToken(uid: string, roles: string[]) {
+  async generateAccessToken(uid: number, roles: string[]) {
     const payload: IAuthUser = {
       uid,
       roles,
@@ -146,13 +146,28 @@ export class TokenService {
    * @param roles
    * @returns
    */
-  async generateSuperAccessToken(uid: string, roles: string[]) {
+  async generateSuperAccessToken(uid: number, roles: string[]) {
     const payload: IAuthUser = {
       uid,
       roles,
     };
 
     const jwtSign = await this.generateJwtSign(payload);
+
+    // 保存 accessToken 到数据库
+    const accessToken = new AccessTokenEntity();
+    accessToken.value = jwtSign;
+    accessToken.user = {
+      id: uid,
+    } as UserEntity;
+    accessToken.createdAt = new Date();
+    accessToken.expiredAt = dayjs()
+      .add(this.securityConfig.jwtExpire, 'second')
+      .toDate();
+
+    await accessToken.save();
+
+    await this.generateRefreshToken(accessToken);
 
     return {
       accessToken: jwtSign,

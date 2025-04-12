@@ -38,6 +38,8 @@ export class DeptService {
     if (name) {
       const deptList = await this.deptRepository
         .createQueryBuilder('dept')
+        .leftJoinAndSelect('dept.creator', 'creator')
+        .leftJoinAndSelect('dept.updater', 'updater')
         .where('dept.name LIKE :name', { name: `%${name}%` })
         .getMany();
 
@@ -50,7 +52,7 @@ export class DeptService {
     }
     const deptTree = await this.deptRepository.findTrees({
       depth: 2,
-      relations: ['parent'],
+      relations: ['parent', 'creator', 'updater'],
     });
 
     return deepSortTree(deptTree, 'order');
@@ -78,7 +80,7 @@ export class DeptService {
     }
   }
 
-  async update(id: string, deptUpdateDto: DeptUpdateDto): Promise<void> {
+  async update(id: number, deptUpdateDto: DeptUpdateDto): Promise<void> {
     const { parentId, ...rest } = deptUpdateDto;
     const item = await this.deptRepository
       .createQueryBuilder('dept')
@@ -100,7 +102,7 @@ export class DeptService {
     }
   }
 
-  async info(id: string): Promise<DeptEntity> {
+  async info(id: number): Promise<DeptEntity> {
     const dept = await this.deptRepository
       .createQueryBuilder('dept')
       .leftJoinAndSelect('dept.parent', 'parent')
@@ -114,12 +116,12 @@ export class DeptService {
     return dept;
   }
 
-  async default(id: string) {
+  async default(id: number) {
     await this.deptRepository.update({ id }, { default: 1 });
     await this.setDefaultDept(id);
   }
 
-  async setDefaultDept(id: string) {
+  async setDefaultDept(id: number) {
     await this.deptRepository.update(
       {
         id: Not(id),
@@ -128,11 +130,11 @@ export class DeptService {
     );
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     await this.deptRepository.delete(id);
   }
 
-  async countDeptUser(id: string): Promise<number> {
+  async countDeptUser(id: number): Promise<number> {
     const count = await this.userRepository.countBy({
       dept: { id },
     });
@@ -140,7 +142,7 @@ export class DeptService {
     return count;
   }
 
-  async countChildDept(id: string): Promise<number> {
+  async countChildDept(id: number): Promise<number> {
     const item = await this.deptRepository.findOneBy({ id });
 
     return (await this.deptRepository.countDescendants(item)) - 1;

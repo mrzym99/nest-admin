@@ -47,19 +47,22 @@ export class DictTypeService {
     await this.dictTypeRepository.save(dto);
   }
 
-  async info(id: string) {
+  async info(id: number) {
     return await this.dictTypeRepository.findOneBy({ id });
   }
 
-  async update(id: string, dto: DictTypeUpdateDto) {
+  async update(id: number, dto: DictTypeUpdateDto) {
     await this.dictTypeRepository.update(id, dto);
   }
 
-  async batchUpdateStatus({ ids, status }: DictTypeStatusDto) {
-    await this.dictTypeRepository.update({ id: In(ids) }, { status });
+  async batchUpdateStatus({ ids, status, updatedBy }: DictTypeStatusDto) {
+    await this.dictTypeRepository.update(
+      { id: In(ids) },
+      { status, updatedBy },
+    );
   }
 
-  async delete(id: string) {
+  async delete(id: number) {
     await this.dictItemService.validateDelete(id);
     await this.dictTypeRepository.delete(id);
   }

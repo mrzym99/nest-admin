@@ -16,7 +16,7 @@ export class CaptchaLogService {
     account: string,
     code: string,
     provider: 'sms' | 'email' | 'captcha',
-  ): Promise<string> {
+  ): Promise<number> {
     const captchaLog = await this.captchaLogRepository.save({
       account,
       code,

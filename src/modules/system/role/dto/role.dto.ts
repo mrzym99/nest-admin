@@ -9,9 +9,10 @@ import {
   MinLength,
 } from 'class-validator';
 import { ToNumber } from '~/common/decorators/transform.decorator';
+import { OperatorDto } from '~/common/dto/operator.dto';
 import { PagerDto } from '~/common/dto/pager.dto';
 
-export class RoleCreateDto {
+export class RoleCreateDto extends OperatorDto {
   @ApiProperty({
     description: '角色名称',
     example: '管理员',

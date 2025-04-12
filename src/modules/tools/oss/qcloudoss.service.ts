@@ -50,9 +50,9 @@ export class QClouldOssService {
             reject(err);
           } else {
             let list = !isEmpty(data.Contents)
-              ? data.Contents.map((item) => {
+              ? data.Contents.map((item, index) => {
                   return {
-                    id: item.ETag,
+                    id: index + 1,
                     name: item.Key,
                     size: getSize(Number(item.Size)),
                     lastModified: item.LastModified,
@@ -74,7 +74,7 @@ export class QClouldOssService {
 
             resolve(
               createPaginationObject({
-                currentPage: 1,
+                currentPage: currentPage,
                 pageSize: pageSize,
                 total: list.length,
                 list,

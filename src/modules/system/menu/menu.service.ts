@@ -101,7 +101,7 @@ export class MenuService {
    * 获取菜单详情
    * @param id
    */
-  async getMenuItemInfo(id: string): Promise<MenuEntity> {
+  async getMenuItemInfo(id: number): Promise<MenuEntity> {
     return await this.menuRepository.findOneBy({ id });
   }
 
@@ -109,7 +109,7 @@ export class MenuService {
    * 获取菜单详情 和 菜单父级信息
    * @param id
    */
-  async getMenuItemAndParentInfo(id: string) {
+  async getMenuItemAndParentInfo(id: number) {
     const menu = await this.getMenuItemInfo(id);
     let parentMenu;
     if (menu && menu.parentId) {
@@ -128,7 +128,7 @@ export class MenuService {
    */
   async validateRepeat(
     dto: MenuCreateDto | MenuUpdateDto,
-    id?: string,
+    id?: number,
   ): Promise<void | never> {
     if (id) {
       const one = await this.menuRepository.findOne({
@@ -142,11 +142,14 @@ export class MenuService {
       });
 
       // 有 id 时需要判断是不是当前菜单未修改
-      if (one && one.id !== id) throw new BizException(ErrorEnum.MENU_EXIST);
+      if (one && one.id !== Number(id))
+        throw new BizException(ErrorEnum.MENU_EXIST);
     } else {
       const one = await this.menuRepository.findOne({
         where: {
           parentId: dto.parentId,
+          ...(dto.title && { title: dto.title }),
+          ...(dto.i18nKey && { i18nKey: dto.i18nKey }),
           ...(dto.type && { type: dto.type }),
           ...(dto.name && { name: dto.name }),
           ...(dto.path && { path: dto.path }),
@@ -198,7 +201,7 @@ export class MenuService {
    * @param id
    * @param MenuUpdateDto
    */
-  async update(id: string, MenuUpdateDto: MenuUpdateDto): Promise<void> {
+  async update(id: number, MenuUpdateDto: MenuUpdateDto): Promise<void> {
     await this.menuRepository.update(id, MenuUpdateDto);
   }
 
@@ -206,7 +209,7 @@ export class MenuService {
    * 获取当前用户的菜单
    * @param uid 用户id
    */
-  async getMenusByUserId(uid: string) {
+  async getMenusByUserId(uid: number) {
     const roleIds = await this.roleService.getRoleIdsByUserId(uid);
     let menus: MenuEntity[] = [];
     if (isEmpty(roleIds)) return generateRoutes([]);
@@ -249,7 +252,7 @@ export class MenuService {
    * 验证菜单是否被角色使用
    * @param menuId
    */
-  async validateRoleUsed(menuId: string) {
+  async validateRoleUsed(menuId: number) {
     return !!(await this.roleRepository.findOne({
       where: {
         menus: {
@@ -263,8 +266,8 @@ export class MenuService {
    * 获取当前菜单的所有子级
    * @param parentId
    */
-  async findChildMenus(parentId: string): Promise<string[]> {
-    const allMenusId: any[] = [];
+  async findChildMenus(parentId: number): Promise<number[]> {
+    const allMenusId: number[] = [];
     // 先找到当前菜单的所有子级
     const menus = await this.menuRepository.findBy({
       parentId,
@@ -286,7 +289,7 @@ export class MenuService {
    * 获取当前用户的所有权限
    * @param uid 用户id
    */
-  async getPermissions(uid: string): Promise<string[]> {
+  async getPermissions(uid: number): Promise<string[]> {
     const roleIds = await this.roleService.getRoleIdsByUserId(uid);
 
     let permissions: string[] = [];
@@ -334,15 +337,19 @@ export class MenuService {
     return permissions;
   }
 
-  async batchUpdateStatus({ ids, status }: MenuStatusDto): Promise<void> {
-    await this.menuRepository.update({ id: In(ids) }, { status });
+  async batchUpdateStatus({
+    ids,
+    status,
+    updatedBy,
+  }: MenuStatusDto): Promise<void> {
+    await this.menuRepository.update({ id: In(ids) }, { status, updatedBy });
   }
 
   /**
    * 删除菜单
    * @param ids
    */
-  async delete(ids: string[]): Promise<void> {
+  async delete(ids: number[]): Promise<void> {
     await this.menuRepository.delete(ids);
   }
 

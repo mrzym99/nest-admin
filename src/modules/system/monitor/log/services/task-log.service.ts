@@ -14,14 +14,14 @@ export class TaskLogService {
   ) {}
 
   async create(
-    tid: string,
+    tid: number,
     status: number,
     time?: number,
     err?: string,
-  ): Promise<string> {
+  ): Promise<number> {
     const taskLog = await this.taskLogRepository.save({
       status,
-      time,
+      consumeTime: time,
       detail: err,
       task: {
         id: tid,

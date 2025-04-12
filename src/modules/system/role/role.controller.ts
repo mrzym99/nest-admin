@@ -23,6 +23,8 @@ import {
 } from '~/modules/auth/decorators/permission.decorator';
 import { SseService } from '~/modules/sse/sse.service';
 import { MenuService } from '../menu/menu.service';
+import { UpdaterPip } from '~/common/pipes/updater.pipe';
+import { ParamId } from '~/common/decorators/param-id.decorator';
 
 export const permissions = definePermission('system:role', {
   LIST: 'list',
@@ -47,8 +49,8 @@ export class RoleController {
   @ApiOperation({ summary: '获取角色列表' })
   @ApiResult({ type: [RoleEntity], isPage: true })
   @Perm(permissions.LIST)
-  list(@Query() dto: RoleQueryDto) {
-    return this.roleService.list(dto);
+  async list(@Query() dto: RoleQueryDto) {
+    return await this.roleService.list(dto);
   }
 
   @Get('all')
@@ -69,8 +71,8 @@ export class RoleController {
   @ApiOperation({ summary: '更新角色' })
   @Perm(permissions.UPDATE)
   async update(
-    @Param('id') id: string,
-    @Body() RoleUpdateDto: RoleUpdateDto,
+    @ParamId() id: number,
+    @Body(UpdaterPip) RoleUpdateDto: RoleUpdateDto,
   ): Promise<void> {
     await this.roleService.update(id, RoleUpdateDto);
     //  更新角色对应的用户权限 只进行更新 redis 缓存
@@ -83,21 +85,21 @@ export class RoleController {
   @ApiOperation({ summary: '获取角色信息' })
   @ApiResult({ type: RoleEntity })
   @Perm(permissions.READ)
-  async info(@Param('id') id: string) {
+  async info(@ParamId() id: number) {
     return await this.roleService.info(id);
   }
 
   @Put('default/:id')
   @ApiOperation({ summary: '设为默认角色' })
   @Perm(permissions.UPDATE)
-  async default(@Param('id') id: string) {
+  async default(@ParamId() id: number) {
     return await this.roleService.default(id);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: '删除角色' })
   @Perm(permissions.DELETE)
-  async delete(@Param('id') id: string): Promise<void> {
+  async delete(@ParamId() id: number): Promise<void> {
     // 判断此角色是否关联了用户 关联了用户就不能通过校验 不能删除
     await this.roleService.validateRelateUser(id);
     // 默认角色不能删除

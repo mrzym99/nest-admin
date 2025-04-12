@@ -8,7 +8,11 @@ import { ErrorEnum } from '~/constants/error.constant';
 import { LoginLogService } from '../system/monitor/log/services/login-log.service';
 import { InjectRedis } from '~/common/decorators/inject-redis.decorator';
 import Redis from 'ioredis';
-import { genAuthPermKey, genTokenBlacklistKey } from '~/helper/gen-redis-key';
+import {
+  genAuthPermKey,
+  genForcedOfflineKey,
+  genTokenBlacklistKey,
+} from '~/helper/gen-redis-key';
 import { MenuService } from '../system/menu/menu.service';
 import { RoleService } from '../system/role/role.service';
 import {
@@ -62,6 +66,10 @@ export class AuthService {
       throw new BizException(ErrorEnum.USER_BANNED);
     }
 
+    if (await this.redis.get(genForcedOfflineKey(findOne.id))) {
+      throw new BizException(ErrorEnum.USER_FORCED_OFFLINE);
+    }
+
     if (!(await argon2.verify(findOne.password, password))) {
       throw new BizException(ErrorEnum.USER_NAME_OR_PASSWORD_ERROR);
     }
@@ -102,7 +110,7 @@ export class AuthService {
     }
 
     const { accessToken } = await this.tokenService.generateSuperAccessToken(
-      superAdminUsername,
+      -1,
       [Roles.SUPER_ADMIN],
     );
 
@@ -149,7 +157,7 @@ export class AuthService {
    * 获取用户菜单
    * @param uid 用户id
    */
-  async getMenus(uid: string) {
+  async getMenus(uid: number) {
     return await this.menuService.getMenusByUserId(uid);
   }
 
@@ -161,7 +169,7 @@ export class AuthService {
    * 获取用户权限
    * @param uid 用户id
    */
-  async getPermissions(uid: string): Promise<string[]> {
+  async getPermissions(uid: number): Promise<string[]> {
     return this.menuService.getPermissions(uid);
   }
 
@@ -174,7 +182,7 @@ export class AuthService {
    * @param uid 用户 id
    * @param permissions  用户权限
    */
-  async setPermissionsCache(uid: string, permissions: string[]): Promise<void> {
+  async setPermissionsCache(uid: number, permissions: string[]): Promise<void> {
     await this.redis.set(genAuthPermKey(uid), JSON.stringify(permissions));
   }
 
@@ -182,7 +190,7 @@ export class AuthService {
    * 获取权限缓存
    * @param uid 用户id
    */
-  async getPermissionsCache(uid: string): Promise<string[]> {
+  async getPermissionsCache(uid: number): Promise<string[]> {
     const permissions = await this.redis.get(genAuthPermKey(uid));
     return permissions ? JSON.parse(permissions) : [];
   }

@@ -32,7 +32,7 @@ export class RoleService {
       })
       .orderBy({ 'role.createdAt': 'ASC' });
 
-    return paginate<RoleEntity>(queryBuilder, { currentPage, pageSize });
+    return await paginate<RoleEntity>(queryBuilder, { currentPage, pageSize });
   }
 
   async getAllEnableRoles() {
@@ -57,7 +57,7 @@ export class RoleService {
   }
 
   async update(
-    id: string,
+    id: number,
     { menuIds, ...roleUpdateDto }: RoleUpdateDto,
   ): Promise<void> {
     await this.roleRepository.update(id, roleUpdateDto);
@@ -84,12 +84,12 @@ export class RoleService {
     }
   }
 
-  async default(id: string) {
+  async default(id: number) {
     await this.roleRepository.update({ id }, { default: 1 });
     await this.setDefaultRole(id);
   }
 
-  async setDefaultRole(id: string) {
+  async setDefaultRole(id: number) {
     await this.roleRepository.update(
       {
         id: Not(id),
@@ -98,7 +98,7 @@ export class RoleService {
     );
   }
 
-  async info(id: string) {
+  async info(id: number) {
     const info = await this.roleRepository.findOne({
       where: {
         id,
@@ -115,7 +115,7 @@ export class RoleService {
     return { ...info, menuIds: menus.map((item) => item.id) };
   }
 
-  async validateRelateUser(roleId: string) {
+  async validateRelateUser(roleId: number) {
     const exists = await this.roleRepository.exists({
       where: { users: { roles: { id: roleId } } },
     });
@@ -123,7 +123,7 @@ export class RoleService {
     if (exists) throw new BusinessException(ErrorEnum.ROLE_USED_BY_USER);
   }
 
-  async getRoleIdsByUserId(userId: string): Promise<string[]> {
+  async getRoleIdsByUserId(userId: number): Promise<number[]> {
     const roles = await this.roleRepository.find({
       where: {
         users: { id: userId },
@@ -134,7 +134,7 @@ export class RoleService {
     return [];
   }
 
-  async getRoleValuesByRoleIds(roleIds: string[]) {
+  async getRoleValuesByRoleIds(roleIds: number[]) {
     const roles = await this.roleRepository.find({
       where: {
         id: In(roleIds),
@@ -145,7 +145,7 @@ export class RoleService {
     return [];
   }
 
-  async validateIsDefault(id: string) {
+  async validateIsDefault(id: number) {
     const role = await this.roleRepository.findOne({
       where: {
         id,
@@ -154,7 +154,7 @@ export class RoleService {
     if (role.default) throw new BusinessException(ErrorEnum.ROLE_IS_DEFAULT);
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     await this.roleRepository.delete(id);
   }
 }

@@ -19,6 +19,7 @@ import {
 } from '~/modules/auth/decorators/permission.decorator';
 import { TaskCreateDto, TaskQueryDto, TaskUpdateDto } from './task.dto';
 import { Pagination } from '~/helper/pagination/pagination';
+import { ParamId } from '~/common/decorators/param-id.decorator';
 
 export const permissions = definePermission('system:task', {
   LIST: 'list',
@@ -62,7 +63,7 @@ export class TaskController {
   @ApiOperation({ summary: '更新任务' })
   @Perm(permissions.UPDATE)
   async update(
-    @Param('id') id: string,
+    @ParamId() id: number,
     @Body() dto: TaskUpdateDto,
   ): Promise<void> {
     const serviceCall = dto.service.split('.');
@@ -74,35 +75,35 @@ export class TaskController {
   @ApiOperation({ summary: '获取任务详情' })
   @ApiResult({ type: TaskEntity })
   @Perm(permissions.READ)
-  async info(@Param('id') id: string): Promise<TaskEntity> {
+  async info(@ParamId() id: number): Promise<TaskEntity> {
     return await this.taskService.info(id);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: '删除任务' })
   @Perm(permissions.DELETE)
-  async delete(@Param('id') id: string): Promise<void> {
+  async delete(@ParamId() id: number): Promise<void> {
     await this.taskService.delete(id);
   }
 
   @Put(':id/once')
   @ApiOperation({ summary: '立即执行一次任务' })
   @Perm(permissions.ONCE)
-  async once(@Param('id') id: string): Promise<void> {
+  async once(@ParamId() id: number): Promise<void> {
     await this.taskService.once(id);
   }
 
   @Put(':id/stop')
   @ApiOperation({ summary: '停止任务' })
   @Perm(permissions.STOP)
-  async stop(@Param('id') id: string): Promise<void> {
+  async stop(@ParamId() id: number): Promise<void> {
     await this.taskService.stop(id);
   }
 
   @Put(':id/start')
   @ApiOperation({ summary: '启动任务' })
   @Perm(permissions.START)
-  async start(@Param('id') id: string): Promise<void> {
+  async start(@ParamId() id: number): Promise<void> {
     await this.taskService.start(id);
   }
 }

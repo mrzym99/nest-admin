@@ -4,8 +4,8 @@ import { RoleEntity } from '../role/role.entity';
 
 @Entity('sys_menu')
 export class MenuEntity extends CompleteEntity {
-  @Column({ name: 'parent_id', comment: '菜单父级ID' })
-  parentId: string;
+  @Column({ name: 'parent_id', nullable: true, comment: '菜单父级ID' })
+  parentId: number;
 
   @Column({ nullable: true, comment: '菜单类型' })
   type: number;

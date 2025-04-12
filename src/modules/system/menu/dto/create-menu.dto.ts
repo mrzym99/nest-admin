@@ -13,6 +13,7 @@ import {
   ValidateIf,
 } from 'class-validator';
 import { ToNumber } from '~/common/decorators/transform.decorator';
+import { OperatorDto } from '~/common/dto/operator.dto';
 
 export enum MenuType {
   // 目录
@@ -35,11 +36,12 @@ export enum OpenMode {
   BLANK = 0,
 }
 
-export class MenuCreateDto {
+export class MenuCreateDto extends OperatorDto {
   @ApiProperty({ description: '父级菜单id' })
   @IsOptional()
-  @IsString()
-  parentId?: string;
+  @IsNumber()
+  @ToNumber()
+  parentId?: number;
 
   @ApiProperty({ description: '菜单/权限名称' })
   @IsString()
@@ -188,17 +190,17 @@ export class MenuQueryDto {
 
   @ApiProperty({ description: '菜单状态' })
   @IsOptional()
-  @ToNumber()
   @IsIn([0, 1])
+  @ToNumber()
   status: number;
 }
 
-export class MenuStatusDto {
+export class MenuStatusDto extends OperatorDto {
   @ApiProperty({
     description: '用户ID数组',
   })
   @IsArray()
-  ids: string[];
+  ids: number[];
 
   @ApiProperty({
     description: '状态',

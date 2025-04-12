@@ -7,6 +7,7 @@ import {
   Res,
   Sse,
   Headers,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { SseService, MessageEvent } from './sse.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -40,13 +41,14 @@ export class SseController implements BeforeApplicationShutdown {
   @ApiOperation({ summary: 'sse连接' })
   @Sse(':uid')
   async sse(
-    @Param('uid') uid: string,
+    @Param('uid', ParseIntPipe) uid: number,
     @Req() req: ExpressRequest,
     @Res() res: Subscriber<MessageEvent>[],
     @Ip() ip: string,
     @Headers('user-agent') ua: string,
   ): Promise<Observable<any>> {
-    this.replayMap.set(uid, res);
+    this.replayMap.set(String(uid), res);
+
     // 上线用户
     this.onlineService.addOnlineUser(req.accessToken, ip, ua);
 
@@ -63,7 +65,7 @@ export class SseController implements BeforeApplicationShutdown {
       req.on('close', () => {
         subscription.unsubscribe();
         this.sseService.removeClient(uid, subscriber);
-        this.replayMap.delete(uid);
+        this.replayMap.delete(String(uid));
         this.onlineService.removeOnlineUser(req.accessToken);
         console.log(`user-${uid} 断开连接`);
       });

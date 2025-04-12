@@ -29,7 +29,7 @@ export class ParameterService {
     return paginate<ParameterEntity>(queryBuilder, { currentPage, pageSize });
   }
 
-  async findOne(id: string) {
+  async findOne(id: number) {
     return await this.parameterRepository.findBy({ id });
   }
 
@@ -39,11 +39,11 @@ export class ParameterService {
     return one.value;
   }
 
-  async update(id: string, dto: ParameterUpdateDto) {
+  async update(id: number, dto: ParameterUpdateDto) {
     await this.parameterRepository.update(id, dto);
   }
 
-  async delete(id: string) {
+  async delete(id: number) {
     await this.parameterRepository.delete(id);
   }
 }

@@ -32,9 +32,9 @@ export class AliOssService {
     const res = await this.client.listV2({}, {});
 
     let list = !isEmpty(res.objects)
-      ? res.objects.map((item) => {
+      ? res.objects.map((item, index) => {
           return {
-            id: item.etag,
+            id: index + 1,
             name: item.name,
             size: getSize(item.size),
             lastModified: item.lastModified,
@@ -52,7 +52,7 @@ export class AliOssService {
     list = list.slice((currentPage - 1) * pageSize, pageSize * currentPage);
 
     return createPaginationObject({
-      currentPage: 1,
+      currentPage: currentPage,
       pageSize: pageSize,
       total: list.length,
       list,

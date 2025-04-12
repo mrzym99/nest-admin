@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
-import { CompleteEntity } from '~/common/entity/common.eneity';
+import { CommonEntity } from '~/common/entity/common.eneity';
 import { UserEntity } from '~/modules/user/user.entity';
 
 @Entity('sys_login_log')
-export class LoginLogEntity extends CompleteEntity {
+export class LoginLogEntity extends CommonEntity {
   @Column({ nullable: true })
   @ApiProperty({ description: 'IP 地址' })
   ip: string;

@@ -16,8 +16,7 @@ export class ProfileEntity extends CommonEntity {
 
   @ApiProperty({ description: '性别 1 男 0 女' })
   @Column({
-    type: 'enum',
-    enum: [0, 1],
+    type: 'tinyint',
     default: 1,
     comment: '性别 1 男 0 女',
   })

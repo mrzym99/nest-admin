@@ -3,7 +3,7 @@ import { MenuEntity } from '~/modules/system/menu/menu.entity';
 import { isExternal, uniqueSlash } from './tool.util';
 
 export interface RouteRecordRaw {
-  id: string;
+  id: number;
   path: string;
   name: string;
   component?: string;

@@ -26,6 +26,9 @@ import {
   getDefinePermissions,
   Perm,
 } from '~/modules/auth/decorators/permission.decorator';
+import { CreatorPipe } from '~/common/pipes/creator.pipe';
+import { UpdaterPip } from '~/common/pipes/updater.pipe';
+import { ParamId } from '~/common/decorators/param-id.decorator';
 
 export const permissions = definePermission('system:menu', {
   LIST: 'list',
@@ -60,19 +63,19 @@ export class MenuController {
   @Post()
   @ApiOperation({ summary: '创建菜单或权限' })
   @Perm(permissions.CREATE)
-  async create(@Body() MenuCreateDto: MenuCreateDto): Promise<void> {
+  async create(@Body(CreatorPipe) menuCreateDto: MenuCreateDto): Promise<void> {
     // 验证菜单或权限 有没有重复添加
-    await this.menuService.validateRepeat(MenuCreateDto);
-    await this.menuService.validate(MenuCreateDto);
-    await this.menuService.create(MenuCreateDto);
+    await this.menuService.validateRepeat(menuCreateDto);
+    await this.menuService.validate(menuCreateDto);
+    await this.menuService.create(menuCreateDto);
   }
 
   @Put('update/:id')
   @ApiOperation({ summary: '更新菜单或权限' })
   @Perm(permissions.UPDATE)
   async update(
-    @Param('id') id: string,
-    @Body() menuUpdateDto: MenuUpdateDto,
+    @ParamId() id: number,
+    @Body(UpdaterPip) menuUpdateDto: MenuUpdateDto,
   ): Promise<void> {
     await this.menuService.validateRepeat(menuUpdateDto, id);
     await this.menuService.validate(menuUpdateDto);
@@ -83,7 +86,7 @@ export class MenuController {
   @ApiOperation({ summary: '获取菜单详情' })
   @ApiResult({ type: [MenuInfoModel] })
   @Perm(permissions.READ)
-  findOne(@Param('id') id: string) {
+  findOne(@ParamId() id: number) {
     return this.menuService.getMenuItemAndParentInfo(id);
   }
 
@@ -96,20 +99,20 @@ export class MenuController {
   @Put('updateStatus')
   @ApiOperation({ summary: '修改菜单状态' })
   @Perm(permissions.UPDATE)
-  async updateStatus(@Query() dto: MenuStatusDto): Promise<void> {
+  async updateStatus(@Body(UpdaterPip) dto: MenuStatusDto): Promise<void> {
     await this.menuService.batchUpdateStatus(dto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: '删除菜单或权限' })
   @Perm(permissions.DELETE)
-  async delete(@Param('id') id: string): Promise<void> {
+  async delete(@ParamId() id: number): Promise<void> {
     //判断这个菜单是否有角色引用
     if (await this.menuService.validateRoleUsed(id)) {
       throw new BizException(ErrorEnum.MENU_USED_BY_ROLE);
     }
     // 获取这个菜单的所有子菜单
-    const ids: string[] = await this.menuService.findChildMenus(id);
+    const ids: number[] = await this.menuService.findChildMenus(id);
 
     // 删除这个菜单和子菜单
     await this.menuService.delete([id, ...ids]);

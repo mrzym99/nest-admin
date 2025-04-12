@@ -7,11 +7,16 @@ import { UserEntity } from '../user/user.entity';
 export interface MessageEvent {
   data?: string | number | object;
   id?: string;
-  type?: 'ping' | 'close' | 'updatePermsAndMenus' | 'updateOnlineUsers';
+  type?:
+    | 'ping'
+    | 'close'
+    | 'logout'
+    | 'updatePermsAndMenus'
+    | 'updateOnlineUsers';
   retry?: number;
 }
 
-const clientMap: Map<string, Subscriber<MessageEvent>[]> = new Map();
+const clientMap: Map<number, Subscriber<MessageEvent>[]> = new Map();
 
 @Injectable()
 export class SseService {
@@ -20,7 +25,7 @@ export class SseService {
    * @param uid 用户id
    * @param subscriber 订阅者
    */
-  addClient(uid: string, subscriber: Subscriber<MessageEvent>) {
+  addClient(uid: number, subscriber: Subscriber<MessageEvent>) {
     const clients = clientMap.get(uid) || [];
     clientMap.set(uid, [...clients, subscriber]);
   }
@@ -30,7 +35,7 @@ export class SseService {
    * @param uid 用户id
    * @param subscriber 订阅者
    */
-  removeClient(uid: string, subscriber: Subscriber<MessageEvent>) {
+  removeClient(uid: number, subscriber: Subscriber<MessageEvent>) {
     const clients = clientMap.get(uid) || [];
     const index = clients.findIndex((client) => client === subscriber);
     if (index > -1) {
@@ -42,7 +47,7 @@ export class SseService {
    * 移除指定用户的连接
    * @param uid 用户id
    */
-  removeClients(uid: string) {
+  removeClients(uid: number) {
     const clients = clientMap.get(uid) || [];
     clients.forEach((client) => client?.complete());
     clientMap.delete(uid);
@@ -53,7 +58,7 @@ export class SseService {
    * @param uid 用户id
    * @param data 消息内容
    */
-  sendToClients(uid: string, data: MessageEvent) {
+  sendToClients(uid: number, data: MessageEvent) {
     const clients = clientMap.get(uid) || [];
     clients.forEach((client) => client?.next?.(data));
   }
@@ -72,8 +77,8 @@ export class SseService {
    * 通知客户端更新菜单
    * @param uid 用户id / 用户ids
    */
-  notifyClientToUpdateMenusByUserId(uid: string | string[]) {
-    const userIds = [].concat(uid) as string[];
+  notifyClientToUpdateMenusByUserId(uid: number | number[]) {
+    const userIds = [].concat(uid) as number[];
     userIds.forEach((uid) => {
       this.sendToClients(uid, {
         type: 'updatePermsAndMenus',
@@ -101,7 +106,7 @@ export class SseService {
    * 当这些角色有变化时 通知客户端更新菜单
    * @param roleIds 角色ids
    */
-  async noticeClientToUpdateMenusByRoleIds(roleIds: string[]) {
+  async noticeClientToUpdateMenusByRoleIds(roleIds: number[]) {
     const users = await UserEntity.find({
       where: {
         roles: {

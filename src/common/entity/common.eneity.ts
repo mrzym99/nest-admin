@@ -4,8 +4,11 @@ import {
   BaseEntity,
   Column,
   CreateDateColumn,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { UserEntity } from '~/modules/user/user.entity';
 
 export abstract class CommonEntity extends BaseEntity {
   // 使用 id 作为主键
@@ -13,8 +16,8 @@ export abstract class CommonEntity extends BaseEntity {
   @ApiProperty({
     description: '主键',
   })
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @ApiProperty({
     description: '创建时间',
@@ -38,7 +41,7 @@ export abstract class CompleteEntity extends CommonEntity {
     comment: '创建人',
     nullable: true,
   })
-  createdBy: string;
+  createdBy: number;
 
   @ApiHideProperty()
   @Exclude()
@@ -47,5 +50,14 @@ export abstract class CompleteEntity extends CommonEntity {
     comment: '修改者',
     nullable: true,
   })
-  updatedBy: string;
+  updatedBy: number;
+
+  // 可以联查将用户信息查出来
+  @ManyToOne(() => UserEntity)
+  @JoinColumn({ name: 'created_by' })
+  creator: UserEntity;
+
+  @ManyToOne(() => UserEntity)
+  @JoinColumn({ name: 'updated_by' })
+  updater: UserEntity;
 }

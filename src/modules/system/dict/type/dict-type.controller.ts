@@ -25,6 +25,9 @@ import {
   definePermission,
   Perm,
 } from '~/modules/auth/decorators/permission.decorator';
+import { CreatorPipe } from '~/common/pipes/creator.pipe';
+import { UpdaterPip } from '~/common/pipes/updater.pipe';
+import { ParamId } from '~/common/decorators/param-id.decorator';
 
 export const permissions = definePermission('system:dict-type', {
   LIST: 'list',
@@ -60,7 +63,9 @@ export class DictTypeController {
   @Post()
   @ApiOperation({ summary: '创建字典类型' })
   @Perm(permissions.CREATE)
-  async create(@Body() createTypeDto: DictTypeCreateDto): Promise<void> {
+  async create(
+    @Body(CreatorPipe) createTypeDto: DictTypeCreateDto,
+  ): Promise<void> {
     await this.dictTypeService.create(createTypeDto);
   }
 
@@ -68,7 +73,7 @@ export class DictTypeController {
   @ApiOperation({ summary: '字典类型详情' })
   @ApiResult({ type: DictTypeEntity })
   @Perm(permissions.READ)
-  info(@Param('id') id: string): Promise<DictTypeEntity> {
+  info(@ParamId() id: number): Promise<DictTypeEntity> {
     return this.dictTypeService.info(id);
   }
 
@@ -76,8 +81,8 @@ export class DictTypeController {
   @ApiOperation({ summary: '修改字典类型' })
   @Perm(permissions.UPDATE)
   async update(
-    @Param('id') id: string,
-    @Body() dto: DictTypeUpdateDto,
+    @ParamId() id: number,
+    @Body(UpdaterPip) dto: DictTypeUpdateDto,
   ): Promise<void> {
     await this.dictTypeService.update(id, dto);
   }
@@ -85,14 +90,14 @@ export class DictTypeController {
   @Put('updateStatus')
   @ApiOperation({ summary: '修改字典类型状态' })
   @Perm(permissions.UPDATE)
-  async updateStatus(@Body() dto: DictTypeStatusDto): Promise<void> {
+  async updateStatus(@Body(UpdaterPip) dto: DictTypeStatusDto): Promise<void> {
     await this.dictTypeService.batchUpdateStatus(dto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: '删除字典类型' })
   @Perm(permissions.DELETE)
-  delete(@Param('id') id: string) {
+  delete(@ParamId() id: number) {
     return this.dictTypeService.delete(id);
   }
 }

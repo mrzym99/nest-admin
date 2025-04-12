@@ -11,8 +11,8 @@ import { AccessTokenEntity } from './access-token.entity';
 
 @Entity('user_refresh_token')
 export class RefreshTokenEntity extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @Column({ nullable: false })
   value: string;

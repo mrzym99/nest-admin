@@ -3,17 +3,20 @@ import {
   IsArray,
   IsEnum,
   IsInt,
+  IsNumber,
   IsOptional,
   IsString,
   MinLength,
 } from 'class-validator';
 import { ToNumber } from '~/common/decorators/transform.decorator';
+import { OperatorDto } from '~/common/dto/operator.dto';
 import { PagerDto } from '~/common/dto/pager.dto';
 
 export class DictItemCreateDto {
   @ApiProperty({ description: '字典类型 ID', required: true })
-  @IsString()
-  typeId: string;
+  @IsNumber()
+  @ToNumber()
+  typeId: number;
 
   @ApiProperty({ description: '字典项名称', required: true })
   @IsString()
@@ -46,8 +49,9 @@ export class DictItemUpdateDto extends PartialType(DictItemCreateDto) {}
 
 export class DictItemQueryDto extends PagerDto {
   @ApiProperty({ description: '字典类型 ID', required: true })
-  @IsString()
-  typeId: string;
+  @IsNumber()
+  @ToNumber()
+  typeId: number;
 
   @ApiProperty({ description: '字典项名称' })
   @IsOptional()
@@ -60,7 +64,7 @@ export class DictItemQueryDto extends PagerDto {
   value?: string;
 }
 
-export class DictItemStatusDto {
+export class DictItemStatusDto extends OperatorDto {
   @ApiProperty({
     description: 'DictItem ID数组',
   })

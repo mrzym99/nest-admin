@@ -6,6 +6,7 @@ import {
   IsEnum,
   IsIn,
   IsInt,
+  IsNumber,
   IsOptional,
   IsPhoneNumber,
   IsString,
@@ -69,9 +70,10 @@ export class UserQueryDto extends PagerDto {
     description: '角色',
     required: false,
   })
-  @IsString()
+  @IsNumber()
+  @ToNumber()
   @IsOptional()
-  roleId?: string;
+  roleId?: number;
 }
 
 export class UserProfileDto {
@@ -209,13 +211,13 @@ export class UserCreateDto {
     description: '角色',
   })
   @IsOptional()
-  roleIds?: string[];
+  roleIds?: number[];
 
   @ApiProperty({
     description: '部门',
   })
   @IsOptional()
-  deptId?: string;
+  deptId?: number;
 }
 
 export class UserStatusDto {
@@ -223,7 +225,7 @@ export class UserStatusDto {
     description: '用户ID数组',
   })
   @IsArray()
-  ids: string[];
+  ids: number[];
 
   @ApiProperty({
     description: '状态',
@@ -238,13 +240,13 @@ export class UserUpdateDto extends UserProfileDto {
     description: '角色',
   })
   @IsOptional()
-  roleIds?: string[];
+  roleIds?: number[];
 
   @ApiProperty({
     description: '部门',
   })
   @IsOptional()
-  deptId?: string;
+  deptId?: number;
 
   @ApiProperty({
     description: 'status',

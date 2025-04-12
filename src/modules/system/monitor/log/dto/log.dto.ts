@@ -4,7 +4,7 @@ import { PagerDto } from '~/common/dto/pager.dto';
 
 export class LoginLogCreateDto {
   @ApiProperty({ description: '用户id' })
-  userId: string;
+  userId: number;
 
   @ApiProperty({ description: '登录ip' })
   ip: string;

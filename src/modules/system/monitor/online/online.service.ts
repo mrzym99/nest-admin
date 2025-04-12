@@ -3,7 +3,11 @@ import Redis from 'ioredis';
 import { InjectRedis } from '~/common/decorators/inject-redis.decorator';
 import { BusinessException } from '~/common/exceptions/biz.exception';
 import { ErrorEnum } from '~/constants/error.constant';
-import { genOnlineUserKey } from '~/helper/gen-redis-key';
+import {
+  genAuthPermKey,
+  genForcedOfflineKey,
+  genOnlineUserKey,
+} from '~/helper/gen-redis-key';
 import { AuthService } from '~/modules/auth/auth.service';
 import { AccessTokenEntity } from '~/modules/auth/entities/access-token.entity';
 import { TokenService } from '~/modules/auth/services/token.service';
@@ -37,6 +41,16 @@ export class OnlineService {
       type: 'updateOnlineUsers',
     });
   }, 3000);
+
+  /**
+   * 通知前端刷新在线用户列表 增加了防抖 避免频繁
+   * @returns
+   */
+  async notifyUserForLogout(uid: number) {
+    await this.sseService.sendToClients(uid, {
+      type: 'logout',
+    });
+  }
 
   /**
    * 添加在线用户
@@ -194,7 +208,7 @@ export class OnlineService {
    * @param tokenId tokenId
    * @param user 当前操作人
    */
-  async kick(tokenId: string, user: IAuthUser): Promise<void> {
+  async kick(tokenId: number, user: IAuthUser): Promise<void> {
     const token = await AccessTokenEntity.findOne({
       where: {
         id: tokenId,
@@ -219,7 +233,15 @@ export class OnlineService {
     }
 
     const targetUser = await this.tokenService.verifyAccessToken(token.value);
+    await this.redis.del(genAuthPermKey(targetUid));
+    await this.redis.set(
+      genForcedOfflineKey(targetUid),
+      targetUid,
+      'EX',
+      10 * 60,
+    );
     await this.authService.clearLoginStatus(token.value, targetUser);
+    await this.notifyUserForLogout(targetUid);
     await this.notifyUpdateOnlineUsers();
   }
 }

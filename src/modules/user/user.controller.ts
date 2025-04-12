@@ -27,6 +27,7 @@ import {
   definePermission,
   Perm,
 } from '../auth/decorators/permission.decorator';
+import { ParamId } from '~/common/decorators/param-id.decorator';
 
 export const permissions = definePermission('system:user', {
   LIST: 'list',
@@ -65,7 +66,7 @@ export class UserController {
   @ApiOperation({ summary: '修改用户角色、部门信息' }) // 主要是修改部门和角色信息
   @Perm(permissions.UPDATE)
   async update(
-    @Param('id') id: string,
+    @ParamId() id: number,
     @Body() user: UserUpdateDto,
   ): Promise<void> {
     await this.userService.update(id, user);
@@ -74,7 +75,7 @@ export class UserController {
   @Put('updatePassword/:id')
   @ApiOperation({ summary: '修改用户密码' })
   async updatePassword(
-    @Param('id') id: string,
+    @ParamId() id: number,
     @Body() passwordDto: UserPasswordDto,
   ): Promise<void> {
     await this.userService.updatePassword(id, passwordDto);
@@ -83,7 +84,7 @@ export class UserController {
   @Put('resetPassword/:id')
   @ApiOperation({ summary: '重置用户密码' })
   @Perm(permissions.PASSWORD_RESET)
-  async resetPassword(@Param('id') id: string): Promise<void> {
+  async resetPassword(@ParamId() id: number): Promise<void> {
     await this.userService.resetPassword(id);
   }
 
@@ -91,7 +92,7 @@ export class UserController {
   @ApiOperation({ summary: '修改用户详细信息' })
   @Perm(permissions.UPDATE)
   async updateProfile(
-    @Param('id') id: string,
+    @ParamId() id: number,
     @Body() profile: UserProfileDto,
   ): Promise<void> {
     await this.userService.updateProfile(id, profile);
@@ -101,7 +102,7 @@ export class UserController {
   @ApiOperation({ summary: '查询用户详细信息' })
   @ApiResult({ type: ProfileEntity })
   @Perm(permissions.READ)
-  async userProfile(@Param('id') id: string) {
+  async userProfile(@ParamId() id: number) {
     return await this.userService.findUserProfile(id);
   }
 

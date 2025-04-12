@@ -5,10 +5,10 @@ export class OperatorDto {
   @ApiHideProperty()
   @Exclude()
   @Expose()
-  createdBy: string;
+  createdBy: number;
 
   @ApiHideProperty()
   @Exclude()
   @Expose()
-  updatedBy: string;
+  updatedBy: number;
 }

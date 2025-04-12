@@ -179,7 +179,7 @@ export class UserService {
   }
 
   // 获取用户所有的信息
-  async findUserInfo(id: string): Promise<UserEntity> {
+  async findUserInfo(id: number): Promise<UserEntity> {
     return await this.userRepository.findOne({
       where: {
         id,
@@ -189,7 +189,7 @@ export class UserService {
   }
 
   // 获取用户详细信息
-  async findUserProfile(id: string): Promise<UserProfileDto> {
+  async findUserProfile(id: number): Promise<UserProfileDto> {
     const user = await this.userRepository.findOne({
       where: {
         id,
@@ -262,7 +262,7 @@ export class UserService {
     });
   }
 
-  async update(id: string, updateDto: UserUpdateDto): Promise<void> {
+  async update(id: number, updateDto: UserUpdateDto): Promise<void> {
     await this.userRepository.manager.transaction(async (manager) => {
       const defaultRole = await manager.findOne(RoleEntity, {
         where: {
@@ -320,7 +320,7 @@ export class UserService {
   }
 
   async updatePassword(
-    id: string,
+    id: number,
     passwordDto: UserPasswordDto,
   ): Promise<void> {
     const { oldPassword, newPassword } = passwordDto;
@@ -338,7 +338,7 @@ export class UserService {
     await this.userRepository.save(user);
   }
 
-  async resetPassword(id: string): Promise<void> {
+  async resetPassword(id: number): Promise<void> {
     const user = await this.findUserInfo(id);
     if (!user) {
       throw new BizException(ErrorEnum.USER_NOT_EXIST);
@@ -349,7 +349,7 @@ export class UserService {
     await this.userRepository.save(user);
   }
 
-  async updateProfile(id: string, profile: UserProfileDto): Promise<void> {
+  async updateProfile(id: number, profile: UserProfileDto): Promise<void> {
     const user = await this.findUserInfo(id);
     if (!user) {
       throw new BizException(ErrorEnum.USER_NOT_EXIST);
@@ -386,7 +386,7 @@ export class UserService {
    * 判断用户是否是管理员
    * @param id
    */
-  async isAdmin(id: string) {
+  async isAdmin(id: number) {
     const user = await this.findUserInfo(id);
     return user && user.roles.some((role) => role.value === 'admin');
   }
@@ -396,7 +396,7 @@ export class UserService {
    * @param uid 用户 id
    * @param accessToken token
    */
-  async forbidden(uid: string, accessToken?: string): Promise<void> {
+  async forbidden(uid: number, accessToken?: string): Promise<void> {
     // 移除用户的权限缓存
     await this.redis.del(genAuthPermKey(uid));
     // token 从表里删除
@@ -419,7 +419,7 @@ export class UserService {
    * 通过传入用户 id 来禁用用户的token 从而让用户状态变化时 token 能及时被禁用
    * @param ids
    */
-  async forbiddenUserByIds(ids: string[]) {
+  async forbiddenUserByIds(ids: number[]) {
     const [list, _count] = await AccessTokenEntity.findAndCount({
       where: {
         user: {

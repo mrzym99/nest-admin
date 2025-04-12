@@ -3,13 +3,13 @@ import { LoginLogInfo } from '../log/models/log.model';
 
 export class OnlineUser extends OmitType(LoginLogInfo, ['id'] as const) {
   @ApiProperty({ description: 'tokenId' })
-  tokenId: string;
+  tokenId: number;
 
   @ApiProperty({ description: '部门名称' })
   deptName: string;
 
   @ApiProperty({ description: '用户id' })
-  uid: string;
+  uid: number;
 
   @ApiProperty({ description: '是否当前登录用户' })
   isCurrentUser?: boolean;

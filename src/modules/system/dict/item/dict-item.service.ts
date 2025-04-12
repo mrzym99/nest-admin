@@ -45,7 +45,7 @@ export class DictItemService {
     });
   }
 
-  async getDictItemListByTypeId(typeId: string) {
+  async getDictItemListByTypeId(typeId: number) {
     return await this.dictItemRepository.find({
       where: {
         type: {
@@ -59,7 +59,7 @@ export class DictItemService {
     });
   }
 
-  async validateDelete(typeId: string) {
+  async validateDelete(typeId: number) {
     const exist = await this.dictItemRepository.find({
       where: {
         type: {
@@ -81,6 +81,7 @@ export class DictItemService {
         },
       },
     });
+
     if (item) throw new BusinessException(ErrorEnum.DICT_ITEM_EXIST);
     const { typeId, ...rest } = dto;
     await this.dictItemRepository.save({
@@ -91,11 +92,11 @@ export class DictItemService {
     });
   }
 
-  async info(id: string) {
+  async info(id: number) {
     return await this.dictItemRepository.findOneBy({ id });
   }
 
-  async update(id: string, dto: DictItemUpdateDto) {
+  async update(id: number, dto: DictItemUpdateDto) {
     const { typeId, ...rest } = dto;
     const item = await this.dictItemRepository.findOne({
       where: {
@@ -105,7 +106,7 @@ export class DictItemService {
         },
       },
     });
-    if (item && (await item.id) !== id)
+    if (item && (await item.id) !== Number(id))
       throw new BusinessException(ErrorEnum.DICT_ITEM_EXIST);
 
     await this.dictItemRepository.update(id, {
@@ -116,11 +117,14 @@ export class DictItemService {
     });
   }
 
-  async batchUpdateStatus({ ids, status }: DictItemStatusDto) {
-    await this.dictItemRepository.update({ id: In(ids) }, { status });
+  async batchUpdateStatus({ ids, status, updatedBy }: DictItemStatusDto) {
+    await this.dictItemRepository.update(
+      { id: In(ids) },
+      { status, updatedBy },
+    );
   }
 
-  async delete(id: string) {
+  async delete(id: number) {
     await this.dictItemRepository.delete(id);
   }
 

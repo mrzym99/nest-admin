@@ -115,7 +115,7 @@ export class TaskService implements OnModuleInit {
     return paginate(queryBuilder, { currentPage, pageSize });
   }
 
-  async info(id: string): Promise<TaskEntity> {
+  async info(id: number): Promise<TaskEntity> {
     const task = await this.taskRepository.findOne({
       where: { id },
     });
@@ -125,13 +125,13 @@ export class TaskService implements OnModuleInit {
     return task;
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     await this.info(id);
     await this.stop(id);
     await this.taskRepository.delete(id);
   }
 
-  async once(id: string): Promise<void> {
+  async once(id: number): Promise<void> {
     const task = await this.info(id);
     await this.taskQueue.add(
       {
@@ -157,7 +157,7 @@ export class TaskService implements OnModuleInit {
     }
   }
 
-  async update(id: string, dto: TaskUpdateDto): Promise<void> {
+  async update(id: number, dto: TaskUpdateDto): Promise<void> {
     await this.taskRepository.update(id, dto);
     const task = await this.info(id);
     if (task.status === 0) {
@@ -167,7 +167,7 @@ export class TaskService implements OnModuleInit {
     }
   }
 
-  async start(id: string): Promise<void> {
+  async start(id: number): Promise<void> {
     const task = await this.info(id);
     if (isEmpty(task)) throw new BadRequestException('任务不存在');
 
@@ -221,11 +221,11 @@ export class TaskService implements OnModuleInit {
     }
   }
 
-  async stop(id: string): Promise<void> {
+  async stop(id: number): Promise<void> {
     const task = await this.info(id);
     if (isEmpty(task)) throw new BadRequestException('任务不存在');
 
-    const exist = await this.existJob(task.id);
+    const exist = await this.existJob(task.id.toString());
     if (!exist) {
       await this.taskRepository.update(task.id, {
         status: TaskStatus.Disabled,
@@ -272,13 +272,13 @@ export class TaskService implements OnModuleInit {
   /**
    * 更新是否已经完成 完成需要移除任务 并修改状态
    */
-  async updateTaskCompleteStatus(tid: string): Promise<void> {
+  async updateTaskCompleteStatus(tid: number): Promise<void> {
     const jobs = await this.taskQueue.getRepeatableJobs();
     const task = await this.taskRepository.findOneBy({ id: tid });
 
     for (const job of jobs) {
       const currentTIme = new Date().getTime();
-      if (job.id === tid && job.next < currentTIme) {
+      if (job.id === tid.toString() && job.next < currentTIme) {
         await this.stop(task.id);
         break;
       }

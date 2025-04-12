@@ -33,6 +33,10 @@ export class CacheService {
         name: 'token黑名单',
         prefix: RedisKey.TOKEN_BLACKLIST_PREFIX,
       },
+      {
+        name: '强制下线名单',
+        prefix: RedisKey.FORCED_OFFLINE_PREFIX,
+      },
     ];
     return prefixList;
   }

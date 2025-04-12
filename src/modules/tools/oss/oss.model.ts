@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class OssInfo {
   @ApiProperty({ description: 'Oss id' })
-  id: string;
+  id: number;
 
   @ApiProperty({ description: '文件名' })
   name: string;

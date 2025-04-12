@@ -1,8 +1,9 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { OperatorDto } from '~/common/dto/operator.dto';
 import { PagerDto } from '~/common/dto/pager.dto';
 
-export class ParameterCreateDto {
+export class ParameterCreateDto extends OperatorDto {
   @ApiProperty({
     description: '参数名称',
   })

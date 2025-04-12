@@ -10,6 +10,7 @@ import {
 } from 'class-validator';
 import { ToNumber } from '~/common/decorators/transform.decorator';
 import { PagerDto } from '~/common/dto/pager.dto';
+import { OperatorDto } from '~/common/dto/operator.dto';
 
 export class DictTypeCreateDto {
   @ApiProperty({ description: '字典类型名称' })
@@ -50,7 +51,7 @@ export class DictTypeQueryDto extends PagerDto {
   code?: string;
 }
 
-export class DictTypeStatusDto {
+export class DictTypeStatusDto extends OperatorDto {
   @ApiProperty({
     description: 'DictType ID数组',
   })

@@ -7,4 +7,5 @@ export enum RedisKey {
   AUTH_PERM_PREFIX = 'auth:permission:',
   ONLINE_USER_PREFIX = 'online:user:',
   TOKEN_BLACKLIST_PREFIX = 'token:blacklist:',
+  FORCED_OFFLINE_PREFIX = 'forced:offline:',
 }

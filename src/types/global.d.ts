@@ -1,6 +1,6 @@
 declare global {
   interface IAuthUser {
-    uid: string;
+    uid: number;
     roles?: string[];
     exp?: number;
   }

@@ -24,6 +24,7 @@ export enum ErrorEnum {
   USER_EMAIL_EXIST = '2006:邮箱已被注册',
   USER_USERNAME_EXIST = '2007:用户名已存在',
   USER_NOT_ALLOWED_TO_DISABLE_ADMIN = '2008:不允许禁用管理员',
+  USER_FORCED_OFFLINE = '2009:您被强制下线 请十分钟后再登录',
 
   // dept
   DEPT_EXIST = '3000:部门已存在',

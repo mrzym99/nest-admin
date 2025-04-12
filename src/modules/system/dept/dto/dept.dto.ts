@@ -2,6 +2,7 @@ import { ApiProperty, PartialType } from '@nestjs/swagger';
 import {
   IsIn,
   IsInt,
+  IsNumber,
   IsOptional,
   IsString,
   Min,
@@ -16,7 +17,8 @@ export class DeptCreateDto {
   name: string;
 
   @ApiProperty({ description: '父级id' })
-  @IsString()
+  @IsNumber()
+  @ToNumber()
   @IsOptional()
   parentId: number;
 
