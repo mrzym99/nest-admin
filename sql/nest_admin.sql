@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 14/04/2025 01:36:55
+ Date: 14/04/2025 01:52:19
 */
 
 SET NAMES utf8mb4;
@@ -582,9 +582,6 @@ INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 80);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 81);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 82);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 83);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 84);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 85);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 86);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 87);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 88);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 89);
@@ -803,7 +800,7 @@ CREATE TABLE `sys_task_log` (
 -- Records of sys_task_log
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_task_log` (`id`, `created_at`, `updated_at`, `status`, `detail`, `consume_time`, `task_id`) VALUES (1, '2025-04-14 01:36:30.725214', '2025-04-14 01:36:30.725214', 1, NULL, 19, 7);
+INSERT INTO `sys_task_log` (`id`, `created_at`, `updated_at`, `status`, `detail`, `consume_time`, `task_id`) VALUES (1, '2025-04-14 01:52:00.721753', '2025-04-14 01:52:00.721753', 1, NULL, 21, 7);
 COMMIT;
 
 -- ----------------------------
@@ -880,10 +877,10 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (1, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'superadmin', '$argon2id$v=19$m=65536,t=3,p=4$A1nAM36+dJvXJvgsV9SnoA$3htBUFv591QOVs9SB6B3bH9CFUfV7YOYOSaDWu1R3m4', 1, 1, 3);
-INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (2, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'admin', '$argon2id$v=19$m=65536,t=3,p=4$uUvBxUpFRd89cqVaNStsww$6u0Crp7gqx7b1E5QT/XSo5OCusvSKX56eqErPCdzSqg', 1, 2, 3);
-INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (3, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'test', '$argon2id$v=19$m=65536,t=3,p=4$ig8ebM6uC2S7OCjFQ0y27w$rgauYvUKerQfql3nB/V9QseShyTAzPGWbjeaD1YtCPs', 1, 3, 2);
-INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (4, '2025-04-12 10:33:06.523520', '2025-04-12 10:33:06.523520', 'guest', '$argon2id$v=19$m=65536,t=3,p=4$S8N6k7WgL2X8tYBs4QrTvA$udk99vXABr+sFiQhmYEZj71ve11We3D6UcjYYAtF1zc', 1, 4, 10);
+INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (1, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'superadmin', '$argon2id$v=19$m=65536,t=3,p=4$1MaGqcl7vOyf19PNH961cA$d+vm2awCkG2P1AafZtvKhzv/126GW4DjA7LH3Ng8R4A', 1, 1, 3);
+INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (2, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'admin', '$argon2id$v=19$m=65536,t=3,p=4$J9A61qjoex2Cq6v/dL5q7A$HmpnBpX7O8a+XFwC8Gws++aHaSDgYgzCGfarvF52Nmo', 1, 2, 3);
+INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (3, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'test', '$argon2id$v=19$m=65536,t=3,p=4$5IeTEQFyd+POgU91F4sdcA$ucyPqbhzG2LCRHNhVs2M+bovaJVIL38S6LYnZjDxUIc', 1, 3, 2);
+INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (4, '2025-04-12 10:33:06.523520', '2025-04-12 10:33:06.523520', 'guest', '$argon2id$v=19$m=65536,t=3,p=4$3KkcwxgOqMhuoCdJVTstFg$GjCV6fVI6+0Nguxq8tvZmZGh1/3nUUyWdlYUtkVP/LQ', 1, 4, 10);
 COMMIT;
 
 -- ----------------------------
@@ -899,13 +896,18 @@ CREATE TABLE `user_access_token` (
   PRIMARY KEY (`id`),
   KEY `FK_c9c6ac4970ddbe5a8c4887e1e7e` (`userId`),
   CONSTRAINT `FK_c9c6ac4970ddbe5a8c4887e1e7e` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of user_access_token
 -- ----------------------------
 BEGIN;
-INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTc0NDU2NDQwMSwiZXhwIjoxNzQ0NTY2MjAxfQ.UrhmyLUfk64P44eXZPYKefaflhnQyQQ_TXtPekWa9oE', '2025-04-14 01:43:21', '2025-04-14 01:13:21', 2, 77);
+INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTc0NDU2NjYxNSwiZXhwIjoxNzQ0NTY4NDE1fQ.su49qdrY4rlLYvtlCBwRnCvNa6ypYwdR8cORuiNyhzU', '2025-04-14 02:20:16', '2025-04-14 01:50:16', 2, 78);
+INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInJvbGVzIjpbInN1cGVyYWRtaW4iXSwiaWF0IjoxNzQ0NTY2NjczLCJleHAiOjE3NDQ1Njg0NzN9.pmOAaCg2KkNFBzWOGCWk8O1dlyQ6A617Duw_gt2vTUQ', '2025-04-14 02:21:14', '2025-04-14 01:51:14', 1, 79);
+INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTc0NDU2NjY4NSwiZXhwIjoxNzQ0NTY4NDg1fQ.onxpDoJ-O8AInkCx6jeW34yeX6xn1LyhqI8_uaPNYO8', '2025-04-14 02:21:25', '2025-04-14 01:51:25', 2, 80);
+INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjMsInJvbGVzIjpbInRlc3QiXSwiaWF0IjoxNzQ0NTY2NjkwLCJleHAiOjE3NDQ1Njg0OTB9.VpBLQBm80yToltfWDhgLkNlbhjZ3KpDfU_ZNOLrQNyU', '2025-04-14 02:21:31', '2025-04-14 01:51:31', 3, 81);
+INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjQsInJvbGVzIjpbImd1ZXN0Il0sImlhdCI6MTc0NDU2NjY5NSwiZXhwIjoxNzQ0NTY4NDk1fQ.0-b0DbnWAIXlbotJ4jxgavAzOU6eG9f8wSikUKny5pY', '2025-04-14 02:21:36', '2025-04-14 01:51:36', 4, 82);
+INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTc0NDU2NjcwNSwiZXhwIjoxNzQ0NTY4NTA1fQ.fk6OcLMFm1yrkCZ5JFApB1Sz8ktDPhSwsrFx2-O0gCg', '2025-04-14 02:21:46', '2025-04-14 01:51:46', 2, 83);
 COMMIT;
 
 -- ----------------------------
@@ -951,14 +953,19 @@ CREATE TABLE `user_refresh_token` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `REL_0fb9e76570bb35fd7dd7f78f73` (`accessTokenId`),
   CONSTRAINT `FK_0fb9e76570bb35fd7dd7f78f73c` FOREIGN KEY (`accessTokenId`) REFERENCES `user_access_token` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=264 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=270 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user_refresh_token
 -- ----------------------------
 BEGIN;
 INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiNzhkZmYxYjEtOTRlMi00OGMyLThmYjAtNDFhYzhkM2JjOTk4IiwiaWF0IjoxNzQ0MjE5OTY5LCJleHAiOjE3NDQyMjM1Njl9.NtuR4tkmBxGvLXaKLuOgbQQmRcY4StiGxVQDihPbvNs', '2025-04-17 01:32:49', '2025-04-10 01:32:49', NULL, 181);
-INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiYTY0NjY2MGMtYzIyMC00NmViLWFhNzItMmViZDA1MjRmOWFmIiwiaWF0IjoxNzQ0NTY0NDAxLCJleHAiOjE3NDQ1NjYyMDF9.dzitGYLht8FWa73xam8XGRjXrSi6z-aVCWYshxkYNKY', '2025-04-15 01:13:21', '2025-04-14 01:13:21', 77, 263);
+INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiZmMyZmRjYmMtMzFlMS00ZDhhLWFlYWMtMjkxNTBmYmU0MzgzIiwiaWF0IjoxNzQ0NTY2NjE1LCJleHAiOjE3NDQ1Njg0MTV9.G4XArPox_g4I-dzXv3p72ICGXLfNZwoditSHjskqr7E', '2025-04-15 01:50:16', '2025-04-14 01:50:16', 78, 264);
+INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiN2I3MWIzOGEtZTZkYy00ZWMwLTg2NTktMmVlZWNjNWJmMGFlIiwiaWF0IjoxNzQ0NTY2NjczLCJleHAiOjE3NDQ1Njg0NzN9.XcXkJpI2lSz2jbWEWg4fHvRuORd9k_5VW2hMOroSXNk', '2025-04-15 01:51:14', '2025-04-14 01:51:14', 79, 265);
+INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiNzdkZGU4NTAtMjU4My00ZDNmLWFhMDEtMjZiZWY1ZGFkOTgwIiwiaWF0IjoxNzQ0NTY2Njg1LCJleHAiOjE3NDQ1Njg0ODV9.ZlkqOGvTGgwMmVuUG-2VExPrRGSmHuoTf33Ae51u1ak', '2025-04-15 01:51:25', '2025-04-14 01:51:25', 80, 266);
+INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiM2NlNTFhMGUtNzc3MS00NGVhLWI3MTktYjUzYzFlMjZmZDdkIiwiaWF0IjoxNzQ0NTY2NjkwLCJleHAiOjE3NDQ1Njg0OTB9.Ce4lZSN-hj8UK0m6uq2K0bMnEC-kToADfXnqVpBNHx4', '2025-04-15 01:51:31', '2025-04-14 01:51:31', 81, 267);
+INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiYTRmN2E5ZDEtMTBhMS00OThlLWFkYmYtZTcyMTU4MDU1YTA0IiwiaWF0IjoxNzQ0NTY2Njk1LCJleHAiOjE3NDQ1Njg0OTV9.fPXxWwgGGTBS-5K8ZH2lbj4gYJAuOuSqXDuFKIh00bc', '2025-04-15 01:51:36', '2025-04-14 01:51:36', 82, 268);
+INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiYzk0NjIxNzItY2JjZS00YzY2LWE2MjMtOWUxMjNjMWM4ZTdjIiwiaWF0IjoxNzQ0NTY2NzA1LCJleHAiOjE3NDQ1Njg1MDV9.V0JLLFtn7tmi-9UzgNRiqd9iLYQH1oqZXQ9JaFPIouk', '2025-04-15 01:51:46', '2025-04-14 01:51:46', 83, 269);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
