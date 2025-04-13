@@ -29,18 +29,6 @@ export class AccountController {
   @ApiResult({ type: UserProfileDto })
   @AllowAnon()
   async profile(@AuthUser() user: IAuthUser): Promise<UserProfileDto> {
-    if (user.roles.includes(Roles.SUPER_ADMIN)) {
-      return {
-        id: -1,
-        username: Roles.SUPER_ADMIN,
-        nickName: '超级管理员',
-        avatar:
-          'https://myblogimgbucket.oss-cn-beijing.aliyuncs.com/WechatIMG434.jpg',
-        roles: [Roles.SUPER_ADMIN],
-        rolesName: ['超级管理员'],
-        gender: 1,
-      } as UserProfileDto;
-    }
     return await this.userService.findUserProfile(user.uid);
   }
 
@@ -57,11 +45,7 @@ export class AccountController {
   @ApiOperation({ summary: '获取账户菜单列表' })
   @ApiResult({ type: [AccountMenus] })
   async menu(@AuthUser() user: IAuthUser) {
-    if (user.roles.includes(Roles.SUPER_ADMIN)) {
-      return await this.authService.getAllMenus();
-    } else {
-      return await this.authService.getMenus(user.uid);
-    }
+    return await this.authService.getMenus(user.uid);
   }
 
   @Get('permissions')
@@ -69,7 +53,7 @@ export class AccountController {
   @ApiResult({ type: [String] })
   @AllowAnon()
   async permissions(@AuthUser() user: IAuthUser): Promise<string[]> {
-    if (user.roles.includes(Roles.SUPER_ADMIN)) {
+    if (user.roles.includes(Roles.SUPERADMIN)) {
       return await this.authService.getAllPermissions();
     } else {
       return await this.authService.getPermissions(user.uid);

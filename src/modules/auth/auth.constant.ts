@@ -19,7 +19,7 @@ export const AuthStrategy = {
 };
 
 export const Roles = {
-  SUPER_ADMIN: 'super-admin',
+  SUPERADMIN: 'superadmin',
   ADMIN: 'admin',
   USER: 'user',
 } as const;

@@ -52,7 +52,7 @@ export class RbacGuard implements CanActivate {
     );
 
     // 超级管理员在任何情况下都有权限
-    if (user.roles.includes(Roles.SUPER_ADMIN)) {
+    if (user.roles.includes(Roles.SUPERADMIN)) {
       return true;
     }
 

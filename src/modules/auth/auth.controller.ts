@@ -34,12 +34,6 @@ export class AuthController {
     return await this.authService.login(loginDto, ip, userAgent);
   }
 
-  @Post('super/login')
-  @ApiOperation({ summary: '超级管理员登录' })
-  async superLogin(@Body() loginDto: LoginDto) {
-    return await this.authService.superLogin(loginDto);
-  }
-
   @Public()
   @Post('register')
   @ApiOperation({ summary: '用户注册' })

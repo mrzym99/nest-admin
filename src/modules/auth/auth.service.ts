@@ -99,26 +99,6 @@ export class AuthService {
     };
   }
 
-  async superLogin(user: LoginDto) {
-    const { username, password } = user;
-
-    const superAdminUsername = this.appConfig.superAdminUsername;
-    const superAdminPassword = this.appConfig.superAdminPassword;
-
-    if (username !== superAdminUsername || password !== superAdminPassword) {
-      throw new BizException(ErrorEnum.USER_NAME_OR_PASSWORD_ERROR);
-    }
-
-    const { accessToken } = await this.tokenService.generateSuperAccessToken(
-      -1,
-      [Roles.SUPER_ADMIN],
-    );
-
-    return {
-      access_token: accessToken,
-    };
-  }
-
   /**
    * 用户注册
    * @param user 用户信息

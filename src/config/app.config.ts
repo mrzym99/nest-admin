@@ -9,7 +9,6 @@ export const RouterWhiteList: string[] = [
   `${globalPrefix ? '/' : ''}${globalPrefix}/auth/captcha/img`,
   `${globalPrefix ? '/' : ''}${globalPrefix}/auth/login`,
   `${globalPrefix ? '/' : ''}${globalPrefix}/auth/register`,
-  `${globalPrefix ? '/' : ''}${globalPrefix}/auth/super/login`,
   `${globalPrefix ? '/' : ''}${globalPrefix}/`,
 ];
 
@@ -19,8 +18,6 @@ export const AppConfig = registerAs(appRegToken, () => ({
   baseUrl: env('APP_BASE_URL'),
   globalPrefix,
   locale: env('APP_LOCALE', 'zh-CN'),
-  superAdminUsername: env('SUPER_ADMIN_USERNAME'),
-  superAdminPassword: env('SUPER_ADMIN_PASSWORD'),
   // 多端登录
   multiDeviceLogin: envBoolean('MULTI_DEVICE_LOGIN', true),
 
