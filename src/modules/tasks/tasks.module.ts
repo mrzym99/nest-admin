@@ -6,8 +6,9 @@ import { SystemModule } from '~/modules/system/system.module';
 import { EmailJob } from './jobs/email.job';
 import { HttpRequestJob } from './jobs/http-request.job';
 import { LogClearJob } from './jobs/log-clear.job';
+import { TokenClearJob } from './jobs/token-clear';
 
-const providers = [LogClearJob, HttpRequestJob, EmailJob];
+const providers = [LogClearJob, HttpRequestJob, EmailJob, TokenClearJob];
 
 /**
  * auto create alias
