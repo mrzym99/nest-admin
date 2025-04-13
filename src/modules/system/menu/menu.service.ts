@@ -214,20 +214,21 @@ export class MenuService {
     let menus: MenuEntity[] = [];
     if (isEmpty(roleIds)) return generateRoutes([]);
 
-    // if (this.roleService.hasAdminRole(roleIds)) {
-    //   menus = await this.menuRepository.find({
-    //     order: {
-    //       order: 'ASC',
-    //     },
-    //   });
-    // }
-
-    menus = await this.menuRepository
-      .createQueryBuilder('menu')
-      .innerJoinAndSelect('menu.roles', 'role')
-      .andWhere('role.id IN (:...roleIds)', { roleIds })
-      .orderBy('menu.order', 'ASC')
-      .getMany();
+    // 超级管理员可以获取所有菜单和权限
+    if (await this.roleService.hasSuperAdminRole(roleIds)) {
+      menus = await this.menuRepository.find({
+        order: {
+          order: 'ASC',
+        },
+      });
+    } else {
+      menus = await this.menuRepository
+        .createQueryBuilder('menu')
+        .innerJoinAndSelect('menu.roles', 'role')
+        .andWhere('role.id IN (:...roleIds)', { roleIds })
+        .orderBy('menu.order', 'ASC')
+        .getMany();
+    }
 
     const menuList = generateRoutes(menus);
 

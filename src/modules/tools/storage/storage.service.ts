@@ -25,7 +25,7 @@ export class StorageService {
   /**
    * 删除文件
    */
-  async delete(fileIds: string[]): Promise<void> {
+  async delete(fileIds: number[]): Promise<void> {
     const items = await this.storageRepository.findBy({
       id: In(fileIds),
     });

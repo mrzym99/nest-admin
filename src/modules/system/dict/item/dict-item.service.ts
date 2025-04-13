@@ -128,7 +128,7 @@ export class DictItemService {
     await this.dictItemRepository.delete(id);
   }
 
-  async batchDelete(ids: string[]) {
+  async batchDelete(ids: number[]) {
     await this.dictItemRepository.delete(ids);
   }
 }

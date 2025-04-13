@@ -38,7 +38,7 @@ export class CaptchaLogService {
     return paginate<CaptchaLogEntity>(queryBuilder, { currentPage, pageSize });
   }
 
-  async deleteLogs(ids: string[]): Promise<void> {
+  async deleteLogs(ids: number[]): Promise<void> {
     await this.captchaLogRepository.delete(ids);
   }
 

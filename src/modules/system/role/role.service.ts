@@ -10,6 +10,7 @@ import { MenuEntity } from '../menu/menu.entity';
 import { UserEntity } from '~/modules/user/user.entity';
 import { ErrorEnum } from '~/constants/error.constant';
 import { BusinessException } from '~/common/exceptions/biz.exception';
+import { Roles } from '~/modules/auth/auth.constant';
 
 @Injectable()
 export class RoleService {
@@ -105,12 +106,20 @@ export class RoleService {
       },
     });
 
-    const menus = await this.menuRepository.find({
-      where: {
-        roles: { id },
-      },
-      select: ['id'],
-    });
+    let menus = [];
+
+    if (info.value === Roles.SUPERADMIN) {
+      menus = await this.menuRepository.find({
+        select: ['id'],
+      });
+    } else {
+      menus = await this.menuRepository.find({
+        where: {
+          roles: { id },
+        },
+        select: ['id'],
+      });
+    }
 
     return { ...info, menuIds: menus.map((item) => item.id) };
   }
@@ -143,6 +152,18 @@ export class RoleService {
     if (!isEmpty(roles)) return roles.map((item) => item.value);
 
     return [];
+  }
+
+  async hasSuperAdminRole(roleIds: number[]) {
+    const roles = await this.roleRepository.find({
+      where: {
+        id: In(roleIds),
+      },
+    });
+    if (!isEmpty(roles))
+      return roles.some((item) => item.value === Roles.SUPERADMIN);
+
+    return false;
   }
 
   async validateIsDefault(id: number) {

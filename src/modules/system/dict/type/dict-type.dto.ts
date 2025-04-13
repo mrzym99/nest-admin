@@ -56,7 +56,7 @@ export class DictTypeStatusDto extends OperatorDto {
     description: 'DictType ID数组',
   })
   @IsArray()
-  ids: string[];
+  ids: number[];
 
   @ApiProperty({
     description: '状态 1 0',

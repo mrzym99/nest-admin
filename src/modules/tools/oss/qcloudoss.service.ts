@@ -17,6 +17,7 @@ export class QClouldOssService {
     this.client = new OSS({
       SecretId: ossConfig.secretId,
       SecretKey: ossConfig.secretKey,
+      Domain: ossConfig.domain,
     });
     this.ossConfig = ossConfig;
   }

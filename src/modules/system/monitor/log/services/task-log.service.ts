@@ -66,7 +66,7 @@ export class TaskLogService {
     };
   }
 
-  async deleteLogs(ids: string[]): Promise<void> {
+  async deleteLogs(ids: number[]): Promise<void> {
     await this.taskLogRepository.delete(ids);
   }
 

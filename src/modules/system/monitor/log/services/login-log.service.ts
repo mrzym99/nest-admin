@@ -94,7 +94,7 @@ export class LoginLogService {
     }
   }
 
-  async deleteLogs(ids: string[]): Promise<void> {
+  async deleteLogs(ids: number[]): Promise<void> {
     await this.loginLogRepository.delete(ids);
   }
 

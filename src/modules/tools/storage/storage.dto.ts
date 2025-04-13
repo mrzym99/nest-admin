@@ -51,7 +51,7 @@ export class StorageCreateDto {
   @IsString()
   path: string;
 
-  @ApiProperty({ description: '文件路径' })
+  @ApiProperty({ description: '文件类型' })
   @IsString()
   type: string;
 
@@ -64,5 +64,5 @@ export class StorageDeleteDto {
   @ApiProperty({ description: '需要删除的文件ID列表', type: [String] })
   @IsArray()
   @ArrayNotEmpty()
-  ids: string[];
+  ids: number[];
 }
