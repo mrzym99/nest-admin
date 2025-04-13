@@ -25,6 +25,7 @@ import { CreatorPipe } from '~/common/pipes/creator.pipe';
 import { UpdaterPip } from '~/common/pipes/updater.pipe';
 import { ParamId } from '~/common/decorators/param-id.decorator';
 import { DictTypeStatusDto } from '../dict/type/dict-type.dto';
+import { Public } from '~/modules/auth/decorators/public.decorator';
 
 export const permissions = definePermission('system:notice', {
   LIST: 'list',
@@ -60,6 +61,14 @@ export class NoticeController {
   @Perm(permissions.READ)
   async findOne(@ParamId() id: number) {
     return await this.noticeService.findOne(id);
+  }
+
+  @Public()
+  @Get('count')
+  @ApiOperation({ summary: '查询公告数' })
+  @Perm(permissions.READ)
+  async count() {
+    return await this.noticeService.count();
   }
 
   @Put(':id')

@@ -31,7 +31,7 @@ export class NoticeService {
   }
 
   async findOne(id: number) {
-    return await this.noticeRepository.findBy({ id });
+    return await this.noticeRepository.findOne({ where: { id } });
   }
 
   async update(id: number, dto: NoticeUpdateDto) {
@@ -44,5 +44,9 @@ export class NoticeService {
 
   async batchUpdateStatus({ ids, status, updatedBy }: NoticeStatusDto) {
     await this.noticeRepository.update({ id: In(ids) }, { status, updatedBy });
+  }
+
+  async count() {
+    return await this.noticeRepository.count();
   }
 }

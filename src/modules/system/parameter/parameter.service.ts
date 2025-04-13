@@ -30,7 +30,7 @@ export class ParameterService {
   }
 
   async findOne(id: number) {
-    return await this.parameterRepository.findBy({ id });
+    return await this.parameterRepository.findOne({ where: { id } });
   }
 
   async findOneByKey(key: string) {
