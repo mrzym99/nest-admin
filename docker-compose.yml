@@ -19,7 +19,7 @@ services:
       - TZ=Asia/Shanghai
 
   db:
-    image: mysql:9 # 本地 8版本是可以的 但是docker 部署就需要 9 以上
+    image: mysql:8 # 8 以上
     volumes:
       - db_data:/var/lib/mysql
       - ./sql:/docker-entrypoint-initdb.d

@@ -22,7 +22,7 @@ services:
       - TZ=Asia/Shanghai
 
   db:
-    image: mysql:9
+    image: mysql:8
     volumes:
       - db_data:/var/lib/mysql
       - ./sql:/docker-entrypoint-initdb.d

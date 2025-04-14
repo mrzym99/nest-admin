@@ -167,6 +167,16 @@ docker-compose ps：列出所有容器。
 docker-compose config：检查docker-compose.yml文件的配置。
 ```
 
+## docker 导出容器内的 数据库
+```
+1、进入容器
+docker exec -it [容器名或ID] sh
+2、导出 sql 到容器内
+mysqldump -u root -p nest_admin > /opt/nest_admin.sql
+3、导出 sql 到本地
+docker cp [容器名或ID]:/opt/nest_admin.sql /opt/nest_admin.sql
+```
+
 ## 交流
 
 `NestAdmin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和 QQ 交流群，使用问题欢迎在群内提问。
