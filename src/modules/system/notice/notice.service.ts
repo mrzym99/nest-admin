@@ -25,7 +25,8 @@ export class NoticeService {
       .createQueryBuilder('notice')
       .where({
         ...(name ? { name: Like(`%${name}%`) } : null),
-      });
+      })
+      .orderBy('notice.createdAt', 'DESC');
 
     return paginate<NoticeEntity>(queryBuilder, { currentPage, pageSize });
   }
