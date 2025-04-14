@@ -17,7 +17,7 @@
 
 > [Gitee address](https://github.com/mrzym99/nest-admin): https://github.com/mrzym99/nest-admin
 
-> [Github address](https://github.com/mrzym99/vue3-naive-admin): https://github.com/mrzym99/vue3-naive-admin
+> [Github address](https://github.com/mrzym99/nest-admin): https://github.com/mrzym99/nest-admin
 
 ## Introduction
 

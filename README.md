@@ -13,7 +13,7 @@
 
 > [Gitee地址](https://github.com/mrzym99/nest-admin): https://github.com/mrzym99/nest-admin
 
-> [Github地址](https://github.com/mrzym99/vue3-naive-admin): https://github.com/mrzym99/vue3-naive-admin
+> [Github地址](https://github.com/mrzym99/nest-admin): https://github.com/mrzym99/nest-admin
 
 ## 简介
 
