@@ -14,6 +14,10 @@ declare global {
     headers: {
       [key: string]: string;
     };
+    body: any;
+    params: any;
+    query: any;
+    url: string;
   }
 }
 

@@ -18,6 +18,8 @@ import { ToolModule } from './modules/tools/tool.module';
 import { ClsModule } from 'nestjs-cls';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
+import { ThrottlerGuard } from '@nestjs/throttler';
+import { IdempotenceInterceptor } from './common/interceptors/idempotence.interceptor';
 
 @Module({
   imports: [
@@ -67,6 +69,10 @@ import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
     {
       provide: APP_INTERCEPTOR, // 全局守卫 用于处理请求
       useFactory: () => new TimeoutInterceptor(),
+    },
+    {
+      provide: APP_INTERCEPTOR, // 全局守卫 处理请求幂等性事件
+      useClass: IdempotenceInterceptor,
     },
 
     // guard

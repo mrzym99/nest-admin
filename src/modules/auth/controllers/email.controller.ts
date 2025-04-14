@@ -6,6 +6,7 @@ import { Public } from '../decorators/public.decorator';
 import { Ip } from '~/common/decorators/http.decorator';
 import { EmailSendCodeDto } from '../dto/captcha.dto';
 import { MailerService } from '~/shared/mailer/mailer.service';
+import { Idempotence } from '~/common/decorators/idempotence.decorator';
 
 @ApiTags('Auth - Email模块')
 @Controller('auth/email')
@@ -20,6 +21,9 @@ export class EmailController {
   @ApiOperation({ summary: '发送验证码' })
   @Public()
   @Throttle({ default: { limit: 1, ttl: 60 * 1000 } })
+  @Idempotence({
+    errorMessage: '请一分钟后再发送验证码',
+  })
   async sendCode(
     @Body() dto: EmailSendCodeDto,
     @Ip() ip: string,
