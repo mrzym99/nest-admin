@@ -1,7 +1,6 @@
 import { HttpAdapterHost, NestFactory, repl } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import * as fs from 'node:fs';
 
 import { Logger } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
@@ -10,20 +9,23 @@ import { setupSwagger } from './setup-swagger';
 import { useContainer } from 'class-validator';
 import { ValidationPipe } from './common/pipes/global-validation.pipes';
 import { AllConfigKeyAndPath, appRegToken } from './config';
-import { NestExpressApplication } from '@nestjs/platform-express';
 import * as path from 'node:path';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { isDev, loadHttpOptions } from './utils';
+import { NestFastifyApplication } from '@nestjs/platform-fastify';
+import { fastifyApp } from './common/adapters/fastify.adapter';
 
 declare const module: any;
 
 async function bootstrap() {
-
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    // 这里可以开启日志打印
-    // logger: ['warn'],
-    // httpsOptions: await loadHttpOptions(isDev), // 是否开启 https 默认 prod 环境开启
-  });
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AppModule,
+    fastifyApp,
+    {
+      bufferLogs: true, // 缓冲日志
+      // httpsOptions: await loadHttpOptions(isDev), // 是否开启 https 默认 prod 环境开启
+    },
+  );
 
   const configService = app.get(ConfigService<AllConfigKeyAndPath>);
   const { port, globalPrefix } = configService.get(appRegToken, {
@@ -35,13 +37,18 @@ async function bootstrap() {
 
   app.enableCors({ origin: '*', credentials: true });
   app.setGlobalPrefix(globalPrefix);
-  app.useStaticAssets(path.join(__dirname, '..', 'public'));
+  app.useStaticAssets({
+    root: path.join(__dirname, '..', 'public'),
+  });
 
-  if (isDev) {
+  !isDev && app.enableShutdownHooks();
+
+  if (!isDev) {
+    // 启用 nest-winston 日志记录
     app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
     // 开启可以方便调试 https://docs.nestjs.com/recipes/repl#usage
-    // await repl(AppModule);
   }
+  // await repl(AppModule);
 
   app.useGlobalInterceptors(new LoggingInterceptor());
 
@@ -64,15 +71,12 @@ async function bootstrap() {
     // swagger log
     const swaggerLogger = new Logger('SwaggerModule');
     swaggerLogger.log(`Swagger running on ${await app.getUrl()}/docs`);
-    swaggerLogger.log(`Swagger running on ${await app.getUrl()}/doc.html`);
   });
-
 
   if (module.hot) {
     module.hot.accept();
     module.hot.dispose(() => app.close());
   }
-
 }
 
 bootstrap();

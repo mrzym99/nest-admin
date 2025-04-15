@@ -5,38 +5,29 @@ import {
   Delete,
   Inject,
   Post,
-  UploadedFile,
-  UseInterceptors,
+  Req,
 } from '@nestjs/common';
 import { UploadService } from './upload.service';
 import { ApiSecurityAuth } from '~/common/decorators/swagger.decorators';
 import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { FileUploadDto } from './upload.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { Express } from 'express';
 import { AuthUser } from '~/modules/auth/decorators/auth-user.decorator';
 import {
   definePermission,
   Perm,
 } from '~/modules/auth/decorators/permission.decorator';
 import { ErrorEnum } from '~/constants/error.constant';
-import { env, uploadLocalStorage } from '~/utils';
+import { env } from '~/utils';
 import { AliOssService } from '../oss/alioss.service';
 import { IOssConfig, OssConfig } from '~/config';
 import { QClouldOssService } from '../oss/qcloudoss.service';
 import { DeleteFileDto } from '~/common/dto/delete.dto';
 import { StorageService } from '../storage/storage.service';
+import { FastifyRequest } from 'fastify';
 
 export const permissions = definePermission('upload', {
   UPLOAD: 'upload',
 } as const);
-
-function getStorage() {
-  if (env('OSS_TYPE') === 'local') {
-    return uploadLocalStorage;
-  }
-  return null;
-}
 
 @ApiSecurityAuth()
 @ApiTags('Tools - 上传模块')
@@ -51,8 +42,6 @@ export class UploadController {
     private readonly ossConfig: IOssConfig,
   ) {}
 
-  // https://github.com/expressjs/multer#multeropts
-  @UseInterceptors(FileInterceptor('file', { storage: getStorage() }))
   @Post()
   @Perm(permissions.UPLOAD)
   @ApiOperation({ summary: '上传文件' })
@@ -60,7 +49,9 @@ export class UploadController {
   @ApiBody({
     type: FileUploadDto,
   })
-  async upload(@UploadedFile() file: Express.Multer.File, @AuthUser() user) {
+  async upload(@Req() req: FastifyRequest, @AuthUser() user) {
+    const file = await req.file();
+
     try {
       let path: string = '';
       switch (this.ossConfig.type) {

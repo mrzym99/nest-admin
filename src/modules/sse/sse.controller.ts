@@ -15,13 +15,14 @@ import { ApiSecurityAuth } from '~/common/decorators/swagger.decorators';
 import { SkipThrottle } from '@nestjs/throttler';
 import { OnlineService } from '../system/monitor/online/online.service';
 import { interval, Observable, Subscriber } from 'rxjs';
+import { FastifyReply, FastifyRequest } from 'fastify';
 
 @ApiTags('Sse - sse模块')
 @ApiSecurityAuth()
 @SkipThrottle() // 跳过限流机制
 @Controller('sse')
 export class SseController implements BeforeApplicationShutdown {
-  private replayMap: Map<string, Subscriber<MessageEvent>[]> = new Map();
+  private replayMap: Map<string, FastifyReply> = new Map();
   constructor(
     private readonly sseService: SseService,
     private readonly onlineService: OnlineService,
@@ -42,8 +43,8 @@ export class SseController implements BeforeApplicationShutdown {
   @Sse(':uid')
   async sse(
     @Param('uid', ParseIntPipe) uid: number,
-    @Req() req: ExpressRequest,
-    @Res() res: Subscriber<MessageEvent>[],
+    @Req() req: FastifyRequest,
+    @Res() res: FastifyReply,
     @Ip() ip: string,
     @Headers('user-agent') ua: string,
   ): Promise<Observable<any>> {
@@ -62,7 +63,7 @@ export class SseController implements BeforeApplicationShutdown {
 
       this.sseService.addClient(uid, subscriber);
 
-      req.on('close', () => {
+      req.raw.on('close', () => {
         subscription.unsubscribe();
         this.sseService.removeClient(uid, subscriber);
         this.replayMap.delete(String(uid));

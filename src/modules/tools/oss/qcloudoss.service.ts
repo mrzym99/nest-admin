@@ -7,6 +7,7 @@ import { OssInfo } from './oss.model';
 import { isEmpty } from 'lodash';
 import { genFileName, getExtname, getSize } from '~/utils';
 import { createPaginationObject } from '~/helper/pagination/create-pagination';
+import { MultipartFile } from '@fastify/multipart';
 
 @Injectable()
 export class QClouldOssService {
@@ -106,15 +107,15 @@ export class QClouldOssService {
   }
 
   // 上传文件到oss 并返回  图片oss 地址
-  public async putOssFile(file: Express.Multer.File): Promise<string> {
+  public async putOssFile(file: MultipartFile): Promise<string> {
     return new Promise(async (resolve, reject) => {
       try {
         const exist = await this.bucketExist();
         if (!exist) {
           await this.putBucket();
         }
-        const ossPath = genFileName(file.originalname);
-        const buffer = Buffer.from(file.buffer);
+        const ossPath = genFileName(file.filename);
+        const buffer = await file.toBuffer();
         this.client.putObject(
           {
             Bucket: this.ossConfig.bucket,

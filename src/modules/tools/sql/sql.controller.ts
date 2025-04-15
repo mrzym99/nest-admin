@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Res,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ApiSecurityAuth } from '~/common/decorators/swagger.decorators';
 import { Response } from 'express';
@@ -14,9 +7,9 @@ import {
   Perm,
 } from '~/modules/auth/decorators/permission.decorator';
 import { SqlService } from './sql.service';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { BusinessException } from '~/common/exceptions/biz.exception';
 import { ErrorEnum } from '~/constants/error.constant';
+import { FastifyRequest } from 'fastify';
 
 export const permissions = definePermission('tool:sql', {
   EXPORT: 'export',
@@ -49,15 +42,15 @@ export class SqlController {
 
   @Post('import')
   @ApiOperation({ summary: '导入数据库结构和数据' })
-  @UseInterceptors(FileInterceptor('file'))
   @Perm(permissions.IMPORT)
-  async import(@UploadedFile() file: Express.Multer.File): Promise<void> {
-    if (!file) {
+  async import(@Req() req: FastifyRequest): Promise<void> {
+    if (!req.file()) {
       throw new BusinessException(ErrorEnum.SQL_NOT_FOUND);
     }
 
     try {
-      const fileStream = file.buffer;
+      const file = await req.file();
+      const fileStream = await file.toBuffer();
       await this.sqlService.import(fileStream);
     } catch (error) {
       throw new BusinessException(ErrorEnum.SQL_IMPORT_FAIL);

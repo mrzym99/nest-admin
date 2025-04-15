@@ -7,6 +7,7 @@ import { isEmpty } from 'lodash';
 import { Pagination } from '~/helper/pagination/pagination';
 import { OssInfo } from './oss.model';
 import { OssPageDto } from './oss.dto';
+import { MultipartFile } from '@fastify/multipart';
 
 @Injectable()
 export class AliOssService {
@@ -69,14 +70,14 @@ export class AliOssService {
   }
 
   // 上传文件到oss 并返回  图片oss 地址
-  public async putOssFile(file: Express.Multer.File): Promise<string> {
+  public async putOssFile(file: MultipartFile): Promise<string> {
     let res: any;
     try {
       if (!this.bucketExist()) {
         await this.client.putBucket(this.ossConfig.bucket);
       }
-      const ossFileName = genFileName(file.originalname);
-      res = await this.client.put(ossFileName, file.buffer);
+      const ossFileName = genFileName(file.filename);
+      res = await this.client.put(ossFileName, file.toBuffer());
       // 将文件设置为公共可读
       await this.client.putACL(ossFileName, 'public-read');
     } catch (error) {

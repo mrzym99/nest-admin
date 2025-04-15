@@ -11,6 +11,7 @@ import {
   definePermission,
   Perm,
 } from '~/modules/auth/decorators/permission.decorator';
+import { FastifyRequest } from 'fastify';
 
 export const permissions = definePermission('system:online', [
   'list',
@@ -29,7 +30,7 @@ export class OnlineController {
   @Perm(permissions.LIST)
   async list(
     @Query() dto: OnlineQueryDto,
-    @Req() req: ExpressRequest,
+    @Req() req: FastifyRequest,
   ): Promise<Pagination<OnlineUser>> {
     return await this.onlineService.list(dto, req.accessToken);
   }

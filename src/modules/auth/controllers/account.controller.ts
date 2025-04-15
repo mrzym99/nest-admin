@@ -12,6 +12,7 @@ import { UserPasswordDto, UserProfileDto } from '~/modules/user/dto/user.dto';
 import { Roles } from '../auth.constant';
 import { TokenService } from '../services/token.service';
 import { isEmpty } from 'class-validator';
+import { FastifyRequest } from 'fastify';
 
 @ApiTags('Auth - 账户模块')
 @ApiSecurityAuth()
@@ -36,7 +37,7 @@ export class AccountController {
   @ApiOperation({ summary: '账户退出登录' })
   async logout(
     @AuthUser() user: IAuthUser,
-    @Req() req: ExpressRequest,
+    @Req() req: FastifyRequest,
   ): Promise<void> {
     await this.authService.clearLoginStatus(req.accessToken, user);
   }

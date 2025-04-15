@@ -65,34 +65,26 @@ export function genFileName(name: string) {
   return Date.now() + '-' + name;
 }
 
-/**
- * 文件上传 https://github.com/expressjs/multer#multeropts
- * multer.diskStorage
- */
-export const uploadLocalStorage = multer.diskStorage({
-  destination: async (req, file, cb) => {
-    const fileName = file.originalname;
-    const extName = getExtname(fileName);
-    const type = getFileType(extName);
-    const currentDate = dayjs().format('YYYY-MM-DD');
-
-    const folderPath = path.join(
-      __dirname,
-      '../../',
-      `public/upload/${currentDate}/${type}/`,
-    );
-
-    try {
-      // 判断是否有该文件夹
-      await fs.promises.stat(folderPath);
-    } catch (error) {
-      // 没有该文件夹就创建
-      await fs.promises.mkdir(folderPath, { recursive: true });
-    }
-
-    cb(null, folderPath);
-  },
-  filename: (req, file, cb) => {
-    cb(null, genFileName(file.originalname));
-  },
-});
+export async function saveLocalFile(
+  buffer: Buffer,
+  name: string,
+  currentDate: string,
+  type: string,
+) {
+  const filePath = path.join(
+    __dirname,
+    '../../',
+    'public/upload/',
+    `${currentDate}/`,
+    `${type}/`,
+  );
+  try {
+    // 判断是否有该文件夹
+    await fs.promises.stat(filePath);
+  } catch (error) {
+    // 没有该文件夹就创建
+    await fs.promises.mkdir(filePath, { recursive: true });
+  }
+  const writeStream = fs.createWriteStream(filePath + name);
+  writeStream.write(buffer);
+}

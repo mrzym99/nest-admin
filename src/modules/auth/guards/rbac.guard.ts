@@ -18,6 +18,7 @@ import { ConfigService } from '@nestjs/config';
 import { AllConfigKeyAndPath } from '~/config';
 import { ParameterService } from '~/modules/system/parameter/parameter.service';
 import { ParameterKey } from '~/constants/parameter.constant';
+import { FastifyRequest } from 'fastify';
 
 @Injectable()
 export class RbacGuard implements CanActivate {
@@ -36,7 +37,7 @@ export class RbacGuard implements CanActivate {
     ]);
     if (isPublic) return true;
 
-    const request = context.switchToHttp().getRequest<ExpressRequest>();
+    const request = context.switchToHttp().getRequest<FastifyRequest>();
 
     const { user } = request;
     if (!user) throw new UnauthorizedException(ErrorEnum.LOGIN_FIRST);

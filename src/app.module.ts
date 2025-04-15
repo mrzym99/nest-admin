@@ -18,8 +18,8 @@ import { ToolModule } from './modules/tools/tool.module';
 import { ClsModule } from 'nestjs-cls';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
-import { ThrottlerGuard } from '@nestjs/throttler';
 import { IdempotenceInterceptor } from './common/interceptors/idempotence.interceptor';
+import { FastifyRequest } from 'fastify';
 
 @Module({
   imports: [
@@ -37,9 +37,12 @@ import { IdempotenceInterceptor } from './common/interceptors/idempotence.interc
         mount: true,
         setup: (cls, context) => {
           // cls.set('request', request);
-          const req = context.switchToHttp().getRequest();
+          const req = context.switchToHttp().getRequest<FastifyRequest<{
+            Params: {
+            id?: string;
+          }}>>();
           if (req.params?.id && req.body) {
-            cls.set('operateId', String(req.params.id));
+            cls.set('operateId', Number.parseInt(req.params.id));
           }
         },
       },

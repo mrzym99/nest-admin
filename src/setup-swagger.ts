@@ -3,7 +3,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { CommonEntity } from './common/entity/common.eneity';
 import { ResOp } from './common/model/response.model';
 import { Pagination } from './helper/pagination/pagination';
-import { knife4jSetup } from 'nestjs-knife4j';
 import { ConfigService } from '@nestjs/config';
 import { IAppConfig } from './config';
 import { API_SECURITY_AUTH } from './common/decorators/swagger.decorators';
@@ -36,16 +35,5 @@ export function setupSwagger(
     swaggerOptions: {
       persistAuthorization: true,
     },
-  });
-
-  knife4jSetup(app, {
-    urls: [
-      {
-        name: '版本 1.0.0',
-        url: `/docs-json`,
-        swaggerVersion: '8.1.0',
-        location: `/docs-json`,
-      },
-    ],
   });
 }
