@@ -18,12 +18,14 @@ import { createFastifyApp } from './common/adapters/fastify.adapter';
 declare const module: any;
 
 async function bootstrap() {
-  const fastifyApp = await createFastifyApp();
+  const httpsOptions = await loadHttpOptions(isDev);
+
+  const fastifyApp = await createFastifyApp(httpsOptions);
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     fastifyApp,
     {
-      // httpsOptions: await loadHttpOptions(isDev), // 是否开启 https 默认 prod 环境开启
+      // httpsOptions, // 是否开启 https
       bufferLogs: true, // 缓冲日志
     },
   );

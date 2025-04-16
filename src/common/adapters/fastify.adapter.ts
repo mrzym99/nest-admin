@@ -1,12 +1,13 @@
+import { HttpsOptions } from '@nestjs/common/interfaces/external/https-options.interface';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
 import { isDev, loadHttpOptions } from '~/utils';
 
-export async function createFastifyApp(): Promise<FastifyAdapter> {
+export function createFastifyApp(httpsOptions: HttpsOptions): FastifyAdapter {
   const fastifyApp = new FastifyAdapter({
     // @see https://www.fastify.io/docs/latest/Reference/Server/#trustproxy
     trustProxy: true,
     logger: false,
-    // https: await loadHttpOptions(isDev),
+    // https: httpsOptions,
     // forceCloseConnections: true,
   });
 
