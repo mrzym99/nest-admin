@@ -13,17 +13,18 @@ import * as path from 'node:path';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { isDev, loadHttpOptions } from './utils';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
-import { fastifyApp } from './common/adapters/fastify.adapter';
+import { createFastifyApp } from './common/adapters/fastify.adapter';
 
 declare const module: any;
 
 async function bootstrap() {
+  const fastifyApp = await createFastifyApp();
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     fastifyApp,
     {
-      bufferLogs: true, // 缓冲日志
       // httpsOptions: await loadHttpOptions(isDev), // 是否开启 https 默认 prod 环境开启
+      bufferLogs: true, // 缓冲日志
     },
   );
 
