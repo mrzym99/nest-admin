@@ -38,8 +38,6 @@ export class DeptService {
     if (name) {
       const deptList = await this.deptRepository
         .createQueryBuilder('dept')
-        .leftJoinAndSelect('dept.creator', 'creator')
-        .leftJoinAndSelect('dept.updater', 'updater')
         .where('dept.name LIKE :name', { name: `%${name}%` })
         .getMany();
 
@@ -52,7 +50,7 @@ export class DeptService {
     }
     const deptTree = await this.deptRepository.findTrees({
       depth: 2,
-      relations: ['parent', 'creator', 'updater'],
+      relations: ['parent'],
     });
 
     return deepSortTree(deptTree, 'order');
