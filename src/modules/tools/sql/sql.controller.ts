@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ApiSecurityAuth } from '~/common/decorators/swagger.decorators';
-import { Response } from 'express';
 import {
   definePermission,
   Perm,
@@ -9,7 +8,9 @@ import {
 import { SqlService } from './sql.service';
 import { BusinessException } from '~/common/exceptions/biz.exception';
 import { ErrorEnum } from '~/constants/error.constant';
-import { FastifyRequest } from 'fastify';
+import { FastifyReply, FastifyRequest } from 'fastify';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
 
 export const permissions = definePermission('tool:sql', {
   EXPORT: 'export',
@@ -25,15 +26,17 @@ export class SqlController {
   @Get('export')
   @ApiOperation({ summary: '导出数据库结构和数据' })
   @Perm(permissions.EXPORT)
-  async export(@Res() res: Response) {
+  async export(@Res() res: FastifyReply) {
     try {
       const filePath = await this.sqlService.export();
-      return res.download(filePath, (err) => {
-        if (err) {
-          console.error('下载失败', err);
-          throw new BusinessException(ErrorEnum.SQL_EXPORT_FAIL);
-        }
-      });
+
+      const fileName = path.basename(filePath);
+
+      const fileStream = fs.createReadStream(filePath);
+      res.header('Content-Type', 'application/octet-stream');
+      res.header('Content-Disposition', `attachment; filename=${fileName}`);
+
+      res.send(fileStream);
     } catch (error) {
       console.error('导出失败', error);
       throw new BusinessException(ErrorEnum.SQL_EXPORT_FAIL);
