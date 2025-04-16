@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 16/04/2025 23:08:12
+ Date: 16/04/2025 23:13:26
 */
 
 SET NAMES utf8mb4;
@@ -847,7 +847,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (1, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'superadmin', '$argon2id$v=19$m=65536,t=3,p=4$A1nAM36+dJvXJvgsV9SnoA$3htBUFv591QOVs9SB6B3bH9CFUfV7YOYOSaDWu1R3m4', 1, 1, 3);
+INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (1, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'superadmin', '$argon2id$v=19$m=65536,t=3,p=4$h5qPPSDqFp9hHsbKHK24LQ$8zPoTP7RJ0etIdPT1LVHXozLUHcSyiFHjVEWbLK4gJg', 1, 1, 3);
 INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (2, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'admin', '$argon2id$v=19$m=65536,t=3,p=4$uUvBxUpFRd89cqVaNStsww$6u0Crp7gqx7b1E5QT/XSo5OCusvSKX56eqErPCdzSqg', 1, 2, 3);
 INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (3, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'test', '$argon2id$v=19$m=65536,t=3,p=4$ig8ebM6uC2S7OCjFQ0y27w$rgauYvUKerQfql3nB/V9QseShyTAzPGWbjeaD1YtCPs', 1, 3, 2);
 INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (4, '2025-04-12 10:33:06.523520', '2025-04-12 10:33:06.523520', 'guest', '$argon2id$v=19$m=65536,t=3,p=4$S8N6k7WgL2X8tYBs4QrTvA$udk99vXABr+sFiQhmYEZj71ve11We3D6UcjYYAtF1zc', 1, 4, 10);
@@ -866,13 +866,16 @@ CREATE TABLE `user_access_token` (
   PRIMARY KEY (`id`),
   KEY `FK_c9c6ac4970ddbe5a8c4887e1e7e` (`userId`),
   CONSTRAINT `FK_c9c6ac4970ddbe5a8c4887e1e7e` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=152 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of user_access_token
 -- ----------------------------
 BEGIN;
 INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInJvbGVzIjpbInN1cGVyYWRtaW4iXSwiaWF0IjoxNzQ0ODE1NjI5LCJleHAiOjE3NDQ4MTkyMjl9.sB5Xk2UQeN9lAzX3qYClEerEGfRRyLNaTbX97oS9Fw4', '2025-04-17 00:00:29', '2025-04-16 23:00:29', 1, 148);
+INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTc0NDgxNjIzMywiZXhwIjoxNzQ0OTAyNjMzfQ.8-cXmnVJoVikH3JPCQt1c895pgA6yOCdfK61RnJ9QUQ', '2025-04-17 23:10:33', '2025-04-16 23:10:33', 2, 149);
+INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInJvbGVzIjpbInN1cGVyYWRtaW4iXSwiaWF0IjoxNzQ0ODE2MjU5LCJleHAiOjE3NDQ5MDI2NTl9.xkYjTKV5de31PCFLZvXxolo0gWj0S6efGGr5P3A-EnQ', '2025-04-17 23:11:00', '2025-04-16 23:11:00', 1, 150);
+INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInJvbGVzIjpbInN1cGVyYWRtaW4iXSwiaWF0IjoxNzQ0ODE2MzQ4LCJleHAiOjE3NDQ5MDI3NDh9.PWHG8CbTzk9DHgFdxRwMpqs-r6tmK0N74jX9St4BiMc', '2025-04-17 23:12:28', '2025-04-16 23:12:28', 1, 151);
 COMMIT;
 
 -- ----------------------------
@@ -918,7 +921,7 @@ CREATE TABLE `user_refresh_token` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `REL_0fb9e76570bb35fd7dd7f78f73` (`accessTokenId`),
   CONSTRAINT `FK_0fb9e76570bb35fd7dd7f78f73c` FOREIGN KEY (`accessTokenId`) REFERENCES `user_access_token` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=335 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=338 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user_refresh_token
@@ -926,6 +929,9 @@ CREATE TABLE `user_refresh_token` (
 BEGIN;
 INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiNzhkZmYxYjEtOTRlMi00OGMyLThmYjAtNDFhYzhkM2JjOTk4IiwiaWF0IjoxNzQ0MjE5OTY5LCJleHAiOjE3NDQyMjM1Njl9.NtuR4tkmBxGvLXaKLuOgbQQmRcY4StiGxVQDihPbvNs', '2025-04-17 01:32:49', '2025-04-10 01:32:49', NULL, 181);
 INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiZTRjMDc5NGEtYjMwNS00NGU3LTkwNjMtZDRiMjUxZDA4M2U1IiwiaWF0IjoxNzQ0ODE1NjI5LCJleHAiOjE3NDQ4MTkyMjl9.fMEuXDAbSOWBycxqHL8-0ZhfyY_tl6dZhcnz0rvft20', '2025-04-23 23:00:29', '2025-04-16 23:00:29', 148, 334);
+INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiOTQ3NWRkYWItNDFhZC00MjI4LTgwMmUtYWIzZTM2MGY0ZmE4IiwiaWF0IjoxNzQ0ODE2MjMzLCJleHAiOjE3NDQ5MDI2MzN9.KA3NUMX2XuIkOkSs_mIxMlzk_0hfb53mKm-bZ3oBHkY', '2025-04-23 23:10:33', '2025-04-16 23:10:33', 149, 335);
+INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiMTQ5NGViOWMtMWMzNy00ZjU5LTgxZDgtZmQ0OWQwZWU3Y2VjIiwiaWF0IjoxNzQ0ODE2MjU5LCJleHAiOjE3NDQ5MDI2NTl9.aSs9CuxdtlAXGfhGHPMDgI75Zqx7CbceFrSOl3-PO4s', '2025-04-23 23:11:00', '2025-04-16 23:11:00', 150, 336);
+INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiNzA5NmFlYjMtZTk3MS00NWE1LWFiODYtYzc5Y2I5ZTdiNjVhIiwiaWF0IjoxNzQ0ODE2MzQ4LCJleHAiOjE3NDQ5MDI3NDh9.hHMg2ksSovuruka4WiecQadpWUksObhSN7MvmPOQryI', '2025-04-23 23:12:28', '2025-04-16 23:12:28', 151, 337);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
