@@ -1,5 +1,5 @@
 # 使用官方的 Node.js 运行时镜像作为基础镜像
-FROM node:21.7.3-alpine
+FROM node:22.3.0-alpine
 
 
 # 设置工作目录

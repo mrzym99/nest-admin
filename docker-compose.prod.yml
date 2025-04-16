@@ -3,7 +3,7 @@ services:
   nest-admin:
     build: .
     extra_hosts:
-      - 'host.docker.internal:host-gateway' # 线上docker 内部使用 host.docker.internal
+      - 'host.docker.internal:host-gateway' # 服务器上需使用 host.docker.internal
     ports:
       - '3000:3000'
     depends_on:
