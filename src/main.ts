@@ -1,7 +1,6 @@
 import { HttpAdapterHost, NestFactory, repl } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import * as fs from 'node:fs';
 
 import { Logger } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
@@ -18,10 +17,7 @@ import { isDev, loadHttpOptions } from './utils';
 declare const module: any;
 
 async function bootstrap() {
-
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    // 这里可以开启日志打印
-    // logger: ['warn'],
     // httpsOptions: await loadHttpOptions(isDev), // 是否开启 https 默认 prod 环境开启
   });
 
@@ -38,10 +34,11 @@ async function bootstrap() {
   app.useStaticAssets(path.join(__dirname, '..', 'public'));
 
   if (isDev) {
-    app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
     // 开启可以方便调试 https://docs.nestjs.com/recipes/repl#usage
     // await repl(AppModule);
   }
+
+  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
 
   app.useGlobalInterceptors(new LoggingInterceptor());
 
@@ -67,12 +64,10 @@ async function bootstrap() {
     swaggerLogger.log(`Swagger running on ${await app.getUrl()}/doc.html`);
   });
 
-
   if (module.hot) {
     module.hot.accept();
     module.hot.dispose(() => app.close());
   }
-
 }
 
 bootstrap();

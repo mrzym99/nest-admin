@@ -4,11 +4,9 @@ import {
   BaseEntity,
   Column,
   CreateDateColumn,
-  JoinColumn,
-  ManyToOne,
   PrimaryGeneratedColumn,
+  VirtualColumn,
 } from 'typeorm';
-import { UserEntity } from '~/modules/user/user.entity';
 
 export abstract class CommonEntity extends BaseEntity {
   // 使用 id 作为主键
@@ -52,12 +50,22 @@ export abstract class CompleteEntity extends CommonEntity {
   })
   updatedBy: number;
 
-  // 可以联查将用户信息查出来
-  @ManyToOne(() => UserEntity)
-  @JoinColumn({ name: 'created_by' })
-  creator: UserEntity;
+  // https://typeorm.io/decorator-reference#virtualcolumn 仅在调用 find 和 findOne 时才生效
+  @ApiProperty({
+    description: '创建者',
+  })
+  @VirtualColumn({
+    query: (alias) =>
+      `SELECT username FROM user WHERE id = ${alias}.created_by`,
+  })
+  creator: string;
 
-  @ManyToOne(() => UserEntity)
-  @JoinColumn({ name: 'updated_by' })
-  updater: UserEntity;
+  @ApiProperty({
+    description: '修改者',
+  })
+  @VirtualColumn({
+    query: (alias) =>
+      `SELECT username FROM user WHERE id = ${alias}.updated_by`,
+  })
+  updater: string;
 }
