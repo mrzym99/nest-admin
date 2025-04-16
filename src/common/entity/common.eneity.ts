@@ -10,7 +10,7 @@ import {
 
 export abstract class CommonEntity extends BaseEntity {
   // 使用 id 作为主键
-  // 使用 uuid 作为id
+  // 使用 自增 id
   @ApiProperty({
     description: '主键',
   })

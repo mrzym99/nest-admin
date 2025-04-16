@@ -9,7 +9,7 @@ services:
       redis:
         condition: service_healthy
     environment:
-      - DB_HOST=db # 本地使用 db
+      - DB_HOST=db # 使用 db 即可
       - DB_PORT=3306
       - DB_USER=root
       - DB_PASSWORD=12345678
