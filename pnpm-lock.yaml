@@ -12,7 +12,7 @@ importers:
         specifier: ^9.4.0
         version: 9.4.0
       '@fastify/multipart':
-        specifier: ^8.3.0
+        specifier: ^8.3.1
         version: 8.3.1
       '@fastify/static':
         specifier: ^7.0.4
@@ -33,10 +33,10 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1(@nestjs/common@10.4.17(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.17(@nestjs/common@10.4.17(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@10.4.16)(reflect-metadata@0.2.2)(rxjs@7.8.2))(cache-manager@6.4.2)(keyv@5.3.2)(rxjs@7.8.2)
       '@nestjs/common':
-        specifier: ^10.4.16
+        specifier: ^10.4.17
         version: 10.4.17(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core':
-        specifier: ^10.4.16
+        specifier: ^10.4.17
         version: 10.4.17(@nestjs/common@10.4.17(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@10.4.16)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/jwt':
         specifier: ^10.2.0
@@ -146,9 +146,6 @@ importers:
       passport-jwt:
         specifier: ^4.0.1
         version: 4.0.1
-      qiniu:
-        specifier: ^7.14.0
-        version: 7.14.0
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -199,7 +196,7 @@ importers:
         specifier: ^10.2.3
         version: 10.2.3(chokidar@3.6.0)(typescript@5.8.3)
       '@nestjs/testing':
-        specifier: ^10.4.16
+        specifier: ^10.4.17
         version: 10.4.17(@nestjs/common@10.4.17(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.17(@nestjs/common@10.4.17(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@10.4.16)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@10.4.16(@nestjs/common@10.4.17(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.17))
       '@types/jest':
         specifier: ^29.5.14
@@ -1386,10 +1383,6 @@ packages:
     resolution: {integrity: sha512-yqXL+k5rr8+ZRpOAntkaaRgWgE5o8ESAj5DyRmVTCSoZxXmqemb9Dd7T4i5UzwuERdLAJUy6XzR9zFVuf0kzkw==}
     engines: {node: '>= 4.0.0'}
 
-  agentkeepalive@4.6.0:
-    resolution: {integrity: sha512-kja8j7PjmncONqaTsB8fQ+wE2mSU2DJ9D4XKoJ5PFWIdRMa6SLSN1ff4mOr4jCbfRSsxR4keIiySJU0N9T5hIQ==}
-    engines: {node: '>= 8.0.0'}
-
   ajv-formats@1.6.1:
     resolution: {integrity: sha512-4CjkH20If1lhR5CGtqkrVg3bbOtFEG80X9v6jDOIUhbzzbB+UzPBGy8GQhUNVZ0yvMHdMpawCOcy5ydGMsagGQ==}
     peerDependencies:
@@ -1593,18 +1586,12 @@ packages:
   bcrypt-pbkdf@1.0.2:
     resolution: {integrity: sha512-qeFIXtP4MSoi6NLqO12WfqARWWuCKi2Rn/9hJLEmtB5yTNr9DqFWkJRCf2qShWzPeAMRnOgCrq0sg/KLv5ES9w==}
 
-  before@0.0.1:
-    resolution: {integrity: sha512-1J5SWbkoVJH9DTALN8igB4p+nPKZzPrJ/HomqBDLpfUvDXCdjdBmBUcH5McZfur0lftVssVU6BZug5NYh87zTw==}
-
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
 
   bl@4.1.0:
     resolution: {integrity: sha512-1W07cM9gS6DcLperZfFSj+bWLtaPGSOHWhPiGzXmvVJbRLdG82sH/Kn8EtW1VqWVA54AKf2h5k5BbnIbwF3h6w==}
-
-  block-stream2@2.1.0:
-    resolution: {integrity: sha512-suhjmLI57Ewpmq00qaygS8UgEq2ly2PCItenIyhMqVjo4t4pGzqMvfgJuX8iWTeSDdfSSqS6j38fL4ToNL7Pfg==}
 
   body-parser@1.20.3:
     resolution: {integrity: sha512-7rAxByjUMqQ3/bHJy7D6OGXvx/MMc4IqBn/X0fcM1QUcAItpZrBEYhWGem+tzXH90c+G01ypMcYJBO9Y30203g==}
@@ -1927,11 +1914,6 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
-
-  crc32@0.2.2:
-    resolution: {integrity: sha512-PFZEGbDUeoNbL2GHIEpJRQGheXReDody/9axKTxhXtQqIL443wnNigtVZO9iuCIMPApKZRv7k2xr8euXHqNxQQ==}
-    engines: {node: '>= 0.4.0'}
-    hasBin: true
 
   create-jest@29.7.0:
     resolution: {integrity: sha512-Adz2bdH0Vq3F53KEMJOoftQFutWCukm6J24wbPWRO4k1kMY7gS7ds/uoJkNuV8wDCtWWnuwGcJwpWcih+zEW1Q==}
@@ -3543,9 +3525,6 @@ packages:
   mnemonist@0.39.6:
     resolution: {integrity: sha512-A/0v5Z59y63US00cRSLiloEIw3t5G+MiKz4BhX21FI+YBJXBOGW0ohFxTxO08dsOYlzxo87T7vGfZKYp2bcAWA==}
 
-  mockdate@3.0.5:
-    resolution: {integrity: sha512-iniQP4rj1FhBdBYS/+eQv7j1tadJ9lJtdzgOpvsOHng/GbcDh2Fhdeq+ZRldrPYdXvCyfFUmFeEwEGXZB5I/AQ==}
-
   moment@2.30.1:
     resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
 
@@ -4029,10 +4008,6 @@ packages:
 
   pure-rand@6.1.0:
     resolution: {integrity: sha512-bVWawvoZoBYpp6yIoQtQXHZjmz35RSVHnUOTefl8Vcjr8snTPY1wnpSPMWekcFwbxI6gtmT7rSYPFvz71ldiOA==}
-
-  qiniu@7.14.0:
-    resolution: {integrity: sha512-3q7nIQQjqR69k7hbDPfM+hx52BmUxt8J/n9LrmjxypWVEeNK5PTaPS2pnxqaxs0tL9utNOPVfjFiBr18mHOFqQ==}
-    engines: {node: '>= 6'}
 
   qs@6.13.0:
     resolution: {integrity: sha512-+38qI9SOr8tfZ4QmJNplMUxqjbe7LKvvZgWdExBOmd+egZTtjLB67Gu0HRX3u/XOq7UU2Nx6nsjvS16Z9uwfpg==}
@@ -4732,11 +4707,6 @@ packages:
         optional: true
       typeorm-aurora-data-api-driver:
         optional: true
-
-  typescript@4.9.5:
-    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
 
   typescript@5.7.2:
     resolution: {integrity: sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==}
@@ -6374,10 +6344,6 @@ snapshots:
     dependencies:
       humanize-ms: 1.2.1
 
-  agentkeepalive@4.6.0:
-    dependencies:
-      humanize-ms: 1.2.1
-
   ajv-formats@1.6.1(ajv@7.2.4):
     optionalDependencies:
       ajv: 7.2.4
@@ -6626,18 +6592,12 @@ snapshots:
     dependencies:
       tweetnacl: 0.14.5
 
-  before@0.0.1: {}
-
   binary-extensions@2.3.0: {}
 
   bl@4.1.0:
     dependencies:
       buffer: 5.7.1
       inherits: 2.0.4
-      readable-stream: 3.6.2
-
-  block-stream2@2.1.0:
-    dependencies:
       readable-stream: 3.6.2
 
   body-parser@1.20.3:
@@ -7014,8 +6974,6 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.2
 
-  crc32@0.2.2: {}
-
   create-jest@29.7.0(@types/node@20.17.30)(ts-node@10.9.2(@types/node@20.17.30)(typescript@5.8.3)):
     dependencies:
       '@jest/types': 29.6.3
@@ -7265,7 +7223,8 @@ snapshots:
 
   enabled@2.0.0: {}
 
-  encodeurl@1.0.2: {}
+  encodeurl@1.0.2:
+    optional: true
 
   encodeurl@2.0.0:
     optional: true
@@ -9181,8 +9140,6 @@ snapshots:
     dependencies:
       obliterator: 2.0.5
 
-  mockdate@3.0.5: {}
-
   moment@2.30.1: {}
 
   ms@2.0.0:
@@ -9729,24 +9686,6 @@ snapshots:
   punycode@2.3.1: {}
 
   pure-rand@6.1.0: {}
-
-  qiniu@7.14.0:
-    dependencies:
-      agentkeepalive: 4.6.0
-      before: 0.0.1
-      block-stream2: 2.1.0
-      crc32: 0.2.2
-      destroy: 1.2.0
-      encodeurl: 1.0.2
-      formstream: 1.5.1
-      mime: 2.6.0
-      mkdirp: 0.5.6
-      mockdate: 3.0.5
-      tunnel-agent: 0.6.0
-      typescript: 4.9.5
-      urllib: 2.44.0
-    transitivePeerDependencies:
-      - proxy-agent
 
   qs@6.13.0:
     dependencies:
@@ -10443,8 +10382,6 @@ snapshots:
       ts-node: 10.9.2(@types/node@20.17.30)(typescript@5.8.3)
     transitivePeerDependencies:
       - supports-color
-
-  typescript@4.9.5: {}
 
   typescript@5.7.2: {}
 
