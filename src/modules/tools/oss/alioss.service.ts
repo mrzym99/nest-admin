@@ -29,6 +29,14 @@ export class AliOssService {
     pageSize,
     name,
   }: OssPageDto): Promise<Pagination<OssInfo>> {
+    if (!this.client) {
+      return {
+        currentPage: 1,
+        pageSize: 10,
+        total: 0,
+        list: [],
+      };
+    }
     const res = await this.client.listV2({}, {});
 
     let list = !isEmpty(res.objects)
