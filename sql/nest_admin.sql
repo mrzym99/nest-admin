@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 14/04/2025 22:55:41
+ Date: 16/04/2025 23:08:12
 */
 
 SET NAMES utf8mb4;
@@ -54,10 +54,6 @@ CREATE TABLE `sys_dept` (
   `updated_by` int DEFAULT NULL COMMENT '修改者',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_c75280b01c49779f2323536db67` (`parentId`),
-  KEY `FK_266e01a1297fa9b18f5e73bbc05` (`created_by`),
-  KEY `FK_3b74168ec9f77c2c1f95db199b3` (`updated_by`),
-  CONSTRAINT `FK_266e01a1297fa9b18f5e73bbc05` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
-  CONSTRAINT `FK_3b74168ec9f77c2c1f95db199b3` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_c75280b01c49779f2323536db67` FOREIGN KEY (`parentId`) REFERENCES `sys_dept` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
@@ -88,11 +84,7 @@ CREATE TABLE `sys_dict_item` (
   `type_id` int DEFAULT NULL,
   `created_by` int DEFAULT NULL COMMENT '创建人',
   `updated_by` int DEFAULT NULL COMMENT '修改者',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `FK_bd4de422c26e5fbf9b4d8337644` (`created_by`),
-  KEY `FK_440396a38d6daf3a7ec798c4361` (`updated_by`),
-  CONSTRAINT `FK_440396a38d6daf3a7ec798c4361` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`),
-  CONSTRAINT `FK_bd4de422c26e5fbf9b4d8337644` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
@@ -122,11 +114,7 @@ CREATE TABLE `sys_dict_type` (
   `created_by` int DEFAULT NULL COMMENT '创建人',
   `updated_by` int DEFAULT NULL COMMENT '修改者',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `IDX_74d0045ff7fab9f67adc0b1bda` (`code`),
-  KEY `FK_9d5f4a5f064c1f7b878033fb353` (`created_by`),
-  KEY `FK_ea053e889ab5ffd44ada6b497ff` (`updated_by`),
-  CONSTRAINT `FK_9d5f4a5f064c1f7b878033fb353` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
-  CONSTRAINT `FK_ea053e889ab5ffd44ada6b497ff` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`)
+  UNIQUE KEY `IDX_74d0045ff7fab9f67adc0b1bda` (`code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
@@ -154,7 +142,7 @@ CREATE TABLE `sys_login_log` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_3029712e0df6a28edaee46fd470` (`user_id`),
   CONSTRAINT `FK_3029712e0df6a28edaee46fd470` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_login_log
@@ -193,11 +181,7 @@ CREATE TABLE `sys_menu` (
   `type` int DEFAULT NULL COMMENT '菜单类型',
   `created_by` int DEFAULT NULL COMMENT '创建人',
   `updated_by` int DEFAULT NULL COMMENT '修改者',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `FK_05ff5072bc89581912fe1d01143` (`created_by`),
-  KEY `FK_1d243809e8c33546faf26af894c` (`updated_by`),
-  CONSTRAINT `FK_05ff5072bc89581912fe1d01143` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
-  CONSTRAINT `FK_1d243809e8c33546faf26af894c` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
@@ -318,19 +302,15 @@ CREATE TABLE `sys_notice` (
   `content` text NOT NULL COMMENT '公告内容',
   `type` tinyint NOT NULL DEFAULT '1' COMMENT '公告类型 1 公告 2 通知',
   `status` tinyint NOT NULL DEFAULT '1' COMMENT '公告状态 1 正常 0 停用',
-  PRIMARY KEY (`id`),
-  KEY `FK_786b0a16729e0ed3bbf109b9c42` (`created_by`),
-  KEY `FK_4023370aad3add3a505428c1298` (`updated_by`),
-  CONSTRAINT `FK_4023370aad3add3a505428c1298` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`),
-  CONSTRAINT `FK_786b0a16729e0ed3bbf109b9c42` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of sys_notice
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_notice` (`id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `name`, `content`, `type`, `status`) VALUES (1, '2025-04-13 16:40:05.794076', '2025-04-13 16:40:05.794076', 2, 1, '项目动态', '<h3 style=\"line-height: 1.4;\"><strong>2024-12-24</strong> &nbsp;</h3>\n<ul>\n<li><strong>小张</strong>创建了开源项目 <strong>Nest+VueAdmin，</strong>并且提交了第一个 commit !</li>\n</ul>\n<h3><strong>2025-03-02 </strong></h3>\n<ul>\n<li><strong>小张</strong>完成了前后端的对接 !</li>\n</ul>\n<h3><strong>2025-03-12&nbsp;&nbsp;</strong></h3>\n<ul>\n<li><strong>小张 </strong>完成了Docker的部署 !&nbsp;</li>\n</ul>\n<h3><strong>2025-04-13&nbsp;</strong></h3>\n<ul>\n<li><strong>小张 </strong>继续努力中</li>\n</ul>', 1, 1);
-INSERT INTO `sys_notice` (`id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `name`, `content`, `type`, `status`) VALUES (2, '2025-04-13 16:58:43.921657', '2025-04-13 16:58:43.921657', 2, 2, '项目信息', '<ul>\n<li>前端源码地址 <a href=\"https://gitee.com/mrzym/vue3-naive-admin\" target=\"_blank\" rel=\"noopener\">gitee</a> &nbsp; &nbsp;<a href=\"https://github.com/mrzym99/vue3-naive-admin\" target=\"_blank\" rel=\"noopener\">github</a></li>\n<li>后端源码地址 <a href=\"https://gitee.com/mrzym/nest-admin\" target=\"_blank\" rel=\"noopener\">gitee</a> &nbsp; &nbsp;<a href=\"https://github.com/mrzym99/nest-admin\" target=\"_blank\" rel=\"noopener\">github</a></li>\n<li>在线预览地址 <a href=\"https://nest.mrzym.top/\" target=\"_blank\" rel=\"noopener\">https://nest.mrzym.top/</a></li>\n</ul>', 1, 1);
+INSERT INTO `sys_notice` (`id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `name`, `content`, `type`, `status`) VALUES (1, '2025-04-13 16:40:05.794076', '2025-04-13 16:40:05.794076', 2, 1, '项目动态', '<h3 style=\"line-height: 1.4;\"><strong>2024-12-24</strong> &nbsp;</h3>\n<ul>\n<li><strong>小张</strong>创建了开源项目 <strong>Nest+VueAdmin，</strong>并且提交了第一个 commit !</li>\n</ul>\n<h3><strong>2025-03-02 </strong></h3>\n<ul>\n<li><strong>小张</strong>完成了前后端的对接 !</li>\n</ul>\n<h3><strong>2025-03-12&nbsp;&nbsp;</strong></h3>\n<ul>\n<li><strong>小张 </strong>完成了Docker的部署 !&nbsp;</li>\n</ul>\n<h3><strong>2025-04-16</strong></h3>\n<ul>\n<li><strong>小张 </strong>完成了部分文档的编写</li>\n<li><strong>小张 </strong>完成了 <a href=\"https://gitee.com/mrzym/nest-admin/tree/fastify/\" target=\"_blank\" rel=\"noopener\">fastify</a> 分支的编写</li>\n</ul>', 1, 1);
+INSERT INTO `sys_notice` (`id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `name`, `content`, `type`, `status`) VALUES (2, '2025-04-13 16:58:43.921657', '2025-04-13 16:58:43.921657', 2, 1, '项目信息', '<ul>\n<li>前端源码地址 <a href=\"https://gitee.com/mrzym/vue3-naive-admin\" target=\"_blank\" rel=\"noopener\">gitee</a> &nbsp; &nbsp;<a href=\"https://github.com/mrzym99/vue3-naive-admin\" target=\"_blank\" rel=\"noopener\">github</a></li>\n<li>后端源码地址 <a href=\"https://gitee.com/mrzym/nest-admin\" target=\"_blank\" rel=\"noopener\">gitee</a> &nbsp; &nbsp;<a href=\"https://github.com/mrzym99/nest-admin\" target=\"_blank\" rel=\"noopener\">github</a></li>\n<li>在线预览地址 <a href=\"../\" target=\"_blank\" rel=\"noopener\">https://nest.mrzym.top/</a></li>\n<li>使用 express 作为底层web框架在 <a href=\"https://gitee.com/mrzym/nest-admin\" target=\"_blank\" rel=\"noopener\">master</a> 分支&nbsp;</li>\n<li>使用 fastify 作为底层web框架在 <a href=\"https://gitee.com/mrzym/nest-admin/tree/fastify/\" target=\"_blank\" rel=\"noopener\">fastify</a> 分支</li>\n</ul>', 1, 1);
 COMMIT;
 
 -- ----------------------------
@@ -347,11 +327,7 @@ CREATE TABLE `sys_parameter` (
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '备注',
   `created_by` int DEFAULT NULL COMMENT '创建人',
   `updated_by` int DEFAULT NULL COMMENT '修改者',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `FK_c0dab843235a20efbdc3b93cc1b` (`created_by`),
-  KEY `FK_a4b90c149a3965768a93bd792a6` (`updated_by`),
-  CONSTRAINT `FK_a4b90c149a3965768a93bd792a6` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`),
-  CONSTRAINT `FK_c0dab843235a20efbdc3b93cc1b` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
@@ -379,11 +355,7 @@ CREATE TABLE `sys_role` (
   `updated_by` int DEFAULT NULL COMMENT '修改者',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `IDX_223de54d6badbe43a5490450c3` (`name`),
-  UNIQUE KEY `IDX_05edc0a51f41bb16b7d8137da9` (`value`),
-  KEY `FK_31b96c30566508b3ca5ae4fd452` (`created_by`),
-  KEY `FK_a34a85b537508b4db74b22b10a2` (`updated_by`),
-  CONSTRAINT `FK_31b96c30566508b3ca5ae4fd452` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
-  CONSTRAINT `FK_a34a85b537508b4db74b22b10a2` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`)
+  UNIQUE KEY `IDX_05edc0a51f41bb16b7d8137da9` (`value`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
@@ -773,7 +745,7 @@ BEGIN;
 INSERT INTO `sys_task` (`id`, `created_at`, `updated_at`, `name`, `service`, `type`, `status`, `start_time`, `end_time`, `limit`, `every`, `data`, `jobOpts`, `remark`, `cron`) VALUES (5, '2025-04-11 23:18:04.075099', '2025-04-11 23:18:04.075099', '清除登录日志', 'LogClearJob.clearLoginLog', 0, 1, NULL, NULL, -1, 60000, '', '{\"count\":1,\"key\":\"__default__:5:::0 0 3 * * 1\",\"cron\":\"0 0 3 * * 1\",\"jobId\":5}', '0 秒：表示第0秒。\n0 分钟：表示在小时的第0分钟。\n3 小时：表示在凌晨3点。\n* 日期：表示每天。\n* 月份：表示每个月。\n1 星期中星期几：1 表示星期一', '0 0 3 * * 1');
 INSERT INTO `sys_task` (`id`, `created_at`, `updated_at`, `name`, `service`, `type`, `status`, `start_time`, `end_time`, `limit`, `every`, `data`, `jobOpts`, `remark`, `cron`) VALUES (6, '2025-04-11 23:18:36.212907', '2025-04-11 23:18:36.212907', '清除验证码日志', 'LogClearJob.clearCaptchaLog', 0, 1, NULL, NULL, -1, 60000, '', '{\"count\":1,\"key\":\"__default__:6:::0 0 3 * * 1\",\"cron\":\"0 0 3 * * 1\",\"jobId\":6}', '', '0 0 3 * * 1');
 INSERT INTO `sys_task` (`id`, `created_at`, `updated_at`, `name`, `service`, `type`, `status`, `start_time`, `end_time`, `limit`, `every`, `data`, `jobOpts`, `remark`, `cron`) VALUES (7, '2025-04-11 23:18:56.168804', '2025-04-11 23:18:56.168804', '清除任务日志', 'LogClearJob.clearTaskLog', 0, 1, NULL, NULL, -1, 60000, '', '{\"count\":1,\"key\":\"__default__:7:::0 0 3 * * 1\",\"cron\":\"0 0 3 * * 1\",\"jobId\":7}', '', '0 0 3 * * 1');
-INSERT INTO `sys_task` (`id`, `created_at`, `updated_at`, `name`, `service`, `type`, `status`, `start_time`, `end_time`, `limit`, `every`, `data`, `jobOpts`, `remark`, `cron`) VALUES (8, '2025-04-11 23:19:19.592586', '2025-04-11 23:19:19.592586', '发送邮件', 'EmailJob.send', 0, 1, NULL, NULL, -1, 60000, '{\n    \"to\": \"2715158815@qq.com\",\n    \"subject\": \"晚安提醒!\",\n    \"content\": \"不早啦，小张你该洗洗睡啦!晚安！\"\n}', '{\"count\":1,\"key\":\"__default__:8:::59 59 23 * * *\",\"cron\":\"59 59 23 * * *\",\"jobId\":8}', '', '59 59 23 * * *');
+INSERT INTO `sys_task` (`id`, `created_at`, `updated_at`, `name`, `service`, `type`, `status`, `start_time`, `end_time`, `limit`, `every`, `data`, `jobOpts`, `remark`, `cron`) VALUES (8, '2025-04-11 23:19:19.592586', '2025-04-11 23:19:19.592586', '发送邮件', 'EmailJob.send', 0, 0, NULL, NULL, -1, 60000, '{\n    \"to\": \"2715158815@qq.com\",\n    \"subject\": \"晚安提醒!\",\n    \"content\": \"不早啦，小张你该洗洗睡啦!晚安！\"\n}', '{\"count\":1,\"key\":\"__default__:8:::59 59 23 * * *\",\"cron\":\"59 59 23 * * *\",\"jobId\":8}', '', '59 59 23 * * *');
 INSERT INTO `sys_task` (`id`, `created_at`, `updated_at`, `name`, `service`, `type`, `status`, `start_time`, `end_time`, `limit`, `every`, `data`, `jobOpts`, `remark`, `cron`) VALUES (10, '2025-04-13 02:51:33.521935', '2025-04-13 02:51:33.521935', '删除过期的access_token', 'TokenClearJob.clearExpiredAccessToken', 0, 1, NULL, NULL, -1, 60000, '', '{\"count\":1,\"key\":\"__default__:10:::0 0 3 * * ?\",\"cron\":\"0 0 3 * * ?\",\"jobId\":10}', '', '0 0 3 * * ?');
 INSERT INTO `sys_task` (`id`, `created_at`, `updated_at`, `name`, `service`, `type`, `status`, `start_time`, `end_time`, `limit`, `every`, `data`, `jobOpts`, `remark`, `cron`) VALUES (11, '2025-04-13 02:55:47.921729', '2025-04-13 02:55:47.921729', '删除过期的RefreshToken', 'TokenClearJob.clearExpiredRefreshToken', 0, 1, NULL, NULL, -1, 60000, '', '{\"count\":1,\"key\":\"__default__:11:::0 0 3 * * 1\",\"cron\":\"0 0 3 * * 1\",\"jobId\":11}', '', '0 0 3 * * 1');
 COMMIT;
@@ -793,7 +765,7 @@ CREATE TABLE `sys_task_log` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_f4d9c36052fdb188ff5c089454b` (`task_id`),
   CONSTRAINT `FK_f4d9c36052fdb188ff5c089454b` FOREIGN KEY (`task_id`) REFERENCES `sys_task` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_task_log
@@ -875,10 +847,10 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (1, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'superadmin', '$argon2id$v=19$m=65536,t=3,p=4$ype1j4wHpB7Gi0oSFDWYuA$4OoUNZd+QqlP6+xIiBWGDjZSxHBh2piXwwT2lS+2mYo', 1, 1, 3);
-INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (2, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'admin', '$argon2id$v=19$m=65536,t=3,p=4$C4cO2+gsfTipwqWG6fooow$3phuKRdV03w5/Hv7nHl/5BuxLrSU+yIpjNX/R+xTyeo', 1, 2, 3);
-INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (3, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'test', '$argon2id$v=19$m=65536,t=3,p=4$F6Et2Hl32QSaWBc67ZukIQ$9vCsvreEgIAYYdj0ULhW6BPBahPIc2x7AOH26nPXjBQ', 1, 3, 2);
-INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (4, '2025-04-12 10:33:06.523520', '2025-04-12 10:33:06.523520', 'guest', '$argon2id$v=19$m=65536,t=3,p=4$+LRfoAa8M/My/huJstPtRQ$A6Q2JY1O01UW8N/18w5725VkIZY6xAVtSRdIuvSO9Mc', 1, 4, 10);
+INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (1, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'superadmin', '$argon2id$v=19$m=65536,t=3,p=4$A1nAM36+dJvXJvgsV9SnoA$3htBUFv591QOVs9SB6B3bH9CFUfV7YOYOSaDWu1R3m4', 1, 1, 3);
+INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (2, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'admin', '$argon2id$v=19$m=65536,t=3,p=4$uUvBxUpFRd89cqVaNStsww$6u0Crp7gqx7b1E5QT/XSo5OCusvSKX56eqErPCdzSqg', 1, 2, 3);
+INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (3, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'test', '$argon2id$v=19$m=65536,t=3,p=4$ig8ebM6uC2S7OCjFQ0y27w$rgauYvUKerQfql3nB/V9QseShyTAzPGWbjeaD1YtCPs', 1, 3, 2);
+INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (4, '2025-04-12 10:33:06.523520', '2025-04-12 10:33:06.523520', 'guest', '$argon2id$v=19$m=65536,t=3,p=4$S8N6k7WgL2X8tYBs4QrTvA$udk99vXABr+sFiQhmYEZj71ve11We3D6UcjYYAtF1zc', 1, 4, 10);
 COMMIT;
 
 -- ----------------------------
@@ -894,16 +866,13 @@ CREATE TABLE `user_access_token` (
   PRIMARY KEY (`id`),
   KEY `FK_c9c6ac4970ddbe5a8c4887e1e7e` (`userId`),
   CONSTRAINT `FK_c9c6ac4970ddbe5a8c4887e1e7e` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of user_access_token
 -- ----------------------------
 BEGIN;
-INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInJvbGVzIjpbInN1cGVyYWRtaW4iXSwiaWF0IjoxNzQ0NjQyMzIxLCJleHAiOjE3NDQ2NDQxMjF9.tDMVMaT-SGACHnqLs3MKHa3gZVe3GJzNS55k6YFJQOc', '2025-04-14 23:22:02', '2025-04-14 22:52:02', 1, 110);
-INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTc0NDY0MjQ4MywiZXhwIjoxNzQ0NjQ0MjgzfQ._xancol9AEZF-Q4nxgfT4--yUht3eHeIkS-QBB0xGg0', '2025-04-14 23:24:43', '2025-04-14 22:54:43', 2, 111);
-INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjQsInJvbGVzIjpbImd1ZXN0Il0sImlhdCI6MTc0NDY0MjQ4OCwiZXhwIjoxNzQ0NjQ0Mjg4fQ.tONYriWKrG3-H_27vEST_VJyaAxVduD6D-bs_UGiw0s', '2025-04-14 23:24:48', '2025-04-14 22:54:48', 4, 112);
-INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInJvbGVzIjpbInN1cGVyYWRtaW4iXSwiaWF0IjoxNzQ0NjQyNTA1LCJleHAiOjE3NDQ2NDQzMDV9.03tble48pF50qQpm_a5ImMz84EWHUEm8lwGlTKQKq_I', '2025-04-14 23:25:05', '2025-04-14 22:55:05', 1, 113);
+INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInJvbGVzIjpbInN1cGVyYWRtaW4iXSwiaWF0IjoxNzQ0ODE1NjI5LCJleHAiOjE3NDQ4MTkyMjl9.sB5Xk2UQeN9lAzX3qYClEerEGfRRyLNaTbX97oS9Fw4', '2025-04-17 00:00:29', '2025-04-16 23:00:29', 1, 148);
 COMMIT;
 
 -- ----------------------------
@@ -949,17 +918,14 @@ CREATE TABLE `user_refresh_token` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `REL_0fb9e76570bb35fd7dd7f78f73` (`accessTokenId`),
   CONSTRAINT `FK_0fb9e76570bb35fd7dd7f78f73c` FOREIGN KEY (`accessTokenId`) REFERENCES `user_access_token` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=300 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=335 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user_refresh_token
 -- ----------------------------
 BEGIN;
 INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiNzhkZmYxYjEtOTRlMi00OGMyLThmYjAtNDFhYzhkM2JjOTk4IiwiaWF0IjoxNzQ0MjE5OTY5LCJleHAiOjE3NDQyMjM1Njl9.NtuR4tkmBxGvLXaKLuOgbQQmRcY4StiGxVQDihPbvNs', '2025-04-17 01:32:49', '2025-04-10 01:32:49', NULL, 181);
-INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiODJiMWJjNzEtNjEyMy00ODYwLWE1ZWEtMWFkMmVjM2M1M2U1IiwiaWF0IjoxNzQ0NjQyMzIxLCJleHAiOjE3NDQ2NDQxMjF9.Pb7rzGH6VbXEWc_6VGOFaO1IFAA8TMcg8ORo7M9BwgQ', '2025-04-15 22:52:02', '2025-04-14 22:52:02', 110, 296);
-INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiYzY1Y2FkZjAtOGU5Zi00YjNjLWJlZjEtNTVjOWZhNmQzY2YwIiwiaWF0IjoxNzQ0NjQyNDgzLCJleHAiOjE3NDQ2NDQyODN9.S5kXgL0JZA_4p3Ojz6QGOha7zN_t0Jn9XEHJjfQzYE8', '2025-04-15 22:54:43', '2025-04-14 22:54:43', 111, 297);
-INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiM2U5ZjU0ODAtMzBlMS00NzBjLWEyY2YtNzBhNmNkYTM0NjM5IiwiaWF0IjoxNzQ0NjQyNDg4LCJleHAiOjE3NDQ2NDQyODh9.ugp_8iXEdhdfOvSZvtLTBuffk8DODR_g0C67QOmf6yI', '2025-04-15 22:54:48', '2025-04-14 22:54:48', 112, 298);
-INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiMDVlYTkwMTEtYzhmMC00ZTRhLTk2NmMtYWM3NGI4MGUxOGVhIiwiaWF0IjoxNzQ0NjQyNTA1LCJleHAiOjE3NDQ2NDQzMDV9.PSUVf_3eBUVqcI8m9XOFoMlP0UjLO38qcjm0sSkfBrQ', '2025-04-15 22:55:05', '2025-04-14 22:55:05', 113, 299);
+INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiZTRjMDc5NGEtYjMwNS00NGU3LTkwNjMtZDRiMjUxZDA4M2U1IiwiaWF0IjoxNzQ0ODE1NjI5LCJleHAiOjE3NDQ4MTkyMjl9.fMEuXDAbSOWBycxqHL8-0ZhfyY_tl6dZhcnz0rvft20', '2025-04-23 23:00:29', '2025-04-16 23:00:29', 148, 334);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
