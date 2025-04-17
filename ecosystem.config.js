@@ -15,7 +15,6 @@ module.exports = {
       args: '',
       env: {
         NODE_ENV: 'production',
-        PORT: process.env.APP_PORT || 3000, // 根据实际情况指定
       },
     },
   ],
