@@ -274,3 +274,13 @@ export class UserPasswordDto {
   @IsString()
   newPassword: string;
 }
+
+export class UserResetPasswordDto {
+  @ApiProperty({
+    type: String,
+    description: '重置的密码',
+    required: true,
+  })
+  @IsString()
+  password: string;
+}
