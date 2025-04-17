@@ -49,7 +49,7 @@ export class UserService {
     private readonly profileRepository: Repository<ProfileEntity>,
     @Inject(SecurityConfig.KEY)
     private readonly securityConfig: ISecurityConfig,
-  ) { }
+  ) {}
 
   async list({
     currentPage,
@@ -244,19 +244,19 @@ export class UserService {
         ...user,
         roles: !isEmpty(roleIds)
           ? await manager.find(RoleEntity, {
-            where: {
-              id: In(roleIds),
-            },
-          })
+              where: {
+                id: In(roleIds),
+              },
+            })
           : defaultRole
             ? [defaultRole]
             : [],
         dept: deptId
           ? await manager.findOne(DeptEntity, {
-            where: {
-              id: deptId,
-            },
-          })
+              where: {
+                id: deptId,
+              },
+            })
           : defaultDept,
         profile: profile,
       });
@@ -295,10 +295,10 @@ export class UserService {
 
       user.roles = !isEmpty(roleIds)
         ? await manager.find(RoleEntity, {
-          where: {
-            id: In(roleIds),
-          },
-        })
+            where: {
+              id: In(roleIds),
+            },
+          })
         : defaultRole
           ? [defaultRole]
           : [];
@@ -306,10 +306,10 @@ export class UserService {
       // 保存用户的部门
       user.dept = deptId
         ? await manager.findOne(DeptEntity, {
-          where: {
-            id: deptId,
-          },
-        })
+            where: {
+              id: deptId,
+            },
+          })
         : defaultDept;
 
       await this.updateProfile(user.id, profile);
@@ -345,7 +345,6 @@ export class UserService {
       throw new BizException(ErrorEnum.USER_PASSWORD_ERROR_RULE);
     }
 
-    console.log(id, dto, '123aa')
     const user = await this.findUserInfo(id);
     if (!user) {
       throw new BizException(ErrorEnum.USER_NOT_EXIST);
