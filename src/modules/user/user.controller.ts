@@ -16,6 +16,7 @@ import {
   UserQueryDto,
   UserStatusDto,
   UserUpdateDto,
+  UserResetPasswordDto
 } from './dto/user.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiResult } from '~/common/decorators/api-result.decorator';
@@ -43,7 +44,7 @@ export const permissions = definePermission('system:user', {
 @ApiTags('System - 用户模块')
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Get('list')
   @ApiOperation({ summary: '分页获取用户列表' })
@@ -84,8 +85,8 @@ export class UserController {
   @Put('resetPassword/:id')
   @ApiOperation({ summary: '重置用户密码' })
   @Perm(permissions.PASSWORD_RESET)
-  async resetPassword(@ParamId() id: number): Promise<void> {
-    await this.userService.resetPassword(id);
+  async resetPassword(@ParamId() id: number, @Body() resetPasswordDto: UserResetPasswordDto): Promise<void> {
+    await this.userService.resetPassword(id, resetPasswordDto);
   }
 
   @Put('updateProfile/:id')

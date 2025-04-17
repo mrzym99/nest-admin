@@ -9,6 +9,7 @@ import {
   UserPasswordDto,
   UserProfileDto,
   UserQueryDto,
+  UserResetPasswordDto,
   UserStatusDto,
   UserUpdateDto,
 } from './dto/user.dto';
@@ -35,6 +36,7 @@ import { UserInfo } from './user.model';
 import { isNil, isEmpty } from 'lodash';
 import { AuthService } from '../auth/auth.service';
 import { ISecurityConfig, SecurityConfig } from '~/config';
+import { REG_PWD } from '~/constants/reg';
 
 @Injectable()
 export class UserService {
@@ -47,7 +49,7 @@ export class UserService {
     private readonly profileRepository: Repository<ProfileEntity>,
     @Inject(SecurityConfig.KEY)
     private readonly securityConfig: ISecurityConfig,
-  ) {}
+  ) { }
 
   async list({
     currentPage,
@@ -242,19 +244,19 @@ export class UserService {
         ...user,
         roles: !isEmpty(roleIds)
           ? await manager.find(RoleEntity, {
-              where: {
-                id: In(roleIds),
-              },
-            })
+            where: {
+              id: In(roleIds),
+            },
+          })
           : defaultRole
             ? [defaultRole]
             : [],
         dept: deptId
           ? await manager.findOne(DeptEntity, {
-              where: {
-                id: deptId,
-              },
-            })
+            where: {
+              id: deptId,
+            },
+          })
           : defaultDept,
         profile: profile,
       });
@@ -293,10 +295,10 @@ export class UserService {
 
       user.roles = !isEmpty(roleIds)
         ? await manager.find(RoleEntity, {
-            where: {
-              id: In(roleIds),
-            },
-          })
+          where: {
+            id: In(roleIds),
+          },
+        })
         : defaultRole
           ? [defaultRole]
           : [];
@@ -304,10 +306,10 @@ export class UserService {
       // 保存用户的部门
       user.dept = deptId
         ? await manager.findOne(DeptEntity, {
-            where: {
-              id: deptId,
-            },
-          })
+          where: {
+            id: deptId,
+          },
+        })
         : defaultDept;
 
       await this.updateProfile(user.id, profile);
@@ -338,13 +340,18 @@ export class UserService {
     await this.userRepository.save(user);
   }
 
-  async resetPassword(id: number): Promise<void> {
+  async resetPassword(id: number, dto: UserResetPasswordDto): Promise<void> {
+    if (!REG_PWD.test(dto.password)) {
+      throw new BizException(ErrorEnum.USER_PASSWORD_ERROR_RULE);
+    }
+
+    console.log(id, dto, '123aa')
     const user = await this.findUserInfo(id);
     if (!user) {
       throw new BizException(ErrorEnum.USER_NOT_EXIST);
     }
 
-    user.password = await argon2.hash('123456');
+    user.password = await argon2.hash(dto.password);
 
     await this.userRepository.save(user);
   }
