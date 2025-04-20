@@ -105,10 +105,12 @@ export class AllExceptionFilter implements ExceptionFilter {
   registerCatchAllExceptionsHook() {
     process.on('unhandledRejection', (reason) => {
       console.error('unhandledRejection: ', reason);
+      this.logger.error('unhandledRejection: ', reason);
     });
 
     process.on('uncaughtException', (err) => {
       console.error('uncaughtException: ', err);
+      this.logger.error('uncaughtException: ', err);
     });
   }
 }
