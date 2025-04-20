@@ -79,15 +79,6 @@ export class UserQueryDto extends PagerDto {
 export class UserProfileDto {
   @ApiProperty({
     type: String,
-    description: '账户',
-    required: false,
-  })
-  @IsString()
-  @IsOptional()
-  username?: string;
-
-  @ApiProperty({
-    type: String,
     description: '昵称',
     example: 'Mick',
     required: false,
@@ -173,7 +164,7 @@ export class UserProfileDto {
   introduction?: string;
 }
 
-export class UserCreateDto {
+export class UserCreateDto extends UserProfileDto {
   @ApiProperty({
     type: String,
     description: '用户名',
@@ -192,20 +183,6 @@ export class UserCreateDto {
   })
   @IsString()
   password: string;
-
-  @ApiProperty({
-    type: Object,
-    description: '用户详情',
-  })
-  @IsOptional()
-  profile?: UserProfileDto;
-
-  @ApiProperty({
-    description: '邮箱',
-  })
-  @IsOptional()
-  @IsEmail()
-  email?: string;
 
   @ApiProperty({
     description: '角色',
@@ -236,6 +213,17 @@ export class UserStatusDto {
 }
 
 export class UserUpdateDto extends UserProfileDto {
+  @ApiProperty({
+    type: String,
+    description: '用户名',
+    required: true,
+  })
+  @IsString({
+    message: '用户名必须为字符串',
+  })
+  @Unique(['username'])
+  username: string;
+
   @ApiProperty({
     description: '角色',
   })

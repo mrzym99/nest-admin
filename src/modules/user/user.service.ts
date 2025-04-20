@@ -34,9 +34,9 @@ import {
 import { AccessTokenEntity } from '../auth/entities/access-token.entity';
 import { UserInfo } from './user.model';
 import { isNil, isEmpty } from 'lodash';
-import { AuthService } from '../auth/auth.service';
 import { ISecurityConfig, SecurityConfig } from '~/config';
 import { REG_PWD } from '~/constants/reg';
+import { Roles } from '../auth/auth.constant';
 
 @Injectable()
 export class UserService {
@@ -159,7 +159,7 @@ export class UserService {
     return user || emailUser;
   }
 
-  async registerExist(username: string, email: string): Promise<void> {
+  async checkUserExist(username: string, email: string): Promise<void> {
     const user = await this.userRepository.findOne({
       where: {
         username,
@@ -216,11 +216,10 @@ export class UserService {
     };
   }
 
-  async create({
-    deptId,
-    roleIds,
-    ...user
-  }: Partial<UserCreateDto>): Promise<void> {
+  async create(
+    { deptId, roleIds, ...user }: Partial<UserCreateDto>,
+    generateProfile: boolean = false,
+  ): Promise<void> {
     await this.userRepository.manager.transaction(async (manager) => {
       const defaultRole = await manager.findOne(RoleEntity, {
         where: {
@@ -233,13 +232,24 @@ export class UserService {
         },
       });
 
-      const createProfile = this.profileRepository.create({
-        email: user.email,
-        nickName: randomNickName(),
-        avatar:
-          'https://myblogimgbucket.oss-cn-beijing.aliyuncs.com/WechatIMG435.jpg',
-      });
+      let createProfile: ProfileEntity;
+      // 注册的时候用户没有填写详细信息 要自动生成
+      if (generateProfile) {
+        createProfile = this.profileRepository.create({
+          email: user.email,
+          nickName: randomNickName(),
+          avatar:
+            'https://myblogimgbucket.oss-cn-beijing.aliyuncs.com/WechatIMG435.jpg',
+        });
+      } else {
+        const { username, password, ...rest } = user;
+        createProfile = this.profileRepository.create({
+          ...rest,
+        });
+      }
+
       const profile = await this.profileRepository.save(createProfile);
+
       const createUser = manager.create(UserEntity, {
         ...user,
         roles: !isEmpty(roleIds)
@@ -374,7 +384,12 @@ export class UserService {
     });
     if (!isEmpty(users)) {
       users.forEach((user) => {
-        if (user.roles.some((role) => role.value === 'admin')) {
+        if (
+          user.roles.some(
+            (role) =>
+              role.value === Roles.ADMIN || role.value === Roles.SUPERADMIN,
+          )
+        ) {
           throw new BusinessException(
             ErrorEnum.USER_NOT_ALLOWED_TO_DISABLE_ADMIN,
           );
@@ -394,7 +409,12 @@ export class UserService {
    */
   async isAdmin(id: number) {
     const user = await this.findUserInfo(id);
-    return user && user.roles.some((role) => role.value === 'admin');
+    return (
+      user &&
+      user.roles.some(
+        (role) => role.value === Roles.ADMIN || role.value === Roles.SUPERADMIN,
+      )
+    );
   }
 
   /**
@@ -420,7 +440,6 @@ export class UserService {
       }
     }
   }
-
   /**
    * 通过传入用户 id 来禁用用户的token 从而让用户状态变化时 token 能及时被禁用
    * @param ids
@@ -446,5 +465,23 @@ export class UserService {
       );
       await this.forbidden(item.user.id, item.value);
     });
+  }
+
+  async delete(id: number) {
+    const user = await this.findUserInfo(id);
+    if (!user) {
+      throw new BizException(ErrorEnum.USER_NOT_EXIST);
+    }
+
+    if (
+      user.roles.some(
+        (role) => role.value === Roles.ADMIN || role.value === Roles.SUPERADMIN,
+      )
+    ) {
+      throw new BusinessException(ErrorEnum.USER_NOT_ALLOWED_TO_DELETE_ADMIN);
+    }
+    await this.forbiddenUserByIds([user.id]);
+    await this.userRepository.delete(id);
+    await this.profileRepository.delete(user.profile.id);
   }
 }

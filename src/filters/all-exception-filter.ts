@@ -10,7 +10,7 @@ import { ConfigService } from '@nestjs/config';
 import { HttpAdapterHost } from '@nestjs/core';
 import { ThrottlerException } from '@nestjs/throttler';
 import { BizException } from '~/common/exceptions/biz.exception';
-import { AllConfigKeyAndPath } from '~/config';
+import { AllConfigKeyAndPath, appRegToken } from '~/config';
 import { ErrorEnum } from '~/constants/error.constant';
 import { isDev, splitError } from '~/utils';
 
@@ -26,7 +26,9 @@ export class AllExceptionFilter implements ExceptionFilter {
     private logger: Logger,
     private readonly httpAdapterHost: HttpAdapterHost,
     private readonly configService: ConfigService<AllConfigKeyAndPath>,
-  ) {}
+  ) {
+    this.registerCatchAllExceptionsHook();
+  }
   catch(exception: unknown, host: ArgumentsHost) {
     const { httpAdapter } = this.httpAdapterHost;
     const ctx = host.switchToHttp();
@@ -70,7 +72,7 @@ export class AllExceptionFilter implements ExceptionFilter {
     }
     // 这里是为了 用户手动抛出其他类型异常有值时，合并到 result
 
-    // this.logger.error('[xiaozhang]', exception);
+    this.logger.error(`[${this.configService.get(appRegToken).name}]`, exception);
 
     httpAdapter.reply(response, result, httpStatus);
   }
@@ -98,5 +100,15 @@ export class AllExceptionFilter implements ExceptionFilter {
       (exception as HttpError).message ||
       exception
     );
+  }
+
+  registerCatchAllExceptionsHook() {
+    process.on('unhandledRejection', (reason) => {
+      console.error('unhandledRejection: ', reason);
+    });
+
+    process.on('uncaughtException', (err) => {
+      console.error('uncaughtException: ', err);
+    });
   }
 }

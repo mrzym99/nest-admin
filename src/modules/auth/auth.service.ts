@@ -107,12 +107,12 @@ export class AuthService {
     const { password, email, username } = user;
 
     // 校验用户名和邮箱是否已经存在
-    await this.userService.registerExist(username, email);
+    await this.userService.checkUserExist(username, email);
 
     user.username = username || email;
     user.password = await argon2.hash(password);
 
-    await this.userService.create(user);
+    await this.userService.create(user, true);
   }
 
   async clearLoginStatus(accessToken: string, user?: IAuthUser): Promise<void> {
