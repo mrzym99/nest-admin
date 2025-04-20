@@ -1,8 +1,8 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
-  Param,
   Post,
   Put,
   Query,
@@ -16,7 +16,7 @@ import {
   UserQueryDto,
   UserStatusDto,
   UserUpdateDto,
-  UserResetPasswordDto
+  UserResetPasswordDto,
 } from './dto/user.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiResult } from '~/common/decorators/api-result.decorator';
@@ -29,6 +29,7 @@ import {
   Perm,
 } from '../auth/decorators/permission.decorator';
 import { ParamId } from '~/common/decorators/param-id.decorator';
+import * as argon2 from 'argon2';
 
 export const permissions = definePermission('system:user', {
   LIST: 'list',
@@ -44,7 +45,7 @@ export const permissions = definePermission('system:user', {
 @ApiTags('System - 用户模块')
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
 
   @Get('list')
   @ApiOperation({ summary: '分页获取用户列表' })
@@ -60,6 +61,9 @@ export class UserController {
   @ApiOperation({ summary: '创建用户' })
   @Perm(permissions.CREATE)
   async create(@Body() user: UserCreateDto): Promise<void> {
+    await this.userService.checkUserExist(user.username , user.email)
+    const { password } = user;
+    user.password = await argon2.hash(password);
     await this.userService.create(user);
   }
 
@@ -85,7 +89,10 @@ export class UserController {
   @Put('resetPassword/:id')
   @ApiOperation({ summary: '重置用户密码' })
   @Perm(permissions.PASSWORD_RESET)
-  async resetPassword(@ParamId() id: number, @Body() resetPasswordDto: UserResetPasswordDto): Promise<void> {
+  async resetPassword(
+    @ParamId() id: number,
+    @Body() resetPasswordDto: UserResetPasswordDto,
+  ): Promise<void> {
     await this.userService.resetPassword(id, resetPasswordDto);
   }
 
@@ -110,7 +117,14 @@ export class UserController {
   @Put('updateStatus')
   @ApiOperation({ summary: '修改用户状态' })
   @Perm(permissions.UPDATE)
-  async updateStatus(@Query() dto: UserStatusDto): Promise<void> {
+  async updateStatus(@Body() dto: UserStatusDto): Promise<void> {
     await this.userService.batchUpdateStatus(dto);
+  }
+
+  @Delete('delete/:id')
+  @ApiOperation({ summary: '删除用户' })
+  @Perm(permissions.DELETE)
+  async delete(@ParamId() id: number): Promise<void> {
+    await this.userService.delete(id);
   }
 }

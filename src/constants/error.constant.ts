@@ -26,6 +26,7 @@ export enum ErrorEnum {
   USER_NOT_ALLOWED_TO_DISABLE_ADMIN = '2008:不允许禁用管理员',
   USER_FORCED_OFFLINE = '2009:您被强制下线 请十分钟后再登录',
   USER_PASSWORD_ERROR_RULE = '2010:密码格式不正确，6-18位字符，包含字母、数字、特殊字符',
+  USER_NOT_ALLOWED_TO_DELETE_ADMIN = '2011:不允许删除管理员',
 
   // dept
   DEPT_EXIST = '3000:部门已存在',
