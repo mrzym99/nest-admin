@@ -10,6 +10,7 @@ import { useContainer } from 'class-validator';
 import { ValidationPipe } from './common/pipes/global-validation.pipes';
 import { AllConfigKeyAndPath, appRegToken } from './config';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { RedisIoAdapter } from './common/adapters/socket.adapter'
 import * as path from 'node:path';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { isDev, loadHttpOptions } from './utils';
@@ -52,6 +53,7 @@ async function bootstrap() {
       configService,
     ),
   );
+  app.useWebSocketAdapter(new RedisIoAdapter(app))
 
   setupSwagger(app, configService);
 

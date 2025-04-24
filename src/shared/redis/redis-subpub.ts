@@ -8,7 +8,9 @@ export class RedisSubPub {
   constructor(
     private redisConfig: RedisOptions,
     private channelPrefix: string = 'nest-admin-channel#',
-  ) {}
+  ) {
+    this.init();
+  }
 
   // 初始化 redis
   public init() {

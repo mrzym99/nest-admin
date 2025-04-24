@@ -19,6 +19,7 @@ import { ClsModule } from 'nestjs-cls';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
 import { IdempotenceInterceptor } from './common/interceptors/idempotence.interceptor';
+import { SocketModule } from './socket/socket.module';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { IdempotenceInterceptor } from './common/interceptors/idempotence.interc
     SystemModule,
     TasksModule.forRoot(),
     ToolModule,
+    SocketModule,
     SseModule,
   ],
   controllers: [AppController],
