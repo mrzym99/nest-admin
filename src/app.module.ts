@@ -20,6 +20,7 @@ import { TasksModule } from './modules/tasks/tasks.module';
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
 import { IdempotenceInterceptor } from './common/interceptors/idempotence.interceptor';
 import { FastifyRequest } from 'fastify';
+import { SocketModule } from './socket/socket.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { FastifyRequest } from 'fastify';
     SystemModule,
     TasksModule.forRoot(),
     ToolModule,
+    SocketModule,
     SseModule,
   ],
   controllers: [AppController],

@@ -14,6 +14,7 @@ import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { isDev, loadHttpOptions } from './utils';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { createFastifyApp } from './common/adapters/fastify.adapter';
+import { RedisIoAdapter } from './common/adapters/socket.adapter';
 
 declare const module: any;
 
@@ -65,6 +66,7 @@ async function bootstrap() {
       configService,
     ),
   );
+  app.useWebSocketAdapter(new RedisIoAdapter(app))
 
   setupSwagger(app, configService);
 
