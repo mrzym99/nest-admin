@@ -13,6 +13,9 @@ import { Roles } from '../auth.constant';
 import { TokenService } from '../services/token.service';
 import { isEmpty } from 'class-validator';
 import { FastifyRequest } from 'fastify';
+import { PasswordUpdateDto } from '../dto/auth.dto';
+import { Public } from '../decorators/public.decorator';
+import { MailerService } from '~/shared/mailer/mailer.service';
 
 @ApiTags('Auth - 账户模块')
 @ApiSecurityAuth()
