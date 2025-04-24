@@ -66,6 +66,23 @@ export class RegisterDto {
   code?: string;
 }
 
+export class CodeLoginDto {
+  @ApiProperty({
+    description: '邮箱',
+    example: '12345@qq.com',
+  })
+  @IsNotEmpty()
+  @IsString()
+  email: string;
+
+  @ApiProperty({
+    description: '验证码',
+  })
+  @IsNotEmpty()
+  @IsString()
+  code: string;
+}
+
 export class PasswordUpdateDto {
   @ApiProperty({
     description: '邮箱',

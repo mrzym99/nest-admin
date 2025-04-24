@@ -25,7 +25,7 @@ export class AccountController {
     private readonly userService: UserService,
     private readonly authService: AuthService,
     private readonly tokenService: TokenService,
-    private readonly mialerService: MailerService,
+    private readonly mailService: MailerService,
   ) {}
 
   @Get('profile')
@@ -93,14 +93,12 @@ export class AccountController {
     }
   }
 
-  @Put('upatePasswordByCode')
+  @Put('updatePasswordByCode')
   @ApiOperation({ summary: '通过邮箱验证码更改账户密码' })
   @Public()
-  async upatePasswordByCode(
-    @Body() dto: PasswordUpdateDto,
-  ): Promise<void> {
-    await this.mialerService.checkCode(dto.email, dto.code);
+  async updatePasswordByCode(@Body() dto: PasswordUpdateDto): Promise<void> {
+    await this.mailService.checkCode(dto.email, dto.code);
     await this.userService.updatePasswordByCode(dto);
-    await this.mialerService.log(dto.email, dto.code, 'email');
+    await this.mailService.log(dto.email, dto.code, 'email');
   }
 }
