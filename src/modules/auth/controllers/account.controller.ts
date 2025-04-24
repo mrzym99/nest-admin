@@ -12,6 +12,9 @@ import { UserPasswordDto, UserProfileDto } from '~/modules/user/dto/user.dto';
 import { Roles } from '../auth.constant';
 import { TokenService } from '../services/token.service';
 import { isEmpty } from 'class-validator';
+import { PasswordUpdateDto } from '../dto/auth.dto';
+import { MailerService } from '~/shared/mailer/mailer.service';
+import { Public } from '../decorators/public.decorator';
 
 @ApiTags('Auth - 账户模块')
 @ApiSecurityAuth()
@@ -22,6 +25,7 @@ export class AccountController {
     private readonly userService: UserService,
     private readonly authService: AuthService,
     private readonly tokenService: TokenService,
+    private readonly mialerService: MailerService,
   ) {}
 
   @Get('profile')
@@ -87,5 +91,16 @@ export class AccountController {
         await this.authService.clearLoginStatus(token.value, user);
       });
     }
+  }
+
+  @Put('upatePasswordByCode')
+  @ApiOperation({ summary: '通过邮箱验证码更改账户密码' })
+  @Public()
+  async upatePasswordByCode(
+    @Body() dto: PasswordUpdateDto,
+  ): Promise<void> {
+    await this.mialerService.checkCode(dto.email, dto.code);
+    await this.userService.updatePasswordByCode(dto);
+    await this.mialerService.log(dto.email, dto.code, 'email');
   }
 }

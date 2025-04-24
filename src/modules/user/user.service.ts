@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { In, Like, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as argon2 from 'argon2';
@@ -37,6 +37,7 @@ import { isNil, isEmpty } from 'lodash';
 import { ISecurityConfig, SecurityConfig } from '~/config';
 import { REG_PWD } from '~/constants/reg';
 import { Roles } from '../auth/auth.constant';
+import { PasswordUpdateDto } from '../auth/dto/auth.dto';
 
 @Injectable()
 export class UserService {
@@ -216,6 +217,20 @@ export class UserService {
     };
   }
 
+  async findUserInfoByEmail(email: string): Promise<UserEntity> {
+    const user = await this.userRepository.findOne({
+      where: {
+        profile: { email },
+      },
+    });
+
+    if (isEmpty(user)) {
+      throw new NotFoundException(ErrorEnum.USER_EMAIL_NOT_EXIST);
+    }
+
+    return user;
+  }
+
   async create(
     { deptId, roleIds, ...user }: Partial<UserCreateDto>,
     generateProfile: boolean = false,
@@ -346,6 +361,15 @@ export class UserService {
     }
 
     user.password = await argon2.hash(newPassword);
+
+    await this.userRepository.save(user);
+  }
+
+  async updatePasswordByCode(passwordDto: PasswordUpdateDto): Promise<void> {
+    const { email, password } = passwordDto;
+    const user = await this.findUserInfoByEmail(email);
+
+    user.password = await argon2.hash(password);
 
     await this.userRepository.save(user);
   }
