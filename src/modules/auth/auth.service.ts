@@ -22,6 +22,7 @@ import {
   SecurityConfig,
 } from '~/config';
 import { Roles } from './auth.constant';
+import { UserEntity } from '../user/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -58,38 +59,59 @@ export class AuthService {
     const { username, password } = user;
 
     const findOne = await this.userService.exist(username);
-    if (!findOne) {
-      throw new BizException(ErrorEnum.USER_NOT_EXIST);
-    }
-
-    if (findOne.status === 0) {
-      throw new BizException(ErrorEnum.USER_BANNED);
-    }
-
-    if (await this.redis.get(genForcedOfflineKey(findOne.id))) {
-      throw new BizException(ErrorEnum.USER_FORCED_OFFLINE);
-    }
+    await this.checkUserCanLogin(findOne);
 
     if (!(await argon2.verify(findOne.password, password))) {
       throw new BizException(ErrorEnum.USER_NAME_OR_PASSWORD_ERROR);
     }
 
-    const roleIds = await this.roleService.getRoleIdsByUserId(findOne.id);
+    return await this.loginDetails(findOne.id, ip, userAgent);
+  }
+
+  /**
+   *  用户验证码登录
+   * @param user 用户信息
+   * @param ip 用户ip
+   * @param userAgent 用户代理信息
+   * @returns access_token
+   */
+  async codeLogin(email: string, ip: string, userAgent: string) {
+    const findOne = await this.userService.findUserInfoByEmail(email);
+    await this.checkUserCanLogin(findOne);
+    return await this.loginDetails(findOne.id, ip, userAgent);
+  }
+
+  async checkUserCanLogin(user: UserEntity) {
+    if (!user) {
+      throw new BizException(ErrorEnum.USER_NOT_EXIST);
+    }
+
+    if (user.status === 0) {
+      throw new BizException(ErrorEnum.USER_BANNED);
+    }
+
+    if (await this.redis.get(genForcedOfflineKey(user.id))) {
+      throw new BizException(ErrorEnum.USER_FORCED_OFFLINE);
+    }
+  }
+
+  async loginDetails(uid: number, ip: string, userAgent: string) {
+    const roleIds = await this.roleService.getRoleIdsByUserId(uid);
     const roles = await this.roleService.getRoleValuesByRoleIds(roleIds);
 
     const { accessToken } = await this.tokenService.generateAccessToken(
-      findOne.id,
+      uid,
       roles,
     );
 
     // 缓存用户的权限
-    const permissions = await this.menuService.getPermissions(findOne.id);
+    const permissions = await this.menuService.getPermissions(uid);
 
-    await this.setPermissionsCache(findOne.id, permissions);
+    await this.setPermissionsCache(uid, permissions);
 
     // 给用户登录打上日志
     await this.LoginLogService.create({
-      userId: findOne.id,
+      userId: uid,
       ip,
       userAgent,
     });

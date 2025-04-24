@@ -1,6 +1,11 @@
 import { Body, Controller, Headers, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginDto, RefreshTokenDto, RegisterDto } from './dto/auth.dto';
+import {
+  CodeLoginDto,
+  LoginDto,
+  RefreshTokenDto,
+  RegisterDto,
+} from './dto/auth.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Ip } from '~/common/decorators/http.decorator';
 import { Public } from './decorators/public.decorator';
@@ -32,6 +37,19 @@ export class AuthController {
     const { captchaId, code } = loginDto;
     await this.captchaService.checkImgCaptcha(captchaId, code);
     return await this.authService.login(loginDto, ip, userAgent);
+  }
+
+  @Post('codeLogin')
+  @ApiOperation({ summary: '验证码登录' })
+  @Throttle({ default: { limit: 5, ttl: 60 * 1000 } })
+  async codeLogin(
+    @Body() loginDto: CodeLoginDto,
+    @Ip() ip,
+    @Headers('user-agent') userAgent,
+  ) {
+    const { email, code } = loginDto;
+    await this.mailerService.checkCode(email, code);
+    return await this.authService.codeLogin(email, ip, userAgent);
   }
 
   @Public()
