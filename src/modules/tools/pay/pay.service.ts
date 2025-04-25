@@ -4,7 +4,7 @@ import * as path from 'node:path';
 
 import { IPayConfig, PayConfig } from '~/config/pay.config';
 import { AlipaySdk, AlipaySdkSignType } from 'alipay-sdk';
-import { PayDto, PayRefundDto } from './Pay.dto';
+import { PayDto, PayRefundDto } from './pay.dto';
 import { ALIPAY_SUCCESS_CODE } from '~/constants/response.constant';
 import { BusinessException } from '~/common/exceptions/biz.exception';
 import { ErrorEnum } from '~/constants/error.constant';
