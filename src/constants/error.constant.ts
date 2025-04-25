@@ -13,6 +13,7 @@ export enum ErrorEnum {
   AUTH_CAPTCHA_ERROR = '1005:验证码错误',
   AUTH_MAXIMUM_FIVE_VERIFICATION_CODES_PER_DAY = '1006:一天最多发送5条验证码',
   AUTH_VERIFICATION_CODE_SEND_FAILED = '1007:验证码发送失败',
+  AUTH_LOGGED_IN_ELSEWHERE = '1008:您的账号已在其他地方登录',
 
   // user
   USER_NOT_EXIST = '2000:用户不存在',

@@ -1,5 +1,6 @@
 import {
   ExecutionContext,
+  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -8,13 +9,14 @@ import { AuthStrategy, PUBLIC_KEY } from '../auth.constant';
 import { ExtractJwt } from 'passport-jwt';
 import { isEmpty } from 'lodash';
 import { TokenService } from '../services/token.service';
-import { RouterWhiteList } from '~/config/app.config';
+import { AppConfig, IAppConfig, RouterWhiteList } from '~/config/app.config';
 import { InjectRedis } from '~/common/decorators/inject-redis.decorator';
 import Redis from 'ioredis';
 import { genTokenBlacklistKey } from '~/helper/gen-redis-key';
 import { ErrorEnum } from '~/constants/error.constant';
 import { Reflector } from '@nestjs/core';
 import { BusinessException } from '~/common/exceptions/biz.exception';
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard(AuthStrategy.JWT) {
@@ -23,6 +25,9 @@ export class JwtAuthGuard extends AuthGuard(AuthStrategy.JWT) {
     @InjectRedis() private readonly redis: Redis,
     private readonly tokenService: TokenService,
     private readonly reflector: Reflector,
+    @Inject(AppConfig.KEY)
+    private readonly appConfig: IAppConfig,
+    private readonly authService: AuthService,
   ) {
     super();
   }
@@ -79,6 +84,28 @@ export class JwtAuthGuard extends AuthGuard(AuthStrategy.JWT) {
 
       if (!isValid) {
         throw new BusinessException(ErrorEnum.AUTH_TOKEN_INVALID);
+      }
+
+      // SSE 请求
+      if (isSse) {
+        const { uid } = request.params;
+
+        if (Number(uid) !== request.user.uid)
+          throw new UnauthorizedException(
+            '路径参数 uid 与当前 token 登录的用户 uid 不一致',
+          );
+      }
+
+      // 不允许多端登录
+      if (!this.appConfig.multiDeviceLogin) {
+        const cacheToken = await this.authService.getTokenByUid(
+          request.user.uid,
+        );
+
+        if (token !== cacheToken) {
+          // 与redis保存不一致 即二次登录
+          throw new BusinessException(ErrorEnum.AUTH_LOGGED_IN_ELSEWHERE);
+        }
       }
 
       if (error instanceof UnauthorizedException) {

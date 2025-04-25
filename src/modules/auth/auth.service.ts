@@ -10,6 +10,7 @@ import { InjectRedis } from '~/common/decorators/inject-redis.decorator';
 import Redis from 'ioredis';
 import {
   genAuthPermKey,
+  genAuthTokenKey,
   genForcedOfflineKey,
   genTokenBlacklistKey,
 } from '~/helper/gen-redis-key';
@@ -152,7 +153,13 @@ export class AuthService {
       exp,
     );
 
-    await this.userService.forbidden(user.uid, accessToken);
+    // 如果是多设备登录，则删除 token，否则移除这个用户的权限，这样就得重新登录才有权限了
+    if (this.appConfig.multiDeviceLogin) {
+      const accessTokenEntity = await this.tokenService.findOne(accessToken);
+      await this.tokenService.removeAccessToken(accessTokenEntity);
+    } else {
+      await this.userService.forbidden(user.uid, accessToken);
+    }
   }
 
   /**
@@ -195,5 +202,9 @@ export class AuthService {
   async getPermissionsCache(uid: number): Promise<string[]> {
     const permissions = await this.redis.get(genAuthPermKey(uid));
     return permissions ? JSON.parse(permissions) : [];
+  }
+
+  async getTokenByUid(uid: number): Promise<string> {
+    return this.redis.get(genAuthTokenKey(uid));
   }
 }
