@@ -1,5 +1,5 @@
 import * as OSS from 'cos-nodejs-sdk-v5';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, LoggerService } from '@nestjs/common';
 import { IOssConfig, OssConfig } from '~/config';
 import { OssPageDto } from './oss.dto';
 import { Pagination } from '~/helper/pagination/pagination';
@@ -7,19 +7,38 @@ import { OssInfo } from './oss.model';
 import { isEmpty } from 'lodash';
 import { genFileName, getExtname, getSize } from '~/utils';
 import { createPaginationObject } from '~/helper/pagination/create-pagination';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { BusinessException } from '~/common/exceptions/biz.exception';
+import { ErrorEnum } from '~/constants/error.constant';
 
 @Injectable()
 export class QClouldOssService {
   private client: OSS;
   private ossConfig: IOssConfig;
-  public constructor(@Inject(OssConfig.KEY) ossConfig: IOssConfig) {
+  public constructor(
+    @Inject(OssConfig.KEY) ossConfig: IOssConfig,
+    @Inject(WINSTON_MODULE_NEST_PROVIDER)
+    private readonly logger: LoggerService,
+  ) {
     if (ossConfig.type !== 'qcloud') return;
-    this.client = new OSS({
-      SecretId: ossConfig.secretId,
-      SecretKey: ossConfig.secretKey,
-      Domain: ossConfig.domain,
-    });
     this.ossConfig = ossConfig;
+    this.init();
+  }
+
+  async init() {
+    if (
+      !this.ossConfig.secretId ||
+      !this.ossConfig.secretKey ||
+      !this.ossConfig.bucket
+    ) {
+      this.logger.error('[QCLOULD_OSS]', '请检查OSS配置');
+      return;
+    }
+    this.client = new OSS({
+      SecretId: this.ossConfig.secretId,
+      SecretKey: this.ossConfig.secretKey,
+      Domain: this.ossConfig.domain,
+    });
   }
 
   // 创建存储空间。
@@ -40,6 +59,14 @@ export class QClouldOssService {
     pageSize,
     name,
   }: OssPageDto): Promise<Pagination<OssInfo>> {
+    if (!this.client) {
+      return {
+        currentPage: 1,
+        pageSize: 10,
+        total: 0,
+        list: [],
+      };
+    }
     return new Promise((resolve, reject) => {
       this.client.getBucket(
         {
@@ -107,6 +134,9 @@ export class QClouldOssService {
 
   // 上传文件到oss 并返回  图片oss 地址
   public async putOssFile(file: Express.Multer.File): Promise<string> {
+    if (!this.client) {
+      throw new BusinessException(ErrorEnum.UPLOAD_NOT_INIT);
+    }
     return new Promise(async (resolve, reject) => {
       try {
         const exist = await this.bucketExist();
@@ -154,6 +184,9 @@ export class QClouldOssService {
   }
 
   async deleteFiles(fileKeys: string[]) {
+    if (!this.client) {
+      throw new BusinessException(ErrorEnum.UPLOAD_NOT_INIT);
+    }
     const objectList = fileKeys.map((fileKey) => {
       return {
         Key: fileKey,

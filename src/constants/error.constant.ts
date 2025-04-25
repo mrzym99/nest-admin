@@ -54,6 +54,7 @@ export enum ErrorEnum {
 
   // UPLOAD
   UPLOAD_FAIL = '6000:文件上传失败',
+  UPLOAD_NOT_INIT = '6001:OSS功能未初始化成功，请完善您的OSS配置',
 
   // VERIFICATION CODE
   VERIFICATION_CODE_ERROR = '7000:验证码错误',
