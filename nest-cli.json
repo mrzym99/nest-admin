@@ -7,7 +7,8 @@
     "assets": [
       { "include": "assets/**/*", "watchAssets": true},
       { "include": "public/**/*", "watchAssets": true},
-      { "include": "https/**/*", "watchAssets": true}
+      { "include": "https/**/*", "watchAssets": true},
+      { "include": "modules/**/keys/*", "watchAssets": true}
     ],
     "plugins": [
       {

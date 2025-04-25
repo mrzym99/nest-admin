@@ -79,4 +79,8 @@ export enum ErrorEnum {
   SQL_IMPORT_FAIL = '11001:sql导入失败',
   SQL_DOWNLOAD_FAIL = '11002:sql下载失败',
   SQL_NOT_FOUND = '11003:请上传sql文件',
+
+  // PAY
+  PAY_NOT_INIT = '12000:支付功能未初始化成功，请完善您的应用私钥和支付宝公钥',
+  PAY_NOT_FOUND = '12001:支付订单不存在',
 }

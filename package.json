@@ -79,6 +79,7 @@
     "@socket.io/redis-emitter": "^5.1.0",
     "@types/ali-oss": "^6.16.11",
     "ali-oss": "^6.22.0",
+    "alipay-sdk": "^4.13.0",
     "argon2": "^0.41.1",
     "axios": "^1.8.4",
     "bull": "^4.16.5",
