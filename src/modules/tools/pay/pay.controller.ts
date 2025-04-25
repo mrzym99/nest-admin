@@ -1,7 +1,7 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ApiSecurityAuth } from '~/common/decorators/swagger.decorators';
-import { PayDto, PayRefundDto } from './Pay.dto';
+import { PayDto, PayRefundDto } from './pay.dto';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 import { PayService } from './pay.service';
 import { ParamId } from '~/common/decorators/param-id.decorator';
