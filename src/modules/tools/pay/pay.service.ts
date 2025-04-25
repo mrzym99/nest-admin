@@ -33,12 +33,12 @@ export class PayService {
     );
 
     if (!privateKey) {
-      this.logger.error('[PAY]', '应用私钥不存在');
+      this.logger.error('[PAY]', '支付模块，应用私钥不存在');
       return;
     }
 
     if (!publicKey) {
-      this.logger.error('[PAY]', '支付宝公钥不存在');
+      this.logger.error('[PAY]', '支付模块，支付宝公钥不存在');
       return;
     }
 

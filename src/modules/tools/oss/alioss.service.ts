@@ -1,5 +1,5 @@
 import * as OSS from 'ali-oss';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, LoggerService } from '@nestjs/common';
 import { IOssConfig, OssConfig } from '~/config';
 import { genFileName, getExtname, getSize } from '~/utils';
 import { createPaginationObject } from '~/helper/pagination/create-pagination';
@@ -8,21 +8,40 @@ import { Pagination } from '~/helper/pagination/pagination';
 import { OssInfo } from './oss.model';
 import { OssPageDto } from './oss.dto';
 import { MultipartFile } from '@fastify/multipart';
+import { BusinessException } from '~/common/exceptions/biz.exception';
+import { ErrorEnum } from '~/constants/error.constant';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 
 @Injectable()
 export class AliOssService {
   private client: OSS;
   private ossConfig: IOssConfig;
-  public constructor(@Inject(OssConfig.KEY) ossConfig: IOssConfig) {
+  public constructor(
+    @Inject(OssConfig.KEY) ossConfig: IOssConfig,
+    @Inject(WINSTON_MODULE_NEST_PROVIDER)
+    private readonly logger: LoggerService,
+  ) {
     if (ossConfig.type !== 'aliyun') return;
-    this.client = new OSS({
-      accessKeyId: ossConfig.secretId,
-      accessKeySecret: ossConfig.secretKey,
-      region: ossConfig.region,
-      bucket: ossConfig.bucket,
-      endpoint: ossConfig.domain,
-    });
     this.ossConfig = ossConfig;
+    this.init();
+  }
+
+  async init() {
+    if (
+      !this.ossConfig.secretId ||
+      !this.ossConfig.secretKey ||
+      !this.ossConfig.bucket
+    ) {
+      this.logger.error('[ALI_OSS]', '请检查OSS配置');
+      return;
+    }
+    this.client = new OSS({
+      accessKeyId: this.ossConfig.secretId,
+      accessKeySecret: this.ossConfig.secretKey,
+      region: this.ossConfig.region,
+      bucket: this.ossConfig.bucket,
+      endpoint: this.ossConfig.domain,
+    });
   }
 
   async list({
@@ -95,6 +114,9 @@ export class AliOssService {
   }
 
   async deleteFiles(fileNames: string[]) {
+    if (!this.client) {
+      throw new BusinessException(ErrorEnum.UPLOAD_NOT_INIT);
+    }
     await this.client.deleteMulti(fileNames, {
       quiet: true,
     });
