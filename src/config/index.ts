@@ -6,6 +6,7 @@ import {
 } from './database.config';
 import { IMailerConfig, MailerConfig, mailerRegToken } from './mailer.config';
 import { IOssConfig, OssConfig, ossRegToken } from './oss.config';
+import { IPayConfig, PayConfig, payRegToken } from './pay.config';
 import { IRedisConfig, RedisConfig, redisRegToken } from './redis.config';
 import {
   ISecurityConfig,
@@ -25,6 +26,7 @@ export interface AllConfigType {
   [databaseRegToken]: IDatabaseConfig;
   [mailerRegToken]: IMailerConfig;
   [redisRegToken]: IRedisConfig;
+  [payRegToken]: IPayConfig;
   [securityRegToken]: ISecurityConfig;
   [ossRegToken]: IOssConfig;
 }
@@ -37,5 +39,6 @@ export default {
   MailerConfig,
   OssConfig,
   RedisConfig,
+  PayConfig,
   SecurityConfig,
 };
