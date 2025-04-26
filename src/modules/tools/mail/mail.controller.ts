@@ -8,6 +8,7 @@ import {
   Perm,
 } from '~/modules/auth/decorators/permission.decorator';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
+import { AllowAnon } from '~/modules/auth/decorators/allow-anon.decorator';
 
 export const permissions = definePermission('tool:mail', {
   SEND: 'send',
@@ -23,6 +24,7 @@ export class MailController {
   @Post('send')
   @ApiOperation({ summary: '发送邮件' })
   @Perm(permissions.SEND)
+  @AllowAnon()
   @Throttle({ default: { limit: 5, ttl: 30 * 60 * 1000 } })
   async send(@Body() dto: MailSendDto): Promise<void> {
     const { to, subject, content } = dto;
