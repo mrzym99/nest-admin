@@ -9,7 +9,7 @@ export class PayDto {
   @ApiProperty({ description: '支付订单id' })
   @IsNumber()
   @ToNumber()
-  orderId: string;
+  orderId: number;
 
   @ApiProperty({ description: '标题' })
   @ToNumber()
@@ -20,7 +20,6 @@ export class PayDto {
   @IsString()
   desc: string;
 }
-
 
 /**
  * 订单退款
