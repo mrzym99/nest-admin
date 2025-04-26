@@ -49,7 +49,7 @@ export class RbacGuard implements CanActivate {
     // get 方法只会获取当前方法上的元数据 局部的
     const allowAnon = this.reflector.get<boolean>(
       ALLOW_ANON_KEY,
-      context.getHandler,
+      context.getHandler(),
     );
 
     // 超级管理员在任何情况下都有权限
