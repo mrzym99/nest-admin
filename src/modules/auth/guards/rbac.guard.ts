@@ -57,12 +57,13 @@ export class RbacGuard implements CanActivate {
       return true;
     }
 
+    // 如果当前方法设置了 allowAnon 则直接通过
+    if (allowAnon) return true;
+
     // 如果不能修改数据 则 只能访问 get 请求
     if (canModifyData !== 'true' && request.method !== 'GET') {
       throw new BusinessException(ErrorEnum.AUTH_DEMO_NO_OPERATE);
     }
-
-    if (allowAnon) return true;
 
     const payloadPermission = this.reflector.getAllAndOverride<
       string | string[]
