@@ -14,6 +14,8 @@ export enum ErrorEnum {
   AUTH_MAXIMUM_FIVE_VERIFICATION_CODES_PER_DAY = '1006:一天最多发送5条验证码',
   AUTH_VERIFICATION_CODE_SEND_FAILED = '1007:验证码发送失败',
   AUTH_LOGGED_IN_ELSEWHERE = '1008:您的账号已在其他地方登录',
+  AUTH_NO_EMAIL = '1009:去完善您的邮箱再来注册',
+  AUTH_CANNOT_LOGIN = '10010:状态异常，无法登录/注册',
 
   // user
   USER_NOT_EXIST = '2000:用户不存在',

@@ -13,6 +13,11 @@ import {
   SecurityConfig,
   securityRegToken,
 } from './security.config';
+import {
+  IThirdLoginConfig,
+  ThirdLoginConfig,
+  thirdLoginRegToken,
+} from './third-login.config';
 
 export * from './app.config';
 export * from './database.config';
@@ -20,6 +25,8 @@ export * from './mailer.config';
 export * from './oss.config';
 export * from './redis.config';
 export * from './security.config';
+export * from './third-login.config';
+export * from './pay.config';
 
 export interface AllConfigType {
   [appRegToken]: IAppConfig;
@@ -27,6 +34,7 @@ export interface AllConfigType {
   [mailerRegToken]: IMailerConfig;
   [redisRegToken]: IRedisConfig;
   [payRegToken]: IPayConfig;
+  [thirdLoginRegToken]: IThirdLoginConfig;
   [securityRegToken]: ISecurityConfig;
   [ossRegToken]: IOssConfig;
 }
@@ -40,5 +48,6 @@ export default {
   OssConfig,
   RedisConfig,
   PayConfig,
+  ThirdLoginConfig,
   SecurityConfig,
 };
