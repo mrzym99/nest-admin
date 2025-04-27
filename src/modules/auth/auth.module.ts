@@ -22,14 +22,17 @@ import { CaptchaService } from './services/captcha.service';
 import { MailModule } from '../tools/mail/mail.module';
 import { EmailController } from './controllers/email.controller';
 import { OnlineModule } from '../system/monitor/online/online.module';
+import { ThirdLoginController } from './controllers/third-login.controller';
+import { ThirdLoginService } from './services/third-login.service';
 
 const controllers = [
   AuthController,
   AccountController,
   CaptchaController,
   EmailController,
+  ThirdLoginController
 ];
-const providers = [AuthService, TokenService, CaptchaService];
+const providers = [AuthService, TokenService, CaptchaService, ThirdLoginService];
 
 const strategies = [JwtStrategy];
 

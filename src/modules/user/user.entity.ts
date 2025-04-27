@@ -40,6 +40,23 @@ export class UserEntity extends CommonEntity {
   @Exclude()
   password: string;
 
+  @ApiProperty({ description: '从哪里来的用户' })
+  @Column({
+    type: 'varchar',
+    nullable: true,
+    comment: '记录是从哪里来的用户',
+  })
+  from: string;
+
+  @ApiProperty({ description: '唯一的id 比如 github 的用户id' })
+  @Column({
+    name: 'unique_id',
+    type: 'int',
+    comment: '唯一的id',
+    nullable: true,
+  })
+  uniqueId: number;
+
   @ApiProperty({ description: '状态 1 启用 0 禁用' })
   @Column({
     type: 'tinyint',

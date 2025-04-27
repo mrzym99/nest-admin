@@ -50,7 +50,7 @@ export class UserService {
     private readonly profileRepository: Repository<ProfileEntity>,
     @Inject(SecurityConfig.KEY)
     private readonly securityConfig: ISecurityConfig,
-  ) {}
+  ) { }
 
   async list({
     currentPage,
@@ -160,25 +160,40 @@ export class UserService {
     return user || emailUser;
   }
 
-  async checkUserExist(username: string, email: string): Promise<void> {
+  async checkUserExist(username?: string, email?: string): Promise<void> {
+    if (username) {
+      const user = await this.userRepository.findOne({
+        where: {
+          username,
+        },
+      });
+
+      if (user) throw new BizException(ErrorEnum.USER_USERNAME_EXIST);
+    }
+
+    if (email) {
+      const emailUser = await this.userRepository.findOne({
+        where: {
+          profile: {
+            email: email,
+          },
+        },
+        relations: ['profile'],
+      });
+
+      if (emailUser) throw new BizException(ErrorEnum.USER_EMAIL_EXIST);
+    }
+  }
+
+  async checkThirdUserExist(from: string, uniqueId: number): Promise<void> {
     const user = await this.userRepository.findOne({
       where: {
-        username,
+        from,
+        uniqueId,
       },
     });
 
-    if (user) throw new BizException(ErrorEnum.USER_USERNAME_EXIST);
-
-    const emailUser = await this.userRepository.findOne({
-      where: {
-        profile: {
-          email: email,
-        },
-      },
-      relations: ['profile'],
-    });
-
-    if (emailUser) throw new BizException(ErrorEnum.USER_EMAIL_EXIST);
+    if (user) throw new BizException(ErrorEnum.USER_EMAIL_EXIST);
   }
 
   // 获取用户所有的信息
@@ -231,6 +246,31 @@ export class UserService {
     return user;
   }
 
+  async findUserInfoByUsername(username: string): Promise<UserEntity> {
+    const user = await this.userRepository.findOne({
+      where: {
+        username
+      },
+    });
+
+    if (isEmpty(user)) {
+      throw new NotFoundException(ErrorEnum.USER_EMAIL_NOT_EXIST);
+    }
+
+    return user;
+  }
+
+  async findUserInfoByUniqueId(from: string, uniqueId: number): Promise<UserEntity> {
+    const user = await this.userRepository.findOne({
+      where: {
+        from,
+        uniqueId,
+      },
+    });
+
+    return user;
+  }
+
   async create(
     { deptId, roleIds, ...user }: Partial<UserCreateDto>,
     generateProfile: boolean = false,
@@ -269,19 +309,19 @@ export class UserService {
         ...user,
         roles: !isEmpty(roleIds)
           ? await manager.find(RoleEntity, {
-              where: {
-                id: In(roleIds),
-              },
-            })
+            where: {
+              id: In(roleIds),
+            },
+          })
           : defaultRole
             ? [defaultRole]
             : [],
         dept: deptId
           ? await manager.findOne(DeptEntity, {
-              where: {
-                id: deptId,
-              },
-            })
+            where: {
+              id: deptId,
+            },
+          })
           : defaultDept,
         profile: profile,
       });
@@ -320,10 +360,10 @@ export class UserService {
 
       user.roles = !isEmpty(roleIds)
         ? await manager.find(RoleEntity, {
-            where: {
-              id: In(roleIds),
-            },
-          })
+          where: {
+            id: In(roleIds),
+          },
+        })
         : defaultRole
           ? [defaultRole]
           : [];
@@ -331,10 +371,10 @@ export class UserService {
       // 保存用户的部门
       user.dept = deptId
         ? await manager.findOne(DeptEntity, {
-            where: {
-              id: deptId,
-            },
-          })
+          where: {
+            id: deptId,
+          },
+        })
         : defaultDept;
 
       await this.updateProfile(user.id, profile);

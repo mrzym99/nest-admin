@@ -195,6 +195,18 @@ export class UserCreateDto extends UserProfileDto {
   })
   @IsOptional()
   deptId?: number;
+
+  @ApiProperty({
+    description: '从哪里注册而来',
+  })
+  @IsOptional()
+  from?: string;
+
+  @ApiProperty({
+    description: '唯一的 id',
+  })
+  @IsOptional()
+  uniqueId?: number;
 }
 
 export class UserStatusDto {

@@ -17,7 +17,6 @@ import Redis from 'ioredis';
 import { genOnlineUserKey } from '~/helper/gen-redis-key';
 import { RoleService } from '~/modules/system/role/role.service';
 import { ErrorEnum } from '~/constants/error.constant';
-import { UserService } from '~/modules/user/user.service';
 
 @Injectable()
 export class TokenService {
@@ -28,7 +27,6 @@ export class TokenService {
     @InjectRedis()
     private readonly redis: Redis,
     private readonly roleService: RoleService,
-    private readonly userService: UserService,
   ) {}
 
   async findOne(value: string) {
