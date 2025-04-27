@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 16/04/2025 23:13:26
+ Date: 28/04/2025 00:58:51
 */
 
 SET NAMES utf8mb4;
@@ -29,7 +29,7 @@ CREATE TABLE `sys_captcha_log` (
   `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '验证码',
   `provider` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '验证码提供商',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_captcha_log
@@ -142,7 +142,7 @@ CREATE TABLE `sys_login_log` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_3029712e0df6a28edaee46fd470` (`user_id`),
   CONSTRAINT `FK_3029712e0df6a28edaee46fd470` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_login_log
@@ -182,7 +182,7 @@ CREATE TABLE `sys_menu` (
   `created_by` int DEFAULT NULL COMMENT '创建人',
   `updated_by` int DEFAULT NULL COMMENT '修改者',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -256,7 +256,7 @@ INSERT INTO `sys_menu` (`id`, `created_at`, `updated_at`, `parent_id`, `name`, `
 INSERT INTO `sys_menu` (`id`, `created_at`, `updated_at`, `parent_id`, `name`, `path`, `component`, `permission`, `icon`, `order`, `is_ext`, `ext_open_mode`, `keep_alive`, `active_menu`, `status`, `title`, `i18n_key`, `route_name`, `icon_type`, `hide_in_menu`, `multi_tab`, `href`, `fixed_index_in_tab`, `type`, `created_by`, `updated_by`) VALUES (67, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 27, '', '', '', 'system:parameter:read', '', 2, 0, 0, 0, NULL, 1, '详情', NULL, NULL, 0, 0, 0, NULL, NULL, 2, NULL, NULL);
 INSERT INTO `sys_menu` (`id`, `created_at`, `updated_at`, `parent_id`, `name`, `path`, `component`, `permission`, `icon`, `order`, `is_ext`, `ext_open_mode`, `keep_alive`, `active_menu`, `status`, `title`, `i18n_key`, `route_name`, `icon_type`, `hide_in_menu`, `multi_tab`, `href`, `fixed_index_in_tab`, `type`, `created_by`, `updated_by`) VALUES (68, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 42, '', '', '', 'system:user:update', '', 4, 0, 0, 0, NULL, 1, '修改', NULL, NULL, 0, 0, 0, NULL, NULL, 2, NULL, NULL);
 INSERT INTO `sys_menu` (`id`, `created_at`, `updated_at`, `parent_id`, `name`, `path`, `component`, `permission`, `icon`, `order`, `is_ext`, `ext_open_mode`, `keep_alive`, `active_menu`, `status`, `title`, `i18n_key`, `route_name`, `icon_type`, `hide_in_menu`, `multi_tab`, `href`, `fixed_index_in_tab`, `type`, `created_by`, `updated_by`) VALUES (69, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 61, '', '', '', 'system:menu:delete', '', 5, 0, 0, 0, NULL, 1, '删除', NULL, NULL, 0, 0, 0, NULL, NULL, 2, NULL, NULL);
-INSERT INTO `sys_menu` (`id`, `created_at`, `updated_at`, `parent_id`, `name`, `path`, `component`, `permission`, `icon`, `order`, `is_ext`, `ext_open_mode`, `keep_alive`, `active_menu`, `status`, `title`, `i18n_key`, `route_name`, `icon_type`, `hide_in_menu`, `multi_tab`, `href`, `fixed_index_in_tab`, `type`, `created_by`, `updated_by`) VALUES (70, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 42, '', '', '', 'system:user:pass:reset', '', 6, 0, 0, 0, NULL, 1, '重置密码', NULL, NULL, 0, 0, 0, NULL, NULL, 2, NULL, NULL);
+INSERT INTO `sys_menu` (`id`, `created_at`, `updated_at`, `parent_id`, `name`, `path`, `component`, `permission`, `icon`, `order`, `is_ext`, `ext_open_mode`, `keep_alive`, `active_menu`, `status`, `title`, `i18n_key`, `route_name`, `icon_type`, `hide_in_menu`, `multi_tab`, `href`, `fixed_index_in_tab`, `type`, `created_by`, `updated_by`) VALUES (70, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 42, '', '', '', 'system:user:pass:reset', '', 5, 0, 0, 0, NULL, 1, '重置密码', NULL, NULL, 0, 0, 0, NULL, NULL, 2, NULL, 2);
 INSERT INTO `sys_menu` (`id`, `created_at`, `updated_at`, `parent_id`, `name`, `path`, `component`, `permission`, `icon`, `order`, `is_ext`, `ext_open_mode`, `keep_alive`, `active_menu`, `status`, `title`, `i18n_key`, `route_name`, `icon_type`, `hide_in_menu`, `multi_tab`, `href`, `fixed_index_in_tab`, `type`, `created_by`, `updated_by`) VALUES (71, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 53, '', '', '', 'system:role:list', '', 1, 0, 0, 0, NULL, 1, '列表', NULL, NULL, 0, 0, 0, NULL, NULL, 2, NULL, NULL);
 INSERT INTO `sys_menu` (`id`, `created_at`, `updated_at`, `parent_id`, `name`, `path`, `component`, `permission`, `icon`, `order`, `is_ext`, `ext_open_mode`, `keep_alive`, `active_menu`, `status`, `title`, `i18n_key`, `route_name`, `icon_type`, `hide_in_menu`, `multi_tab`, `href`, `fixed_index_in_tab`, `type`, `created_by`, `updated_by`) VALUES (72, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 16, 'system_schedule_task-log', '/system/schedule/task-log', 'view.system_schedule_task-log', '', 'mdi:invoice-text-clock-outline', 2, 0, 0, 0, NULL, 1, '任务日志', 'route.system_schedule_task-log', NULL, 0, 0, 0, NULL, NULL, 1, NULL, NULL);
 INSERT INTO `sys_menu` (`id`, `created_at`, `updated_at`, `parent_id`, `name`, `path`, `component`, `permission`, `icon`, `order`, `is_ext`, `ext_open_mode`, `keep_alive`, `active_menu`, `status`, `title`, `i18n_key`, `route_name`, `icon_type`, `hide_in_menu`, `multi_tab`, `href`, `fixed_index_in_tab`, `type`, `created_by`, `updated_by`) VALUES (73, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 51, '', '', '', 'system:log:login:list', '', 1, 0, 0, 0, NULL, 1, '列表', NULL, NULL, 0, 0, 0, NULL, NULL, 2, NULL, NULL);
@@ -286,6 +286,8 @@ INSERT INTO `sys_menu` (`id`, `created_at`, `updated_at`, `parent_id`, `name`, `
 INSERT INTO `sys_menu` (`id`, `created_at`, `updated_at`, `parent_id`, `name`, `path`, `component`, `permission`, `icon`, `order`, `is_ext`, `ext_open_mode`, `keep_alive`, `active_menu`, `status`, `title`, `i18n_key`, `route_name`, `icon_type`, `hide_in_menu`, `multi_tab`, `href`, `fixed_index_in_tab`, `type`, `created_by`, `updated_by`) VALUES (104, '2025-04-13 23:56:24.790031', '2025-04-13 23:56:24.790031', 36, 'system_notice_notice-operate', '/system/notice/notice-operate', 'view.system_notice_notice-operate', NULL, 'ic:outline-notifications', 10, 0, 0, 0, 'system_notice', 1, '公告操作', 'route.system_notice_notice-operate', NULL, 0, 1, 0, NULL, NULL, 1, 2, 2);
 INSERT INTO `sys_menu` (`id`, `created_at`, `updated_at`, `parent_id`, `name`, `path`, `component`, `permission`, `icon`, `order`, `is_ext`, `ext_open_mode`, `keep_alive`, `active_menu`, `status`, `title`, `i18n_key`, `route_name`, `icon_type`, `hide_in_menu`, `multi_tab`, `href`, `fixed_index_in_tab`, `type`, `created_by`, `updated_by`) VALUES (105, '2025-04-13 23:57:16.669670', '2025-04-13 23:57:16.669670', 104, '', NULL, NULL, 'system:notice:create', '', 1, 0, 0, 0, NULL, 1, '创建', NULL, NULL, 0, 0, 0, NULL, NULL, 2, 2, NULL);
 INSERT INTO `sys_menu` (`id`, `created_at`, `updated_at`, `parent_id`, `name`, `path`, `component`, `permission`, `icon`, `order`, `is_ext`, `ext_open_mode`, `keep_alive`, `active_menu`, `status`, `title`, `i18n_key`, `route_name`, `icon_type`, `hide_in_menu`, `multi_tab`, `href`, `fixed_index_in_tab`, `type`, `created_by`, `updated_by`) VALUES (106, '2025-04-13 23:57:31.841662', '2025-04-13 23:57:31.841662', 104, '', NULL, NULL, 'system:notice:update', '', 2, 0, 0, 0, NULL, 1, '修改', NULL, NULL, 0, 0, 0, NULL, NULL, 2, 2, NULL);
+INSERT INTO `sys_menu` (`id`, `created_at`, `updated_at`, `parent_id`, `name`, `path`, `component`, `permission`, `icon`, `order`, `is_ext`, `ext_open_mode`, `keep_alive`, `active_menu`, `status`, `title`, `i18n_key`, `route_name`, `icon_type`, `hide_in_menu`, `multi_tab`, `href`, `fixed_index_in_tab`, `type`, `created_by`, `updated_by`) VALUES (107, '2025-04-20 13:11:40.039536', '2025-04-20 13:11:40.039536', 42, '', NULL, NULL, 'system:user:delete', '', 6, 0, 0, 0, NULL, 1, '删除用户', NULL, NULL, 0, 0, 0, NULL, NULL, 2, 2, NULL);
+INSERT INTO `sys_menu` (`id`, `created_at`, `updated_at`, `parent_id`, `name`, `path`, `component`, `permission`, `icon`, `order`, `is_ext`, `ext_open_mode`, `keep_alive`, `active_menu`, `status`, `title`, `i18n_key`, `route_name`, `icon_type`, `hide_in_menu`, `multi_tab`, `href`, `fixed_index_in_tab`, `type`, `created_by`, `updated_by`) VALUES (108, '2025-04-26 09:31:29.961106', '2025-04-26 09:31:29.961106', 13, 'tools_pay', '/tools/pay', 'view.tools_pay', NULL, 'fa-brands:alipay', 1, 0, 0, 0, NULL, 1, '支付宝沙箱', 'route.tools_pay', NULL, 0, 0, 0, NULL, NULL, 1, 1, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -309,7 +311,6 @@ CREATE TABLE `sys_notice` (
 -- Records of sys_notice
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_notice` (`id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `name`, `content`, `type`, `status`) VALUES (1, '2025-04-13 16:40:05.794076', '2025-04-13 16:40:05.794076', 2, 1, '项目动态', '<h3 style=\"line-height: 1.4;\"><strong>2024-12-24</strong> &nbsp;</h3>\n<ul>\n<li><strong>小张</strong>创建了开源项目 <strong>Nest+VueAdmin，</strong>并且提交了第一个 commit !</li>\n</ul>\n<h3><strong>2025-03-02 </strong></h3>\n<ul>\n<li><strong>小张</strong>完成了前后端的对接 !</li>\n</ul>\n<h3><strong>2025-03-12&nbsp;&nbsp;</strong></h3>\n<ul>\n<li><strong>小张 </strong>完成了Docker的部署 !&nbsp;</li>\n</ul>\n<h3><strong>2025-04-16</strong></h3>\n<ul>\n<li><strong>小张 </strong>完成了部分文档的编写</li>\n<li><strong>小张 </strong>完成了 <a href=\"https://gitee.com/mrzym/nest-admin/tree/fastify/\" target=\"_blank\" rel=\"noopener\">fastify</a> 分支的编写</li>\n</ul>', 1, 1);
 INSERT INTO `sys_notice` (`id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `name`, `content`, `type`, `status`) VALUES (2, '2025-04-13 16:58:43.921657', '2025-04-13 16:58:43.921657', 2, 1, '项目信息', '<ul>\n<li>前端源码地址 <a href=\"https://gitee.com/mrzym/vue3-naive-admin\" target=\"_blank\" rel=\"noopener\">gitee</a> &nbsp; &nbsp;<a href=\"https://github.com/mrzym99/vue3-naive-admin\" target=\"_blank\" rel=\"noopener\">github</a></li>\n<li>后端源码地址 <a href=\"https://gitee.com/mrzym/nest-admin\" target=\"_blank\" rel=\"noopener\">gitee</a> &nbsp; &nbsp;<a href=\"https://github.com/mrzym99/nest-admin\" target=\"_blank\" rel=\"noopener\">github</a></li>\n<li>在线预览地址 <a href=\"../\" target=\"_blank\" rel=\"noopener\">https://nest.mrzym.top/</a></li>\n<li>使用 express 作为底层web框架在 <a href=\"https://gitee.com/mrzym/nest-admin\" target=\"_blank\" rel=\"noopener\">master</a> 分支&nbsp;</li>\n<li>使用 fastify 作为底层web框架在 <a href=\"https://gitee.com/mrzym/nest-admin/tree/fastify/\" target=\"_blank\" rel=\"noopener\">fastify</a> 分支</li>\n</ul>', 1, 1);
 COMMIT;
 
@@ -334,8 +335,8 @@ CREATE TABLE `sys_parameter` (
 -- Records of sys_parameter
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_parameter` (`id`, `created_at`, `updated_at`, `name`, `key`, `value`, `remark`, `created_by`, `updated_by`) VALUES (2, '2025-04-11 23:10:23.941686', '2025-04-11 23:10:23.941686', '是否校验验证码', 'login.captcha.enable', 'false', '配置 为 true 才会校验验证码、登录页面才显示验证码', NULL, NULL);
-INSERT INTO `sys_parameter` (`id`, `created_at`, `updated_at`, `name`, `key`, `value`, `remark`, `created_by`, `updated_by`) VALUES (3, '2025-04-11 23:10:46.253499', '2025-04-11 23:10:46.253499', '是否允许修改数据', 'auth.modify.enable', 'false', '配置为 true 时，用户有权限则可修改数据，否则除了超级管理员之外都不能修改数据，用于演示系统时使用', NULL, 2);
+INSERT INTO `sys_parameter` (`id`, `created_at`, `updated_at`, `name`, `key`, `value`, `remark`, `created_by`, `updated_by`) VALUES (2, '2025-04-11 23:10:23.941686', '2025-04-11 23:10:23.941686', '是否校验验证码', 'login.captcha.enable', 'true', '配置 为 true 才会校验验证码、登录页面才显示验证码', NULL, 1);
+INSERT INTO `sys_parameter` (`id`, `created_at`, `updated_at`, `name`, `key`, `value`, `remark`, `created_by`, `updated_by`) VALUES (3, '2025-04-11 23:10:46.253499', '2025-04-11 23:10:46.253499', '是否允许修改数据', 'auth.modify.enable', 'true', '配置为 true 时，用户有权限则可修改数据，否则除了超级管理员之外都不能修改数据，用于演示系统时使用', NULL, 1);
 COMMIT;
 
 -- ----------------------------
@@ -356,7 +357,7 @@ CREATE TABLE `sys_role` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `IDX_223de54d6badbe43a5490450c3` (`name`),
   UNIQUE KEY `IDX_05edc0a51f41bb16b7d8137da9` (`value`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role
@@ -364,8 +365,8 @@ CREATE TABLE `sys_role` (
 BEGIN;
 INSERT INTO `sys_role` (`id`, `created_at`, `updated_at`, `name`, `value`, `description`, `status`, `default`, `created_by`, `updated_by`) VALUES (1, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', '超级管理员', 'superadmin', 'I\'m the most awesome.', 1, 0, NULL, 1);
 INSERT INTO `sys_role` (`id`, `created_at`, `updated_at`, `name`, `value`, `description`, `status`, `default`, `created_by`, `updated_by`) VALUES (2, '2025-04-09 16:37:40.000000', '2025-04-13 10:44:36.017308', '管理员', 'admin', '管理员', 1, 0, 1, 1);
-INSERT INTO `sys_role` (`id`, `created_at`, `updated_at`, `name`, `value`, `description`, `status`, `default`, `created_by`, `updated_by`) VALUES (3, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', '测试', 'test', '测试角色', 1, 1, NULL, 2);
-INSERT INTO `sys_role` (`id`, `created_at`, `updated_at`, `name`, `value`, `description`, `status`, `default`, `created_by`, `updated_by`) VALUES (4, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', '游客', 'guest', '游客', 1, 0, NULL, 2);
+INSERT INTO `sys_role` (`id`, `created_at`, `updated_at`, `name`, `value`, `description`, `status`, `default`, `created_by`, `updated_by`) VALUES (3, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', '测试', 'test', '测试角色', 1, 1, NULL, 1);
+INSERT INTO `sys_role` (`id`, `created_at`, `updated_at`, `name`, `value`, `description`, `status`, `default`, `created_by`, `updated_by`) VALUES (4, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', '游客', 'guest', '游客', 1, 0, NULL, 1);
 COMMIT;
 
 -- ----------------------------
@@ -566,6 +567,8 @@ INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 103);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 104);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 105);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 106);
+INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 107);
+INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (2, 108);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (3, 5);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (3, 7);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (3, 8);
@@ -620,99 +623,20 @@ INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (3, 98);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (3, 99);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (3, 100);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (3, 104);
+INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (3, 108);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (4, 10);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (4, 26);
+INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (4, 29);
+INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (4, 31);
+INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (4, 44);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (4, 49);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (4, 65);
+INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (4, 67);
+INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (4, 78);
+INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (4, 79);
 INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (4, 83);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 2);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 3);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 4);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 5);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 6);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 7);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 8);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 9);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 10);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 11);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 12);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 13);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 14);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 15);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 16);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 17);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 18);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 19);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 20);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 21);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 22);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 23);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 24);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 25);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 26);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 27);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 28);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 29);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 30);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 31);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 32);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 33);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 34);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 35);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 36);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 37);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 39);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 40);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 41);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 42);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 43);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 44);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 45);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 46);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 47);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 48);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 49);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 50);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 51);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 52);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 53);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 54);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 55);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 56);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 57);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 58);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 59);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 60);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 61);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 62);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 63);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 64);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 65);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 66);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 67);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 68);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 69);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 70);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 71);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 72);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 73);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 74);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 75);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 76);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 77);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 78);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 79);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 80);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 81);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 82);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 83);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 84);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 85);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 86);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 87);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 88);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 89);
-INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (7, 90);
+INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (4, 99);
+INSERT INTO `sys_role_menus` (`role_id`, `menu_id`) VALUES (4, 100);
 COMMIT;
 
 -- ----------------------------
@@ -814,12 +738,13 @@ CREATE TABLE `tool_storage` (
   `size` varchar(255) DEFAULT NULL,
   `user_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of tool_storage
 -- ----------------------------
 BEGIN;
+INSERT INTO `tool_storage` (`id`, `created_at`, `updated_at`, `name`, `fileName`, `ext_name`, `path`, `type`, `size`, `user_id`) VALUES (14, '2025-04-28 00:53:34.475768', '2025-04-28 00:53:34.475768', '1745772814472-u=2978468399,3739141687&fm=253&fmt=auto&app=120&f=JPEG.webp', 'u=2978468399,3739141687&fm=253&fmt=auto&app=120&f=JPEG.webp', 'webp', '/upload/2025-04-28/other/1745772814472-u=2978468399,3739141687&fm=253&fmt=auto&app=120&f=JPEG.webp', 'other', '50.13 KB', '1');
 COMMIT;
 
 -- ----------------------------
@@ -835,22 +760,24 @@ CREATE TABLE `user` (
   `status` tinyint DEFAULT '1' COMMENT '状态 1 启用 0 禁用',
   `profile_id` int DEFAULT NULL,
   `dept_id` int DEFAULT NULL,
+  `from` varchar(255) DEFAULT NULL COMMENT '记录是从哪里来的用户',
+  `unique_id` int DEFAULT NULL COMMENT '唯一的id',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `IDX_78a916df40e02a9deb1c4b75ed` (`username`),
   UNIQUE KEY `REL_f44d0cd18cfd80b0fed7806c3b` (`profile_id`),
   KEY `FK_c330c4acd2740fac489be6d2889` (`dept_id`),
   CONSTRAINT `FK_c330c4acd2740fac489be6d2889` FOREIGN KEY (`dept_id`) REFERENCES `sys_dept` (`id`),
   CONSTRAINT `FK_f44d0cd18cfd80b0fed7806c3b7` FOREIGN KEY (`profile_id`) REFERENCES `user_profile` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (1, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'superadmin', '$argon2id$v=19$m=65536,t=3,p=4$h5qPPSDqFp9hHsbKHK24LQ$8zPoTP7RJ0etIdPT1LVHXozLUHcSyiFHjVEWbLK4gJg', 1, 1, 3);
-INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (2, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'admin', '$argon2id$v=19$m=65536,t=3,p=4$uUvBxUpFRd89cqVaNStsww$6u0Crp7gqx7b1E5QT/XSo5OCusvSKX56eqErPCdzSqg', 1, 2, 3);
-INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (3, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'test', '$argon2id$v=19$m=65536,t=3,p=4$ig8ebM6uC2S7OCjFQ0y27w$rgauYvUKerQfql3nB/V9QseShyTAzPGWbjeaD1YtCPs', 1, 3, 2);
-INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`) VALUES (4, '2025-04-12 10:33:06.523520', '2025-04-12 10:33:06.523520', 'guest', '$argon2id$v=19$m=65536,t=3,p=4$S8N6k7WgL2X8tYBs4QrTvA$udk99vXABr+sFiQhmYEZj71ve11We3D6UcjYYAtF1zc', 1, 4, 10);
+INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`, `from`, `unique_id`) VALUES (1, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'superadmin', '$argon2id$v=19$m=65536,t=3,p=4$ZbkY90G6e/LJDW2BslI5Hw$iKYTwUx3MA6GBCZzhVHxRZLooh/2n1Zy0yOIwCMU5ek', 1, 1, 3, NULL, NULL);
+INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`, `from`, `unique_id`) VALUES (2, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'admin', '$argon2id$v=19$m=65536,t=3,p=4$BBrLdkl4XJcaA/HuGhwKDw$DPeT/eh9J1+HSigYqdVIE3Y/9LfD9HkmAlC3zKJVaLg', 1, 2, 3, NULL, NULL);
+INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`, `from`, `unique_id`) VALUES (3, '2025-04-09 16:37:40.000000', '2025-04-09 16:37:40.000000', 'test', '$argon2id$v=19$m=65536,t=3,p=4$uI9N5K2Vf7KTBxIEQs2QYw$H5KkwaYrG0/smtKzjvjoVI6i0wx4tjNdU8MBGUIFzmA', 1, 3, 2, NULL, NULL);
+INSERT INTO `user` (`id`, `created_at`, `updated_at`, `username`, `password`, `status`, `profile_id`, `dept_id`, `from`, `unique_id`) VALUES (4, '2025-04-28 00:53:59.035815', '2025-04-28 00:53:59.035815', 'guest', '$argon2id$v=19$m=65536,t=3,p=4$4P6f5PcElrppoe3VkKLOiw$TVY+VKeItcNo0ANNX59Kiv+4fRtG4pZdZSpJuwW8x5I', 1, 4, 10, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -866,16 +793,15 @@ CREATE TABLE `user_access_token` (
   PRIMARY KEY (`id`),
   KEY `FK_c9c6ac4970ddbe5a8c4887e1e7e` (`userId`),
   CONSTRAINT `FK_c9c6ac4970ddbe5a8c4887e1e7e` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=152 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of user_access_token
 -- ----------------------------
 BEGIN;
-INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInJvbGVzIjpbInN1cGVyYWRtaW4iXSwiaWF0IjoxNzQ0ODE1NjI5LCJleHAiOjE3NDQ4MTkyMjl9.sB5Xk2UQeN9lAzX3qYClEerEGfRRyLNaTbX97oS9Fw4', '2025-04-17 00:00:29', '2025-04-16 23:00:29', 1, 148);
-INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTc0NDgxNjIzMywiZXhwIjoxNzQ0OTAyNjMzfQ.8-cXmnVJoVikH3JPCQt1c895pgA6yOCdfK61RnJ9QUQ', '2025-04-17 23:10:33', '2025-04-16 23:10:33', 2, 149);
-INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInJvbGVzIjpbInN1cGVyYWRtaW4iXSwiaWF0IjoxNzQ0ODE2MjU5LCJleHAiOjE3NDQ5MDI2NTl9.xkYjTKV5de31PCFLZvXxolo0gWj0S6efGGr5P3A-EnQ', '2025-04-17 23:11:00', '2025-04-16 23:11:00', 1, 150);
-INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInJvbGVzIjpbInN1cGVyYWRtaW4iXSwiaWF0IjoxNzQ0ODE2MzQ4LCJleHAiOjE3NDQ5MDI3NDh9.PWHG8CbTzk9DHgFdxRwMpqs-r6tmK0N74jX9St4BiMc', '2025-04-17 23:12:28', '2025-04-16 23:12:28', 1, 151);
+INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInJvbGVzIjpbInN1cGVyYWRtaW4iXSwiaWF0IjoxNzQ1NzcyNjkyLCJleHAiOjE3NDU4NTkwOTJ9.rI2caeDoIm9Am41N5nQUAtaYo7kv6PoHXLdT2BX37aY', '2025-04-29 00:51:33', '2025-04-28 00:51:33', 1, 1);
+INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjQsInJvbGVzIjpbImd1ZXN0Il0sImlhdCI6MTc0NTc3Mjg5NSwiZXhwIjoxNzQ1ODU5Mjk1fQ.aYy2t5llj_K9sscODFSPg6PG-_gzYxfGK2O7tiAFQqs', '2025-04-29 00:54:56', '2025-04-28 00:54:56', 4, 2);
+INSERT INTO `user_access_token` (`value`, `expired_at`, `created_at`, `userId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInJvbGVzIjpbInN1cGVyYWRtaW4iXSwiaWF0IjoxNzQ1NzcyOTUzLCJleHAiOjE3NDU4NTkzNTN9.EVV9mpKXmgtb-8ibwImKJs6I9swKvIwxrbLeo-Q3rRY', '2025-04-29 00:55:54', '2025-04-28 00:55:54', 1, 3);
 COMMIT;
 
 -- ----------------------------
@@ -896,16 +822,16 @@ CREATE TABLE `user_profile` (
   `id` int NOT NULL AUTO_INCREMENT,
   `gender` tinyint NOT NULL DEFAULT '1' COMMENT '性别 1 男 0 女',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user_profile
 -- ----------------------------
 BEGIN;
-INSERT INTO `user_profile` (`created_at`, `updated_at`, `nick_name`, `email`, `phone`, `avatar`, `signature`, `address`, `birth_date`, `introduction`, `id`, `gender`) VALUES ('2025-02-21 17:15:27.107185', '2025-02-21 17:15:27.107185', '超级管理员', 'superadmin@qq.com', '', 'https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/1742912393529-WechatIMG469-removebg-preview.png', '哼…这具躯壳终究无法承载吾『终焉之暗·灭世魔神』的万亿分之一力量吗…', '中国 成都', '2005-05-06 00:00:00', '(◣_◢) 您的中二能量已突破事件视界——', 1, 1);
+INSERT INTO `user_profile` (`created_at`, `updated_at`, `nick_name`, `email`, `phone`, `avatar`, `signature`, `address`, `birth_date`, `introduction`, `id`, `gender`) VALUES ('2025-02-21 17:15:27.107185', '2025-02-21 17:15:27.107185', '超级管理员', 'superadmin@qq.com', '', '/upload/2025-04-16/image/bg.webp', '哼…这具躯壳终究无法承载吾『终焉之暗·灭世魔神』的万亿分之一力量吗…', '中国 成都', '2005-05-06 00:00:00', '(◣_◢) 您的中二能量已突破事件视界——', 1, 1);
 INSERT INTO `user_profile` (`created_at`, `updated_at`, `nick_name`, `email`, `phone`, `avatar`, `signature`, `address`, `birth_date`, `introduction`, `id`, `gender`) VALUES ('2025-02-24 17:27:35.418875', '2025-02-24 17:27:35.418875', '管理员', 'admin@qq.com', NULL, 'http://myblogimgbucket.oss-cn-beijing.aliyuncs.com/1741512156799-WechatIMG431.jpg', '\"风停在窗边，嘱咐你要热爱这个世界。\"', NULL, NULL, NULL, 2, 1);
 INSERT INTO `user_profile` (`created_at`, `updated_at`, `nick_name`, `email`, `phone`, `avatar`, `signature`, `address`, `birth_date`, `introduction`, `id`, `gender`) VALUES ('2025-02-26 14:52:05.341684', '2025-02-26 14:52:05.341684', '测试', 'test@qq.com', NULL, 'http://myblogimgbucket.oss-cn-beijing.aliyuncs.com/1741512170833-WechatIMG432.jpg', '\"在平凡的日子里，做自己的光。\"', NULL, NULL, NULL, 3, 1);
-INSERT INTO `user_profile` (`created_at`, `updated_at`, `nick_name`, `email`, `phone`, `avatar`, `signature`, `address`, `birth_date`, `introduction`, `id`, `gender`) VALUES ('2025-03-30 20:58:26.874215', '2025-03-30 20:58:26.874215', '游客', 'guest@qq.com', NULL, 'https://myblogimgbucket.oss-cn-beijing.aliyuncs.com/WechatIMG435.jpg', NULL, NULL, NULL, NULL, 4, 1);
+INSERT INTO `user_profile` (`created_at`, `updated_at`, `nick_name`, `email`, `phone`, `avatar`, `signature`, `address`, `birth_date`, `introduction`, `id`, `gender`) VALUES ('2025-04-28 00:53:59.028953', '2025-04-28 00:53:59.028953', '游客', 'guest@qq.com', '', '/upload/2025-04-28/other/1745772814472-u=2978468399,3739141687&fm=253&fmt=auto&app=120&f=JPEG.webp', '', '', NULL, '', 4, 1);
 COMMIT;
 
 -- ----------------------------
@@ -921,17 +847,12 @@ CREATE TABLE `user_refresh_token` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `REL_0fb9e76570bb35fd7dd7f78f73` (`accessTokenId`),
   CONSTRAINT `FK_0fb9e76570bb35fd7dd7f78f73c` FOREIGN KEY (`accessTokenId`) REFERENCES `user_access_token` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=338 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user_refresh_token
 -- ----------------------------
 BEGIN;
-INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiNzhkZmYxYjEtOTRlMi00OGMyLThmYjAtNDFhYzhkM2JjOTk4IiwiaWF0IjoxNzQ0MjE5OTY5LCJleHAiOjE3NDQyMjM1Njl9.NtuR4tkmBxGvLXaKLuOgbQQmRcY4StiGxVQDihPbvNs', '2025-04-17 01:32:49', '2025-04-10 01:32:49', NULL, 181);
-INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiZTRjMDc5NGEtYjMwNS00NGU3LTkwNjMtZDRiMjUxZDA4M2U1IiwiaWF0IjoxNzQ0ODE1NjI5LCJleHAiOjE3NDQ4MTkyMjl9.fMEuXDAbSOWBycxqHL8-0ZhfyY_tl6dZhcnz0rvft20', '2025-04-23 23:00:29', '2025-04-16 23:00:29', 148, 334);
-INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiOTQ3NWRkYWItNDFhZC00MjI4LTgwMmUtYWIzZTM2MGY0ZmE4IiwiaWF0IjoxNzQ0ODE2MjMzLCJleHAiOjE3NDQ5MDI2MzN9.KA3NUMX2XuIkOkSs_mIxMlzk_0hfb53mKm-bZ3oBHkY', '2025-04-23 23:10:33', '2025-04-16 23:10:33', 149, 335);
-INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiMTQ5NGViOWMtMWMzNy00ZjU5LTgxZDgtZmQ0OWQwZWU3Y2VjIiwiaWF0IjoxNzQ0ODE2MjU5LCJleHAiOjE3NDQ5MDI2NTl9.aSs9CuxdtlAXGfhGHPMDgI75Zqx7CbceFrSOl3-PO4s', '2025-04-23 23:11:00', '2025-04-16 23:11:00', 150, 336);
-INSERT INTO `user_refresh_token` (`value`, `expired_at`, `created_at`, `accessTokenId`, `id`) VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiNzA5NmFlYjMtZTk3MS00NWE1LWFiODYtYzc5Y2I5ZTdiNjVhIiwiaWF0IjoxNzQ0ODE2MzQ4LCJleHAiOjE3NDQ5MDI3NDh9.hHMg2ksSovuruka4WiecQadpWUksObhSN7MvmPOQryI', '2025-04-23 23:12:28', '2025-04-16 23:12:28', 151, 337);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
