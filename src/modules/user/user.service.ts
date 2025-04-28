@@ -50,7 +50,7 @@ export class UserService {
     private readonly profileRepository: Repository<ProfileEntity>,
     @Inject(SecurityConfig.KEY)
     private readonly securityConfig: ISecurityConfig,
-  ) { }
+  ) {}
 
   async list({
     currentPage,
@@ -249,7 +249,7 @@ export class UserService {
   async findUserInfoByUsername(username: string): Promise<UserEntity> {
     const user = await this.userRepository.findOne({
       where: {
-        username
+        username,
       },
     });
 
@@ -260,7 +260,10 @@ export class UserService {
     return user;
   }
 
-  async findUserInfoByUniqueId(from: string, uniqueId: number): Promise<UserEntity> {
+  async findUserInfoByUniqueId(
+    from: string,
+    uniqueId: number,
+  ): Promise<UserEntity> {
     const user = await this.userRepository.findOne({
       where: {
         from,
@@ -309,19 +312,19 @@ export class UserService {
         ...user,
         roles: !isEmpty(roleIds)
           ? await manager.find(RoleEntity, {
-            where: {
-              id: In(roleIds),
-            },
-          })
+              where: {
+                id: In(roleIds),
+              },
+            })
           : defaultRole
             ? [defaultRole]
             : [],
         dept: deptId
           ? await manager.findOne(DeptEntity, {
-            where: {
-              id: deptId,
-            },
-          })
+              where: {
+                id: deptId,
+              },
+            })
           : defaultDept,
         profile: profile,
       });
@@ -360,10 +363,10 @@ export class UserService {
 
       user.roles = !isEmpty(roleIds)
         ? await manager.find(RoleEntity, {
-          where: {
-            id: In(roleIds),
-          },
-        })
+            where: {
+              id: In(roleIds),
+            },
+          })
         : defaultRole
           ? [defaultRole]
           : [];
@@ -371,11 +374,17 @@ export class UserService {
       // 保存用户的部门
       user.dept = deptId
         ? await manager.findOne(DeptEntity, {
-          where: {
-            id: deptId,
-          },
-        })
+            where: {
+              id: deptId,
+            },
+          })
         : defaultDept;
+
+      // 判断邮箱是否已经被注册
+      profile.email && (await this.checkEmail(profile.email, user.id));
+
+      // 判断手机号是否已经被绑定
+      profile.phone && (await this.checkPhone(profile.phone, user.id));
 
       await this.updateProfile(user.id, profile);
       await manager.save(user);
@@ -384,6 +393,44 @@ export class UserService {
         await this.forbiddenUserByIds([user.id]);
       }
     });
+  }
+
+  async checkEmail(email: string, uid?: number) {
+    const user = await this.userRepository.findOne({
+      where: {
+        profile: {
+          email,
+        },
+      },
+      relations: ['profile'],
+    });
+
+    if (uid && user && user.id !== uid) {
+      throw new BizException(ErrorEnum.USER_EMAIL_EXIST);
+    }
+
+    if (!uid && user) {
+      throw new BizException(ErrorEnum.USER_EMAIL_EXIST);
+    }
+  }
+
+  async checkPhone(phone: string, uid?: number) {
+    const user = await this.userRepository.findOne({
+      where: {
+        profile: {
+          phone,
+        },
+      },
+      relations: ['profile'],
+    });
+
+    if (uid && user && user.id !== uid) {
+      throw new BizException(ErrorEnum.USER_PHONE_EXIST);
+    }
+
+    if (!uid && user) {
+      throw new BizException(ErrorEnum.USER_PHONE_EXIST);
+    }
   }
 
   async updatePassword(
@@ -434,6 +481,15 @@ export class UserService {
     if (!user) {
       throw new BizException(ErrorEnum.USER_NOT_EXIST);
     }
+
+    if (profile.email) {
+      await this.checkEmail(profile.email, user.id);
+    }
+
+    if (profile.phone) {
+      await this.checkPhone(profile.phone, user.id);
+    }
+
     this.profileRepository.merge(user.profile, profile);
 
     await this.profileRepository.save(user.profile);
