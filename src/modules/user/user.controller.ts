@@ -61,14 +61,14 @@ export class UserController {
   @ApiOperation({ summary: '创建用户' })
   @Perm(permissions.CREATE)
   async create(@Body() user: UserCreateDto): Promise<void> {
-    await this.userService.checkUserExist(user.username , user.email)
+    await this.userService.checkUserExist(user.username, user.email);
     const { password } = user;
     user.password = await argon2.hash(password);
     await this.userService.create(user);
   }
 
   @Put('update/:id')
-  @ApiOperation({ summary: '修改用户角色、部门信息' }) // 主要是修改部门和角色信息
+  @ApiOperation({ summary: '修改用户信息' })
   @Perm(permissions.UPDATE)
   async update(
     @ParamId() id: number,
