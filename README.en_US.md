@@ -31,26 +31,26 @@
 
 ## Basic Features
 
-| Feature Module | Feature Description | Completion Status | Notes |
-| --- | --- | --- | --- |
-| User Authentication | User registration, login, verification code login, logout, password change | ✅ |
-| Permission Management | Role-based permission management | ✅ |
-| Department Management | Management of department information in the organizational structure | ✅ |
-| Position Management | Management of position information | ❌ | Under consideration |
-| Role Management | Management of user roles and their permissions | ✅ |
-| User Management | Management of user information and permission allocation | ✅ |
-| Menu Management | Management of system menus and permission control | ✅ |
-| File Upload | Support for file upload functionality | ✅ |
-| Email Service | Sending email notifications or verification codes | ✅ |
-| Verification Code Service | Generation and verification of verification codes | ✅ |
-| Log Service | Recording system operation logs | ✅ |
-| Scheduled Tasks | Setting and managing scheduled tasks | ✅ |
-| Data Dictionary | Management of commonly used dictionary data in the system | ✅ |
-| System Announcements | Publishing and managing system announcements | ✅ |
-| Parameter Configuration | Configuration management of system parameters | ✅ |
-| Cache Management | Management of Redis cache data | ✅ |
-| Payment Function | Support for Alipay sandbox payment (test environment); formal payment only requires parameter modification | ✅ |
-| Third-Party Login | Support for GitHub third-party login | ✅ |
+| Feature Module            | Feature Description                                                                                        | Completion Status | Notes               |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------- | ------------------- |
+| User Authentication       | User registration, login, verification code login, logout, password change                                 | ✅                 |
+| Permission Management     | Role-based permission management                                                                           | ✅                 |
+| Department Management     | Management of department information in the organizational structure                                       | ✅                 |
+| Position Management       | Management of position information                                                                         | ❌                 | Under consideration |
+| Role Management           | Management of user roles and their permissions                                                             | ✅                 |
+| User Management           | Management of user information and permission allocation                                                   | ✅                 |
+| Menu Management           | Management of system menus and permission control                                                          | ✅                 |
+| File Upload               | Support for file upload functionality                                                                      | ✅                 |
+| Email Service             | Sending email notifications or verification codes                                                          | ✅                 |
+| Verification Code Service | Generation and verification of verification codes                                                          | ✅                 |
+| Log Service               | Recording system operation logs                                                                            | ✅                 |
+| Scheduled Tasks           | Setting and managing scheduled tasks                                                                       | ✅                 |
+| Data Dictionary           | Management of commonly used dictionary data in the system                                                  | ✅                 |
+| System Announcements      | Publishing and managing system announcements                                                               | ✅                 |
+| Parameter Configuration   | Configuration management of system parameters                                                              | ✅                 |
+| Cache Management          | Management of Redis cache data                                                                             | ✅                 |
+| Payment Function          | Support for Alipay sandbox payment (test environment); formal payment only requires parameter modification | ✅                 |
+| Third-Party Login         | Support for GitHub third-party login                                                                       | ✅                 |
 
 ## API Documentation
 
@@ -211,7 +211,7 @@ docker cp [container_name_or_ID]:/opt/nest_admin.sql /opt/nest_admin.sql
 
 <div>
   <p>QQ Group</p>
-  <img src="https://nest-image.mrzym.top/qrcode.jpg" height="300" width="200" />
+  <img src="https://nest-image.mrzym.top/qrcode.png" height="300" width="200" />
 </div>
 
 ## Open Source License
