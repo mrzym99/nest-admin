@@ -17,7 +17,9 @@
 
 ## 简介
 
-[NestAdmin](https://github.com/mrzym99/nest-admin) 是一个简单高效的的后台管理系统，基于最新的前端技术栈，包括 Nestjs, TypeScript, TypeOrm, Mysql 和 Redis。 适用于WEB全栈人员快速开发后台管理系统。NestAdmin 配套前端项目Vue3NaiveAdmin [前端地址传送门](https://github.com/mrzym99/vue3-naive-admin)
+[NestAdmin](https://github.com/mrzym99/nest-admin) 是一个简单高效的的后台管理系统，基于最新的前端技术栈，包括 Nestjs, TypeScript, TypeOrm, Mysql 和 Redis，底层可选express或fastify(master分支采用express、fastify分支采用fastify)。 适用于WEB全栈人员快速开发后台管理系统。NestAdmin 配套前端项目Vue3NaiveAdmin [前端地址传送门](https://github.com/mrzym99/vue3-naive-admin)
+
+[项目文档](https://docs.mrzym.top)
 
 ## 在线体验
 
@@ -25,18 +27,28 @@
 
 ## 基础功能
 
-- [x] 用户注册、登录
-- [x] 基于角色的权限管理
-- [x] 部门管理
-- [x] 角色管理
-- [x] 用户管理
-- [x] 菜单管理
-- [x] 文件上传
-- [x] 邮件发送
-- [x] 验证码
-- [x] 日志服务
-- [x] 定时任务
-- [x] 数据字典
+| 功能模块 | 功能描述 | 是否完成 | 备注 |
+| --- | --- | --- |  --- | 
+| 用户认证 | 用户注册、登录、验证码登录、退出登录、修改密码 | ✅ |
+| 权限管理 | 基于角色的权限管理 | ✅ |
+| 部门管理 | 管理组织架构中的部门信息 | ✅ |
+| 岗位管理 | 管理岗位信息 | ❌ | 正在考虑做不做 |
+| 角色管理 | 管理不同用户角色及其权限 | ✅ |
+| 用户管理 | 管理用户信息及权限分配 | ✅ |
+| 菜单管理 | 管理系统菜单及权限控制 | ✅ |
+| 文件上传 | 支持文件上传功能 | ✅ |
+| 邮件服务 | 发送邮件通知或验证码 | ✅ |
+| 验证码服务 | 生成和验证验证码 | ✅ |
+| 日志服务 | 记录系统操作日志 | ✅ |
+| 定时任务 | 设置和管理定时任务 | ✅ |
+| 数据字典 | 管理系统中常用的字典数据 | ✅ |
+| 系统公告 | 发布和管理系统公告 | ✅ |
+| 参数配置 | 系统参数的配置管理 | ✅ |
+| 缓存管理 | 管理 Redis 缓存数据 | ✅ |
+| 支付功能 | 支持支付宝沙箱支付(测试环境) 正式支付仅仅是修改参数即可 | ✅ |
+| 第三方登录 | 支持 GitHub 第三方登录 | ✅ |
+
+
 
 ## 接口文档
 
@@ -105,24 +117,34 @@ docker-compose.yml 对应开发环境 dev，docker-compose.prod.yml对应生产�
 1、构建项目
 
 ```
-docker-compose build
+pnpm run docker:build:dev # 开发环境
+
+pnpm run docker:build:prod # 生产环境
 ```
 
 2、运行项目
 
-```
-docker-compose up -d // (使用 -f [filename] 参数可以指定不同的 compose 文件 -d 表示后台运行，适用于服务器上构建后运行项目，退出终端容器不会停止运行)
+``` 
+pnpm run docker:up:dev # 开发环境
+
+pnpm run docker:up:prod # 生产环境
 ```
 
 3、停止和移除
 
 ```
-docker-compose down 来停止和删除容器(删除容器数据请使用 -v 参数)。
+pnpm run docker:down # 停止容器
+
+pnpm run docker:down:v # 停止容器 并且删除数据卷(慎用，清理数据卷后，容器内保存的数据就没有了)
 ```
+
+这些命令都是根据 `docker compose` 来进行编写的，只是将 `docker compose` 的命令写进了 `scripts` 里
 
 [docker compose 命令大全](https://www.cnblogs.com/xyh9039/p/18540766)
 
 如果遇到构建失败的情况，可能是因为您的Docker 环境存在问题。可以切换自己的Docker源地址，这里推荐 [阿里云镜像加速](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors)
+
+还有一些镜像 如毫秒镜像等，可以问AI
 
 ## docker 常用命令
 
