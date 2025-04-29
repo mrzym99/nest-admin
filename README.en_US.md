@@ -27,6 +27,14 @@
 
 ## Online Experience
 
+Super administrator: superadmin Password: 123456 // This account is used by the author to modify data in demo mode. The default is 123456, but you can change the password if needed. Generally speaking, all permissions can be granted using this account. This role is assigned to only one user in the entire system: superadmin.
+
+Administrator account: admin Password: 123456
+
+Test account: test password: 123456
+
+Tourist account: guest password: 123456
+
 [Online Demo](https://nest.mrzym.top)
 
 ## Basic Features
