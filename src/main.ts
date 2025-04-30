@@ -47,11 +47,9 @@ async function bootstrap() {
 
   !isDev && app.enableShutdownHooks();
 
-  if (!isDev) {
-    // 启用 nest-winston 日志记录
-    app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
-    // 开启可以方便调试 https://docs.nestjs.com/recipes/repl#usage
-  }
+  // 启用 nest-winston 日志记录
+  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
+  // 开启可以方便调试 https://docs.nestjs.com/recipes/repl#usage
   // await repl(AppModule);
 
   app.useGlobalInterceptors(new LoggingInterceptor());
@@ -66,7 +64,7 @@ async function bootstrap() {
       configService,
     ),
   );
-  app.useWebSocketAdapter(new RedisIoAdapter(app))
+  app.useWebSocketAdapter(new RedisIoAdapter(app));
 
   setupSwagger(app, configService);
 
