@@ -30,6 +30,7 @@ export class DictItemService {
   }: DictItemQueryDto) {
     const queryBuilder = await this.dictItemRepository
       .createQueryBuilder('dict_item')
+      .leftJoinAndSelect('dict_item.type', 'type')
       .where({
         ...(label && { label: Like(`%${label}%`) }),
         ...(value && { value: Like(`%${value}%`) }),
