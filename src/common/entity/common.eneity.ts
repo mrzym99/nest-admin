@@ -5,6 +5,7 @@ import {
   Column,
   CreateDateColumn,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
   VirtualColumn,
 } from 'typeorm';
 
@@ -26,7 +27,7 @@ export abstract class CommonEntity extends BaseEntity {
   @ApiProperty({
     description: '修改时间',
   })
-  @CreateDateColumn({ name: 'updated_at' })
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 }
 
